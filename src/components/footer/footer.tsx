@@ -5,7 +5,7 @@ import Paragraph from "../ui/typography/paragraph";
 import FooterLinks from "./links";
 import Socials from "./socials";
 import SubscribeToNewsletter from "./subscribe";
-import Link from "next/link";
+import Legal from "./legal";
 
 export default function Footer() {
   return (
@@ -17,7 +17,7 @@ export default function Footer() {
         <FooterLinks className="order-3 lg:order-4" />
         <SecuredByBadge className="order-5" />
         <div className="flex justify-between lg:items-center items-start order-6 flex-col-reverse lg:flex-row gap-2">
-          {/* <Legal /> */}
+          <Legal />
           <RightsReserved />
         </div>
       </div>
@@ -37,19 +37,3 @@ function RightsReserved({ className }: Props) {
   );
 }
 
-function Legal({ className }: Props) {
-  return (
-    <div className={twMerge("flex gap-4", className)}>
-      <Link href="/privacy" className="font-inter font-medium">
-        <Paragraph size="small" className="text-purple-dim lg:text-purple">
-          Privacy Policy
-        </Paragraph>
-      </Link>
-      <Link href="/terms" className="font-inter font-medium">
-        <Paragraph size="small" className="text-purple-dim lg:text-purple">
-          Terms of Use
-        </Paragraph>
-      </Link>
-    </div>
-  );
-}
