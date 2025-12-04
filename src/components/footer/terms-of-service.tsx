@@ -17,7 +17,7 @@ export default function TermsOfService() {
       </Paragraph>
       <Paragraph size="medium">
         This website and its underlying software are provided as open source
-        software. The software is made available "AS IS" without warranty of any
+        software. The software is made available &quot;AS IS&quot; without warranty of any
         kind, express or implied.
       </Paragraph>
 
@@ -25,7 +25,7 @@ export default function TermsOfService() {
         <strong>3. No Warranty</strong>
       </Paragraph>
       <Paragraph size="medium">
-        INTERGALACTIC, LIMITED PROVIDES THE SOFTWARE AND SERVICES "AS IS"
+        INTERGALACTIC, LIMITED PROVIDES THE SOFTWARE AND SERVICES &quot;AS IS&quot;
         WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
         LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
         PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL INTERGALACTIC, LIMITED

@@ -7,7 +7,7 @@ export default function PrivacyPolicy() {
         <strong>1. Introduction</strong>
       </Paragraph>
       <Paragraph size="medium">
-        Intergalactic, Limited ("we," "our," or "us") is committed to protecting
+        Intergalactic, Limited (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting
         your privacy. This Privacy Policy explains how we handle information
         when you visit our website.
       </Paragraph>
@@ -74,7 +74,7 @@ export default function PrivacyPolicy() {
       </Paragraph>
 
       <Paragraph size="medium">
-        <strong>7. Children's Privacy</strong>
+        <strong>7. Children&apos;s Privacy</strong>
       </Paragraph>
       <Paragraph size="medium">
         Our website is not directed to individuals under the age of 18. We do
