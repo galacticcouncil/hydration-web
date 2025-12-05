@@ -17,22 +17,22 @@ export default function TermsOfService() {
       </Paragraph>
       <Paragraph size="medium">
         This website and its underlying software are provided as open source
-        software. The software is made available &quot;AS IS&quot; without warranty of any
-        kind, express or implied.
+        software. The software is made available &quot;AS IS&quot; without
+        warranty of any kind, express or implied.
       </Paragraph>
 
       <Paragraph size="medium">
         <strong>3. No Warranty</strong>
       </Paragraph>
       <Paragraph size="medium">
-        INTERGALACTIC, LIMITED PROVIDES THE SOFTWARE AND SERVICES &quot;AS IS&quot;
-        WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
-        LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
-        PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL INTERGALACTIC, LIMITED
-        BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN
-        ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN
-        CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-        SOFTWARE.
+        INTERGALACTIC, LIMITED PROVIDES THE SOFTWARE AND SERVICES &quot;AS
+        IS&quot; WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+        NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+        PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL
+        INTERGALACTIC, LIMITED BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING
+        FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+        DEALINGS IN THE SOFTWARE.
       </Paragraph>
 
       <Paragraph size="medium">
@@ -81,7 +81,20 @@ export default function TermsOfService() {
       </Paragraph>
       <Paragraph size="medium">
         If you have any questions about these Terms of Service, please contact
-        us through the official channels provided on this website.
+        us at:
+      </Paragraph>
+      <Paragraph size="medium" className="ml-4">
+        Intergalactic Limited
+        <br />
+        6.20 World Trade Center, 6 Bayside Road
+        <br />
+        GX11 1AA
+        <br />
+        GIBRALTAR
+      </Paragraph>
+      <Paragraph size="medium">
+        You may also contact us through the official channels provided on this
+        website.
       </Paragraph>
     </div>
   );

@@ -7,9 +7,9 @@ export default function PrivacyPolicy() {
         <strong>1. Introduction</strong>
       </Paragraph>
       <Paragraph size="medium">
-        Intergalactic, Limited (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting
-        your privacy. This Privacy Policy explains how we handle information
-        when you visit our website.
+        Intergalactic, Limited (&quot;we,&quot; &quot;our,&quot; or
+        &quot;us&quot;) is committed to protecting your privacy. This Privacy
+        Policy explains how we handle information when you visit our website.
       </Paragraph>
 
       <Paragraph size="medium">
@@ -103,7 +103,20 @@ export default function PrivacyPolicy() {
       </Paragraph>
       <Paragraph size="medium">
         If you have any questions about this Privacy Policy, please contact us
-        through the official channels provided on this website.
+        at:
+      </Paragraph>
+      <Paragraph size="medium" className="ml-4">
+        Intergalactic Limited
+        <br />
+        6.20 World Trade Center, 6 Bayside Road
+        <br />
+        GX11 1AA
+        <br />
+        GIBRALTAR
+      </Paragraph>
+      <Paragraph size="medium">
+        You may also contact us through the official channels provided on this
+        website.
       </Paragraph>
     </div>
   );
