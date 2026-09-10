@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import AnimateOnView from "@/animation/motion-section";
 import { fadeUp, none, staggerChildren } from "@/animation/variants";
 import Heading from "@/components/ui/typography/heading";
 import Paragraph from "@/components/ui/typography/paragraph";
+import AnimatedIllustration from "./animated-illustration";
 import { appchainFeatures } from "./integrated-system-story";
 
 // Endpoint positions and colors match the unmodified Figma export.
@@ -19,10 +19,7 @@ const branchEndpoints = [
 ] as const;
 
 export default function IntegratedSystemRegular() {
-  const illustrationRef = useRef<HTMLDivElement>(null);
-  const illustrationInView = useInView(illustrationRef, { amount: 0.2 });
   const reducedMotion = useReducedMotion();
-  const driftIllustration = illustrationInView && !reducedMotion;
   const reveal = reducedMotion ? none() : fadeUp(10);
 
   return (
@@ -108,23 +105,14 @@ export default function IntegratedSystemRegular() {
           className="mx-auto w-full max-w-[26rem] md:order-1"
           variants={reveal}
         >
-          <motion.div
-            ref={illustrationRef}
-            animate={driftIllustration ? { y: [0, -5, 0] } : { y: 0 }}
-            transition={
-              driftIllustration
-                ? { duration: 7, repeat: Infinity, ease: "easeInOut" }
-                : { duration: 0 }
-            }
-          >
-            <Image
-              src="/assets/why-hydration-integrated-layers.svg"
-              alt="Hydration connects soft colored layers into one integrated financial system"
-              width={418}
-              height={420}
-              className="h-auto w-full"
-            />
-          </motion.div>
+          <AnimatedIllustration
+            src="/assets/why-hydration-integrated-layers.svg"
+            animatedSrc="/assets/why-hydration-integrated-layers-animated.svg"
+            alt="Hydration connects soft colored layers into one integrated financial system"
+            width={418}
+            height={420}
+            className="h-auto w-full"
+          />
         </motion.div>
       </AnimateOnView>
 
@@ -158,8 +146,9 @@ export default function IntegratedSystemRegular() {
               className="absolute left-0 top-0 h-full w-[65.015%]"
               variants={reveal}
             >
-              <Image
+              <AnimatedIllustration
                 src="/assets/why-hydration-appchain-branches.svg"
+                animatedSrc="/assets/why-hydration-appchain-branches-animated.svg"
                 alt=""
                 width={540}
                 height={172}
@@ -186,8 +175,9 @@ export default function IntegratedSystemRegular() {
               className="relative mx-auto aspect-[540/172] w-full max-w-[36rem]"
               variants={reveal}
             >
-              <Image
+              <AnimatedIllustration
                 src="/assets/why-hydration-appchain-branches.svg"
+                animatedSrc="/assets/why-hydration-appchain-branches-animated.svg"
                 alt=""
                 fill
                 sizes="(max-width: 767px) calc(100vw - 48px), 576px"
