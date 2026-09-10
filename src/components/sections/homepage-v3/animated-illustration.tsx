@@ -20,7 +20,7 @@ export default function AnimatedIllustration({
   const reducedMotion = useReducedMotion();
 
   return (
-    <div ref={ref} className="h-full w-full">
+    <div ref={ref} className="relative h-full w-full">
       <Image
         {...imageProps}
         alt={alt}

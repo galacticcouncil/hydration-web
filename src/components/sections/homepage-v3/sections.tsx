@@ -12,7 +12,6 @@ import {
   ProductiveAssetsIcon,
   StrategyNetworkIcon,
 } from "@/components/sections/new-features/rwa-feature";
-import Button from "@/components/ui/buttons/button";
 import Heading from "@/components/ui/typography/heading";
 import Paragraph from "@/components/ui/typography/paragraph";
 import SectionLabel from "@/components/ui/labels/section";
@@ -20,13 +19,9 @@ import DiamondIcon from "@/components/ui/labels/icons/diamond";
 import { formatCompactMetric, useCapitalMetrics } from "./capital-metrics";
 import StrategyAssetCloud from "./strategy-asset-cloud";
 import IntegratedSystemRegular from "./integrated-system-regular";
-import IntegratedSystemStory, {
-  IntegratedSystemClickThroughStory,
-} from "./integrated-system-story";
 import { motion, type Variants } from "framer-motion";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 const yieldPillars = [
   {
@@ -245,15 +240,6 @@ export function StrategiesSection() {
               strategy works, and choose the level of complexity and risk that
               suits you.
             </Paragraph>
-            <Button
-              role="primary"
-              fill="solid"
-              decoration="arrow"
-              action={{ href: "https://app.hydration.net", target: "_blank" }}
-              className="mt-8 rounded-full px-6 py-3 active:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink"
-            >
-              Find a strategy that fits you
-            </Button>
           </div>
         </motion.div>
 
@@ -280,24 +266,7 @@ const integratedSectionReveal: Variants = {
   },
 };
 
-const integratedIntroReveal: Variants = {
-  initial: { opacity: 0, y: 22, scale: 0.99 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.46, ease: [0.333, 0, 0, 1] },
-  },
-};
-
-export function IntegratedSystemSection({
-  interaction = "regular",
-}: {
-  interaction?: "clickThrough" | "scroll" | "regular";
-}) {
-  const [activeInteraction, setActiveInteraction] = useState(interaction);
-  const usesScrollStory = activeInteraction === "scroll";
-
+export function IntegratedSystemSection() {
   return (
     <AnimateOnView
       className="bg-beige pb-6 pt-16 lg:pb-0 lg:pt-0"
@@ -309,76 +278,7 @@ export function IntegratedSystemSection({
         id="why-hydration"
         className="container mx-auto scroll-mt-24 px-6 md:px-[50px] lg:scroll-mt-28 xl:px-16"
       >
-        <div className="relative z-40 flex justify-center pb-3 pt-6 lg:pb-0 lg:pt-8">
-          <div
-            className="inline-flex max-w-full rounded-full border border-purple/10 bg-white/80 p-1 shadow-[0_12px_40px_rgba(36,14,50,0.08)] backdrop-blur-md"
-            role="group"
-            aria-label="Why Hydration interaction preview"
-          >
-            {([
-              { id: "clickThrough", label: "Click-through" },
-              { id: "scroll", label: "Original scroll" },
-              { id: "regular", label: "Regular sections" },
-            ] as const).map((option) => (
-              <button
-                key={option.id}
-                type="button"
-                aria-pressed={activeInteraction === option.id}
-                onClick={() => setActiveInteraction(option.id)}
-                className={`rounded-full px-3 py-2 font-geist text-[0.65rem] font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple md:px-5 md:text-sm ${
-                  activeInteraction === option.id
-                    ? "bg-purple text-white"
-                    : "text-purple/60 hover:text-purple"
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {usesScrollStory && (
-          <motion.div
-            className="max-w-[38.5rem] lg:hidden"
-            variants={integratedIntroReveal}
-          >
-            <SectionLabel captionClassName="text-blue" iconClassName="bg-blue">
-              Unique value
-            </SectionLabel>
-            <Heading
-              size="large"
-              className="mt-5 max-w-[31.5rem] text-balance text-purple lg:text-[4rem] lg:leading-[1.2]"
-            >
-              Why Hydration Is Different
-            </Heading>
-            <div className="mt-9 flex flex-col gap-5">
-              <Paragraph
-                size="large"
-                className="max-w-[38.5rem] leading-7 text-purple"
-              >
-                Most DeFi protocols depend on external infrastructure they
-                cannot fully control. Hydration owns the full DeFi stack.
-              </Paragraph>
-              <Paragraph
-                size="large"
-                className="max-w-[38.5rem] leading-7 text-purple"
-              >
-                By combining execution, liquidity, lending, stablecoins,
-                oracles, and security at the appchain level, Hydration can
-                coordinate products more efficiently and protect users at every
-                layer.
-              </Paragraph>
-            </div>
-          </motion.div>
-        )}
-
-        {activeInteraction === "regular" ? (
-          <IntegratedSystemRegular />
-        ) : usesScrollStory ? (
-          <IntegratedSystemStory />
-        ) : (
-          <IntegratedSystemClickThroughStory />
-        )}
+        <IntegratedSystemRegular />
       </section>
     </AnimateOnView>
   );

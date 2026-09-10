@@ -5,10 +5,10 @@ import {
   type CapitalMetric,
   useCapitalMetrics,
 } from "@/components/sections/homepage-v3/capital-metrics";
-import Button from "@/components/ui/buttons/button";
 import Paragraph from "@/components/ui/typography/paragraph";
 import Socials from "@/components/footer/socials";
 import SupportingBadge from "@/components/badges/supportingBadge";
+import { HeroLaunchAppButton } from "@/components/header/launch-app-button";
 import {
   motion,
   useMotionTemplate,
@@ -33,7 +33,8 @@ const sceneEdgeFeatherEnabled = false;
 export default function HeroSection() {
   const sceneRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
-  const { height: viewportHeight } = useScreenSize();
+  const { width: viewportWidth, height: viewportHeight } = useScreenSize();
+  const mobileLayout = viewportWidth < 1024;
   const { scrollYProgress } = useScroll({
     target: sceneRef,
     offset: ["start start", "end end"],
@@ -87,11 +88,19 @@ export default function HeroSection() {
     <section
       ref={sceneRef}
       data-homepage-hero
-      className="relative z-10 h-[165vh] min-h-[70rem] bg-beige lg:h-[165vh] lg:min-h-[86rem]"
+      className="relative z-10 bg-beige lg:h-[165vh] lg:min-h-[86rem]"
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="relative flex flex-col overflow-hidden lg:sticky lg:top-0 lg:block lg:h-screen">
         <motion.div
-          className="absolute inset-0 z-[9] overflow-hidden bg-beige"
+          className="pointer-events-none relative z-20 flex items-center px-6 pb-12 pt-28 md:px-[50px] lg:absolute lg:inset-x-0 lg:top-0 lg:h-[66vh] lg:min-h-[34rem] lg:pb-0 lg:pt-20 xl:px-16"
+          style={{ y: reducedMotion || mobileLayout ? 0 : heroContentY }}
+        >
+          <div className="container relative mx-auto flex min-w-0 justify-center max-xl:!px-0">
+            <HeroSectionContent />
+          </div>
+        </motion.div>
+        <motion.div
+          className="invisible absolute inset-0 z-[9] overflow-hidden bg-beige lg:visible"
           style={{ opacity: reducedMotion ? 0 : sceneFillOpacity }}
           aria-hidden="true"
         >
@@ -117,7 +126,7 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.div
-          className="absolute inset-0 z-10 isolate overflow-hidden bg-beige"
+          className="relative z-10 mx-[7vw] h-[22rem] isolate overflow-hidden rounded-t-[2.75rem] bg-beige max-lg:![clip-path:none] sm:h-[28rem] lg:absolute lg:inset-0 lg:mx-0 lg:h-auto lg:rounded-none"
           style={{
             clipPath: reducedMotion
               ? "inset(66vh 7vw 0 7vw round 2.75rem 2.75rem 0 0)"
@@ -136,7 +145,7 @@ export default function HeroSection() {
         >
           <motion.div
             className="absolute inset-0"
-            style={{ scale: reducedMotion ? 1 : sceneScale }}
+            style={{ scale: reducedMotion || mobileLayout ? 1 : sceneScale }}
           >
             <motion.div
               className="absolute inset-0 will-change-transform"
@@ -158,7 +167,7 @@ export default function HeroSection() {
                   fill
                   loading="lazy"
                   quality={74}
-                  sizes="100vw"
+                  sizes="(max-width: 1023px) 86vw, 100vw"
                   className="object-cover object-[54%_center]"
                 />
               </div>
@@ -177,9 +186,9 @@ export default function HeroSection() {
           </motion.div>
 
           <motion.div
-            className="absolute inset-x-0 bottom-8 z-20 mx-auto px-10 md:px-[8vw]"
+            className="absolute inset-x-0 bottom-8 z-20 mx-auto px-4 lg:px-[8vw]"
             style={{
-              opacity: reducedMotion ? 1 : introChromeOpacity,
+              opacity: reducedMotion || mobileLayout ? 1 : introChromeOpacity,
             }}
           >
             <motion.div
@@ -196,24 +205,16 @@ export default function HeroSection() {
               <SupportingBadge />
             </motion.div>
           </motion.div>
-
-          <HeroCapitalStats
-            progress={scrollYProgress}
-            style={{
-              opacity: reducedMotion ? 1 : statsOpacity,
-              y: reducedMotion ? 0 : statsY,
-            }}
-          />
         </motion.div>
 
-        <motion.div
-          className="pointer-events-none absolute inset-x-0 top-0 z-20 flex h-[66vh] min-h-[34rem] items-center px-6 pt-16 md:px-[50px] md:pt-20 xl:px-16"
-          style={{ y: reducedMotion ? 0 : heroContentY }}
-        >
-          <div className="container relative mx-auto flex min-w-0 justify-center max-xl:!px-0">
-            <HeroSectionContent />
-          </div>
-        </motion.div>
+        <HeroCapitalStats
+          progress={scrollYProgress}
+          staticValues={mobileLayout}
+          style={{
+            opacity: reducedMotion || mobileLayout ? 1 : statsOpacity,
+            y: reducedMotion || mobileLayout ? 0 : statsY,
+          }}
+        />
       </div>
     </section>
   );
@@ -224,7 +225,7 @@ function HeroSectionContent() {
 
   return (
     <div className="pointer-events-auto flex min-w-0 w-full flex-col items-center gap-8 lg:pb-[100px] lg:pt-[150px]">
-      <motion.h1 className="w-full max-w-[19ch] min-w-0 text-balance text-center font-gazpacho text-[clamp(2.35rem,11.25vw,2.75rem)] font-medium leading-[0.92] text-purple sm:text-[76px] lg:text-[88px]">
+      <motion.h1 className="w-full max-w-[19ch] min-w-0 text-balance text-center font-gazpacho text-[clamp(2.35rem,11.25vw,2.75rem)] font-medium leading-[0.92] text-purple sm:text-[clamp(2.75rem,7.3vw,5.5rem)] xl:text-[88px]">
         <span className="sm:hidden">
           <AnimatedHeadlineText text="A secure" />
           <br />
@@ -263,14 +264,7 @@ function HeroSectionContent() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.08, duration: 0.65, ease: headlineEase }}
       >
-        <Button
-          role="primary"
-          decoration="arrow"
-          action={{ href: "#strategies" }}
-          className="w-[257px] rounded-[32px] bg-[#240E32] hover:bg-[#240E32] hover:opacity-90 active:bg-[#240E32] [&>div]:relative [&>div]:w-full [&>div]:justify-center [&>div>svg]:absolute [&>div>svg]:right-0"
-        >
-          Explore strategies
-        </Button>
+        <HeroLaunchAppButton />
       </motion.div>
     </div>
   );
@@ -279,16 +273,18 @@ function HeroSectionContent() {
 function HeroCapitalStats({
   progress,
   style,
+  staticValues = false,
 }: {
   progress: MotionValue<number>;
   style: MotionStyle;
+  staticValues?: boolean;
 }) {
   const metrics = useCapitalMetrics("allTime");
 
   return (
     <motion.div
       id="capital"
-      className="absolute inset-x-0 bottom-0 z-30 flex min-h-[38vh] flex-col justify-end bg-transparent px-6 pb-[5vh] pt-8 text-purple md:px-[50px] lg:min-h-[40vh] lg:pb-[7vh] xl:px-0"
+      className="relative z-30 flex flex-col justify-end bg-transparent px-6 py-10 text-purple md:px-[50px] lg:absolute lg:inset-x-0 lg:bottom-0 lg:min-h-[40vh] lg:pb-[7vh] lg:pt-8 xl:px-0"
       style={style}
     >
       <div className="container mx-auto w-full max-xl:!px-0">
@@ -302,6 +298,7 @@ function HeroCapitalStats({
               key={metric.title}
               metric={metric}
               progress={progress}
+              staticValue={staticValues}
             />
           ))}
         </div>
@@ -314,12 +311,15 @@ function AnimatedCapitalMetric({
   index,
   metric,
   progress,
+  staticValue = false,
 }: {
   index: number;
   metric: CapitalMetric;
   progress: MotionValue<number>;
+  staticValue?: boolean;
 }) {
   const reducedMotion = useReducedMotion();
+  const showFinalValue = reducedMotion || staticValue;
   const hasLiveValue = metric.value !== null && Number.isFinite(metric.value);
   const targetValue = metric.value ?? 0;
   const start = 0.3 + index * 0.018;
@@ -361,18 +361,18 @@ function AnimatedCapitalMetric({
     <motion.article
       className="min-w-0 text-center lg:text-left"
       style={{
-        opacity: reducedMotion ? 1 : metricOpacity,
-        y: reducedMotion ? 0 : metricY,
+        opacity: showFinalValue ? 1 : metricOpacity,
+        y: showFinalValue ? 0 : metricY,
       }}
     >
       <motion.p
-        className="font-gazpacho text-[clamp(2.75rem,7.5vw,4.125rem)] font-medium leading-[0.84] tracking-[-0.045em] text-purple tabular-nums lg:text-[clamp(3.5rem,4.45vw,4.65rem)]"
-        style={{ filter: reducedMotion ? "blur(0px)" : valueFilter }}
+        className="font-gazpacho text-[clamp(1.75rem,7.5vw,4.125rem)] font-medium leading-[0.95] tracking-[-0.045em] text-purple tabular-nums lg:text-[clamp(3.5rem,4.45vw,4.65rem)] lg:leading-[0.84]"
+        style={{ filter: showFinalValue ? "blur(0px)" : valueFilter }}
       >
         {hasLiveValue ? (
           <>
             <span aria-hidden="true">
-              {reducedMotion ? finalValue : displayValue}
+              {showFinalValue ? finalValue : displayValue}
             </span>
             <span className="sr-only">{finalValue}</span>
           </>
@@ -406,13 +406,15 @@ function AnimatedHeadlineText({
   text: string;
   y?: number;
 }) {
+  const reducedMotion = useReducedMotion();
+
   return (
     <motion.span aria-label={text} className={className}>
       {Array.from(text).map((letter, letterIndex) => (
         <motion.span
           aria-hidden="true"
           className="inline-block"
-          initial={{ opacity: 0, y }}
+          initial={reducedMotion ? false : { opacity: 0, y }}
           animate={{
             opacity: 1,
             y: 0,

@@ -7,7 +7,14 @@ import { fadeUp, none, staggerChildren } from "@/animation/variants";
 import Heading from "@/components/ui/typography/heading";
 import Paragraph from "@/components/ui/typography/paragraph";
 import AnimatedIllustration from "./animated-illustration";
-import { appchainFeatures } from "./integrated-system-story";
+
+const appchainFeatures = [
+  { label: "Onchain oracle updates" },
+  { label: "Transaction prioritization" },
+  { label: "Prioritized and partial liquidations" },
+  { label: "Protocol-wide risk controls" },
+  { label: "Security enforced at the runtime level" },
+] as const;
 
 // Endpoint positions and colors match the unmodified Figma export.
 const branchEndpoints = [
