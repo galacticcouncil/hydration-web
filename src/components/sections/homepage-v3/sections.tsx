@@ -224,17 +224,17 @@ export function StrategiesSection() {
         className="container mx-auto scroll-mt-24 px-6 md:px-[50px] lg:scroll-mt-28 xl:px-16"
       >
         <motion.div
-          className="grid gap-7 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20"
+          className="grid gap-7"
           variants={fadeUp(14)}
         >
           <Heading
             size="large"
             animationVariants={fadeUp(14)}
-            className="max-w-[16ch] text-balance text-purple lg:text-[3.25rem] lg:leading-tight"
+            className="max-w-[24ch] text-balance text-purple lg:text-[3.25rem] lg:leading-tight"
           >
             Put your capital to work
           </Heading>
-          <div className="max-w-[38rem] lg:pt-1">
+          <div className="max-w-[54rem]">
             <Paragraph size="large" className="text-purple/65">
               Explore strategies built around the opportunities available across
               Hydration — from earning yield and providing liquidity to borrowing,
