@@ -86,7 +86,7 @@ const hdxBenefits = [
 ] as const;
 
 export function CapitalAtWorkSection() {
-  const capitalMetrics = useCapitalMetrics("allTime");
+  const capitalMetrics = useCapitalMetrics();
 
   return (
     <AnimateOnView

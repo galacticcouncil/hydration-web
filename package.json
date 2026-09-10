@@ -12,6 +12,7 @@
     "build:check": "NEXT_DIST_DIR=.next-build next build",
     "start": "next start",
     "lint": "next lint",
+    "test:capital-metrics": "node scripts/test-capital-metrics.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "serve-storybook": "serve -s storybook-static",

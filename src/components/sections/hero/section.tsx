@@ -301,7 +301,7 @@ function HeroCapitalStats({
   style: MotionStyle;
   staticValues?: boolean;
 }) {
-  const metrics = useCapitalMetrics("allTime");
+  const metrics = useCapitalMetrics();
 
   return (
     <motion.div
