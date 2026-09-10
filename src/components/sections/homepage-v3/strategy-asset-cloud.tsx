@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
 import Bitcoin from "@/components/sections/bring-your-own-gas/assets/bitcoin.svg";
 import Ethereum from "@/components/sections/bring-your-own-gas/assets/ethereum.svg";
@@ -50,13 +50,12 @@ export default function StrategyAssetCloud() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { amount: 0.1 });
   const reducedMotion = useReducedMotion();
-  const [paused, setPaused] = useState(false);
 
   return (
     <div
       ref={containerRef}
       className={styles.marquee}
-      data-paused={paused || !isInView || !!reducedMotion}
+      data-paused={!isInView || !!reducedMotion}
     >
       <ul className="sr-only" aria-label="Ways to put your capital to work">
         {opportunityRows
@@ -107,18 +106,6 @@ export default function StrategyAssetCloud() {
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="mt-5 flex justify-end px-1 motion-reduce:hidden">
-        <button
-          type="button"
-          aria-label="Pause opportunity animation"
-          aria-pressed={paused}
-          onClick={() => setPaused((value) => !value)}
-          className="rounded-full px-3 py-2 font-geist text-xs text-purple/50 transition-colors hover:text-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple"
-        >
-          {paused ? "Resume motion" : "Pause motion"}
-        </button>
       </div>
     </div>
   );
