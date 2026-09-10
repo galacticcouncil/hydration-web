@@ -93,7 +93,7 @@ const particleStages: ParticleStage[] = [
   },
 ];
 
-const appchainFeatures = [
+export const appchainFeatures = [
   {
     label: "Onchain oracle updates",
     iconColor: "oklch(0.64 0.18 135)",
@@ -912,6 +912,12 @@ function StoryStep({
   );
 }
 
+export function IntegratedSystemStaticVisual() {
+  const progress = useMotionValue(1);
+
+  return <HydrationLayerVisual progress={progress} staticState />;
+}
+
 function HydrationLayerVisual({
   progress,
   staticState,
@@ -945,7 +951,11 @@ function HydrationLayerVisual({
     <motion.figure
       className="relative mx-auto aspect-[497/638] w-full max-w-[31rem] overflow-visible lg:max-w-[36rem] xl:max-w-[42rem]"
       style={{ y: staticState ? 0 : visualY }}
-      aria-label="Hydration's integrated appchain layers assembling from particles"
+      aria-label={
+        staticState
+          ? "Hydration's integrated appchain layers"
+          : "Hydration's integrated appchain layers assembling from particles"
+      }
     >
       <motion.img
         aria-hidden="true"

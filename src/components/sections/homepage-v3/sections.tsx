@@ -18,21 +18,15 @@ import Paragraph from "@/components/ui/typography/paragraph";
 import SectionLabel from "@/components/ui/labels/section";
 import DiamondIcon from "@/components/ui/labels/icons/diamond";
 import { formatCompactMetric, useCapitalMetrics } from "./capital-metrics";
+import StrategyAssetCloud from "./strategy-asset-cloud";
+import IntegratedSystemRegular from "./integrated-system-regular";
 import IntegratedSystemStory, {
   IntegratedSystemClickThroughStory,
 } from "./integrated-system-story";
-import {
-  animate,
-  motion,
-  useAnimationControls,
-  useMotionValue,
-  useReducedMotion,
-  useTransform,
-} from "framer-motion";
-import type { AnimationPlaybackControls, Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const yieldPillars = [
   {
@@ -220,310 +214,57 @@ export function ProductiveYieldSection() {
 export function StrategiesSection() {
   return (
     <AnimateOnView
-      className="relative bg-white pt-16 lg:pt-20 after:absolute after:inset-x-0 after:bottom-0 after:h-20 after:bg-beige"
+      className="overflow-hidden bg-white py-20 lg:py-32"
       variants={revealStagger(0.1, 18)}
       threshold={0.12}
       viewportMargin="0px 0px -10% 0px"
     >
-      <section id="strategies" className="scroll-mt-24 lg:scroll-mt-28">
+      <section
+        id="strategies"
+        className="container mx-auto scroll-mt-24 px-6 md:px-[50px] lg:scroll-mt-28 xl:px-16"
+      >
         <motion.div
-          className="container mx-auto px-6 md:px-[50px] xl:px-16"
+          className="grid gap-7 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20"
           variants={fadeUp(14)}
         >
-          <div className="max-w-[50rem]">
-            <div className="max-w-[32rem]">
-              <Heading
-                size="large"
-                className="max-w-[19ch] text-purple lg:text-[2.922rem] lg:leading-[1.2]"
-              >
-                <span className="lg:whitespace-nowrap">
-                  Strategies built for
-                </span>
-                <br className="hidden lg:block" />
-                <span className="lg:whitespace-nowrap">
-                  different risk profiles
-                </span>
-              </Heading>
-            </div>
-            <p className="mt-8 max-w-[42rem] font-geist text-[1.1rem] font-normal leading-[1.55] text-purple/50 lg:text-[1.114rem]">
-              Put your capital to work through strategies designed around
-              transparent yield sources and clearly defined risk.
-            </p>
+          <Heading
+            size="large"
+            animationVariants={fadeUp(14)}
+            className="max-w-[16ch] text-balance text-purple lg:text-[3.25rem] lg:leading-tight"
+          >
+            Put your capital to work
+          </Heading>
+          <div className="max-w-[38rem] lg:pt-1">
+            <Paragraph size="large" className="text-purple/65">
+              Explore strategies built around the opportunities available across
+              Hydration — from earning yield and providing liquidity to borrowing,
+              looping, and more active capital management.
+            </Paragraph>
+            <Paragraph size="large" className="mt-4 text-purple/65">
+              Browse different ways to deploy your assets, understand how each
+              strategy works, and choose the level of complexity and risk that
+              suits you.
+            </Paragraph>
+            <Button
+              role="primary"
+              fill="solid"
+              decoration="arrow"
+              action={{ href: "https://app.hydration.net", target: "_blank" }}
+              className="mt-8 rounded-full px-6 py-3 active:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink"
+            >
+              Find a strategy that fits you
+            </Button>
           </div>
         </motion.div>
 
         <motion.div
-          className="container relative z-10 mx-auto mt-12 grid gap-3 px-6 md:px-[50px] lg:grid-cols-2 xl:px-16"
-          initial="initial"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.14, margin: "0px 0px -8% 0px" }}
-          variants={revealStagger(0.14, 30)}
+          className="mt-12 min-w-0 lg:mt-20"
+          variants={fadeUp(14)}
         >
-          <StrategyTile
-            eyebrow="Lower volatility"
-            title="Stable Yield"
-            description="Earn sustainable returns through strategies focused on stable assets, conservative positioning, and durable sources of yield."
-            riskLabel="Lower risk"
-            riskIconSrc="/strategy-risk-low.svg"
-            riskNeedleAngle={-137}
-            cardClassName="bg-[#B3D7FA]"
-            cta="Explore Stable-yield strategies"
-          />
-          <StrategyTile
-            eyebrow="Higher potential"
-            title="Enhanced Yield"
-            description="Increase potential returns through actively optimized strategies that combine productive assets, borrowing, liquidity, and DeFi incentives."
-            riskLabel="Elevated risk"
-            riskIconSrc="/strategy-risk-high.svg"
-            riskNeedleAngle={-54}
-            cardClassName="bg-purple"
-            cta="Explore Enhanced-yield strategies"
-            inverse
-          />
+          <StrategyAssetCloud />
         </motion.div>
       </section>
     </AnimateOnView>
-  );
-}
-
-function StrategyTile({
-  eyebrow,
-  title,
-  description,
-  cta,
-  cardClassName,
-  riskLabel,
-  riskIconSrc,
-  riskNeedleAngle,
-  inverse = false,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-  cta: string;
-  cardClassName: string;
-  riskLabel: string;
-  riskIconSrc: string;
-  riskNeedleAngle: number;
-  inverse?: boolean;
-}) {
-  return (
-    <motion.article
-      className={`flex min-h-[31rem] flex-col rounded-[2rem] px-6 py-8 md:px-10 md:py-10 lg:min-h-[34rem] lg:px-8 lg:py-9 xl:px-10 xl:py-10 ${cardClassName}`}
-      variants={revealStagger(0.12, 24)}
-    >
-      <motion.div
-        className="flex flex-col items-start"
-        variants={revealStagger(0.12, 14)}
-      >
-        <motion.div variants={fadeUp(12)}>
-          <RiskGauge
-            label={riskLabel}
-            iconSrc={riskIconSrc}
-            needleAngle={riskNeedleAngle}
-            inverse={inverse}
-          />
-        </motion.div>
-        <motion.div className="mt-8" variants={fadeUp(12)}>
-          <span
-            className={`font-geist text-xs font-medium uppercase tracking-[0.14em] ${inverse ? "text-lavender" : "text-purple/55"}`}
-          >
-            Strategy profile
-          </span>
-          <h3
-            className={`mt-3 font-gazpacho text-[2.1rem] font-medium leading-none md:text-[2.6rem] ${inverse ? "text-lavender" : "text-purple"}`}
-          >
-            {title}
-          </h3>
-        </motion.div>
-      </motion.div>
-
-      <motion.div
-        className="mt-auto pt-14 lg:pt-10 xl:pt-12"
-        variants={revealStagger(0.08, 10)}
-      >
-        <motion.p
-          className="max-w-[31rem] font-geist text-[1.4rem] leading-[1.3] tracking-[-0.0285em] md:text-[1.5rem] xl:text-[1.6rem]"
-          variants={fadeUp(14)}
-        >
-          <span
-            className={`font-medium ${inverse ? "text-lavender" : "text-purple"}`}
-          >
-            {eyebrow}.{" "}
-          </span>
-          <span className={inverse ? "text-lavender/70" : "text-purple"}>
-            {description}
-          </span>
-        </motion.p>
-        <Button
-          role="primary"
-          fill="solid"
-          action={{ href: "https://app.hydration.net", target: "_blank" }}
-          className={`mt-8 rounded-full bg-white px-6 py-3 text-purple ${inverse ? "hover:bg-lavender hover:text-purple" : "hover:bg-purple hover:text-white"}`}
-        >
-          {cta}
-        </Button>
-      </motion.div>
-    </motion.article>
-  );
-}
-
-function RiskGauge({
-  label,
-  iconSrc,
-  needleAngle,
-  inverse = false,
-}: {
-  label: string;
-  iconSrc: string;
-  needleAngle: number;
-  inverse?: boolean;
-}) {
-  const reduceMotion = useReducedMotion();
-  const fillControls = useAnimationControls();
-  const hasEntered = useRef(false);
-  const gaugeAnimation = useRef<AnimationPlaybackControls | null>(null);
-  const animationRun = useRef(0);
-  const pivot = { x: 36, y: 31 };
-  const fillRadius = 18;
-  const needleLength = 19;
-  const initialAngle = -180;
-  const pointAtAngle = (angle: number, radius: number) => {
-    const radians = (angle * Math.PI) / 180;
-
-    return {
-      x: pivot.x + Math.cos(radians) * radius,
-      y: pivot.y + Math.sin(radians) * radius,
-    };
-  };
-  const initialFillPoint = pointAtAngle(initialAngle, fillRadius);
-  const sectorPath = (point: { x: number; y: number }) =>
-    `M ${pivot.x} ${pivot.y} L ${initialFillPoint.x} ${initialFillPoint.y} A ${fillRadius} ${fillRadius} 0 0 1 ${point.x} ${point.y} Z`;
-  const gaugeAngle = useMotionValue(initialAngle);
-  const fillPath = useTransform(gaugeAngle, (angle) =>
-    sectorPath(pointAtAngle(angle, fillRadius)),
-  );
-  const needleX = useTransform(
-    gaugeAngle,
-    (angle) => pointAtAngle(angle, needleLength).x,
-  );
-  const needleY = useTransform(
-    gaugeAngle,
-    (angle) => pointAtAngle(angle, needleLength).y,
-  );
-
-  const showFinalState = () => {
-    gaugeAngle.set(needleAngle);
-    fillControls.set({ opacity: 0.42 });
-  };
-
-  const playFromStart = (delay = 0) => {
-    const run = ++animationRun.current;
-
-    fillControls.stop();
-    gaugeAnimation.current?.stop();
-    gaugeAngle.set(initialAngle);
-    fillControls.set({ opacity: 0 });
-
-    const fillAnimation = fillControls.start({
-      opacity: 0.42,
-      transition: {
-        delay,
-        duration: 1.25,
-        ease: [0.2, 0.65, 0.3, 0.9],
-      },
-    });
-    const needleAnimation = animate(gaugeAngle, needleAngle, {
-      delay,
-      duration: 1.25,
-      ease: [0.2, 0.65, 0.3, 0.9],
-    });
-
-    gaugeAnimation.current = needleAnimation;
-    void Promise.all([fillAnimation, needleAnimation]).finally(() => {
-      if (animationRun.current === run) gaugeAnimation.current = null;
-    });
-  };
-
-  const playEntrance = () => {
-    if (hasEntered.current) return;
-    hasEntered.current = true;
-
-    if (reduceMotion) {
-      showFinalState();
-      return;
-    }
-
-    playFromStart(0.2);
-  };
-
-  const replayGauge = () => {
-    if (reduceMotion || !hasEntered.current) return;
-
-    playFromStart();
-  };
-
-  return (
-    <motion.div
-      className="shrink-0 text-purple"
-      role="img"
-      aria-label={`${label} strategy profile`}
-      onHoverStart={replayGauge}
-      onAnimationStart={(definition) => {
-        if (definition === "visible") playEntrance();
-      }}
-      variants={{
-        initial: { opacity: 0, y: reduceMotion ? 0 : 8 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: reduceMotion ? 0 : 0.42,
-            ease: [0.2, 0.65, 0.3, 0.9],
-          },
-        },
-      }}
-    >
-      <motion.div initial={false}>
-        <div className="relative h-[76px] w-[144px] md:h-[95px] md:w-[180px]">
-          <Image
-            src={iconSrc}
-            alt=""
-            width={72}
-            height={38}
-            className="absolute inset-0 h-full w-full"
-          />
-          <motion.svg
-            className="absolute inset-0 h-full w-full overflow-visible"
-            viewBox="0 0 72 38"
-            fill="none"
-            aria-hidden="true"
-          >
-            <motion.path
-              d={fillPath}
-              fill="white"
-              opacity="0"
-              animate={fillControls}
-            />
-            <motion.line
-              x1={pivot.x}
-              y1={pivot.y}
-              x2={needleX}
-              y2={needleY}
-              stroke={inverse ? "#DFB1F3" : "#240E32"}
-              strokeWidth="1"
-              strokeLinecap="round"
-            />
-            <circle
-              cx={pivot.x}
-              cy={pivot.y}
-              r="2.25"
-              fill={inverse ? "#DFB1F3" : "#240E32"}
-            />
-          </motion.svg>
-        </div>
-      </motion.div>
-    </motion.div>
   );
 }
 
@@ -550,9 +291,9 @@ const integratedIntroReveal: Variants = {
 };
 
 export function IntegratedSystemSection({
-  interaction = "clickThrough",
+  interaction = "regular",
 }: {
-  interaction?: "clickThrough" | "scroll";
+  interaction?: "clickThrough" | "scroll" | "regular";
 }) {
   const [activeInteraction, setActiveInteraction] = useState(interaction);
   const usesScrollStory = activeInteraction === "scroll";
@@ -570,34 +311,29 @@ export function IntegratedSystemSection({
       >
         <div className="relative z-40 flex justify-center pb-3 pt-6 lg:pb-0 lg:pt-8">
           <div
-            className="inline-flex rounded-full border border-purple/10 bg-white/80 p-1 shadow-[0_12px_40px_rgba(36,14,50,0.08)] backdrop-blur-md"
+            className="inline-flex max-w-full rounded-full border border-purple/10 bg-white/80 p-1 shadow-[0_12px_40px_rgba(36,14,50,0.08)] backdrop-blur-md"
             role="group"
             aria-label="Why Hydration interaction preview"
           >
-            <button
-              type="button"
-              aria-pressed={!usesScrollStory}
-              onClick={() => setActiveInteraction("clickThrough")}
-              className={`rounded-full px-4 py-2 font-geist text-xs font-medium transition-colors md:px-5 md:text-sm ${
-                !usesScrollStory
-                  ? "bg-purple text-white"
-                  : "text-purple/60 hover:text-purple"
-              }`}
-            >
-              Click-through
-            </button>
-            <button
-              type="button"
-              aria-pressed={usesScrollStory}
-              onClick={() => setActiveInteraction("scroll")}
-              className={`rounded-full px-4 py-2 font-geist text-xs font-medium transition-colors md:px-5 md:text-sm ${
-                usesScrollStory
-                  ? "bg-purple text-white"
-                  : "text-purple/60 hover:text-purple"
-              }`}
-            >
-              Original scroll
-            </button>
+            {([
+              { id: "clickThrough", label: "Click-through" },
+              { id: "scroll", label: "Original scroll" },
+              { id: "regular", label: "Regular sections" },
+            ] as const).map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                aria-pressed={activeInteraction === option.id}
+                onClick={() => setActiveInteraction(option.id)}
+                className={`rounded-full px-3 py-2 font-geist text-[0.65rem] font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple md:px-5 md:text-sm ${
+                  activeInteraction === option.id
+                    ? "bg-purple text-white"
+                    : "text-purple/60 hover:text-purple"
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -636,7 +372,9 @@ export function IntegratedSystemSection({
           </motion.div>
         )}
 
-        {usesScrollStory ? (
+        {activeInteraction === "regular" ? (
+          <IntegratedSystemRegular />
+        ) : usesScrollStory ? (
           <IntegratedSystemStory />
         ) : (
           <IntegratedSystemClickThroughStory />
