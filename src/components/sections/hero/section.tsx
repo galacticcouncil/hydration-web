@@ -26,6 +26,8 @@ import { useEffect, useRef, useState } from "react";
 const headlineEase = [0.2, 0.65, 0.3, 0.9] as const;
 const beigeShaderColor = [246 / 255, 246 / 255, 236 / 255] as const;
 const metricRevealEase = (value: number) => 1 - Math.pow(1 - value, 3);
+const mobileSceneClip =
+  "inset(0vh 7vw 0vh 7vw round 2.75rem 2.75rem 0rem 0rem)";
 // Preserved for another pass: progressively feathers the real scene container
 // while it expands, without introducing a duplicate blurred background.
 const sceneEdgeFeatherEnabled = false;
@@ -39,6 +41,20 @@ export default function HeroSection() {
     target: sceneRef,
     offset: ["start start", "end end"],
   });
+  // Open the mobile image on scroll while text and metrics stay in normal flow.
+  const { scrollYProgress: mobileSceneProgress } = useScroll({
+    target: sceneRef,
+    offset: ["start start", "start -55%"],
+  });
+  const mobileClip = useTransform(
+    mobileSceneProgress,
+    [0, 1],
+    [
+      mobileSceneClip,
+      "inset(0vh 0vw 0vh 0vw round 0rem 0rem 0rem 0rem)",
+    ],
+  );
+  const mobileScale = useTransform(mobileSceneProgress, [0, 1], [1, 1.08]);
 
   const sceneClip = useTransform(
     scrollYProgress,
@@ -126,11 +142,15 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.div
-          className="relative z-10 mx-[7vw] h-[22rem] isolate overflow-hidden rounded-t-[2.75rem] bg-beige max-lg:![clip-path:none] sm:h-[28rem] lg:absolute lg:inset-0 lg:mx-0 lg:h-auto lg:rounded-none"
+          className="relative z-10 h-[clamp(22rem,70svh,38rem)] isolate overflow-hidden bg-beige lg:absolute lg:inset-0 lg:h-auto"
           style={{
-            clipPath: reducedMotion
-              ? "inset(66vh 7vw 0 7vw round 2.75rem 2.75rem 0 0)"
-              : sceneClip,
+            clipPath: mobileLayout
+              ? reducedMotion
+                ? mobileSceneClip
+                : mobileClip
+              : reducedMotion
+                ? "inset(66vh 7vw 0 7vw round 2.75rem 2.75rem 0 0)"
+                : sceneClip,
             maskImage:
               sceneEdgeFeatherEnabled && !reducedMotion
                 ? sceneFeatherMask
@@ -145,7 +165,9 @@ export default function HeroSection() {
         >
           <motion.div
             className="absolute inset-0"
-            style={{ scale: reducedMotion || mobileLayout ? 1 : sceneScale }}
+            style={{
+              scale: reducedMotion ? 1 : mobileLayout ? mobileScale : sceneScale,
+            }}
           >
             <motion.div
               className="absolute inset-0 will-change-transform"
@@ -167,7 +189,7 @@ export default function HeroSection() {
                   fill
                   loading="lazy"
                   quality={74}
-                  sizes="(max-width: 1023px) 86vw, 100vw"
+                  sizes="100vw"
                   className="object-cover object-[54%_center]"
                 />
               </div>
