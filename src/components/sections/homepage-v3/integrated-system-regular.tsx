@@ -23,7 +23,7 @@ export default function IntegratedSystemRegular() {
   const reveal = reducedMotion ? none() : fadeUp(10);
 
   return (
-    <div className="pb-16 pt-12 lg:pb-24 lg:pt-20">
+    <div className="pb-16 pt-12 lg:pb-[200px] lg:pt-20">
       <AnimateOnView
         element="div"
         className="mx-auto flex max-w-[46rem] flex-col items-center text-center"
