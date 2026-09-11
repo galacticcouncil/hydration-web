@@ -1,5 +1,7 @@
 "use client";
 
+import { homepageCopy, appchainFeatures } from "@/content/homepage";
+
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import AnimateOnView from "@/animation/motion-section";
@@ -7,14 +9,6 @@ import { fadeUp, none, staggerChildren } from "@/animation/variants";
 import Heading from "@/components/ui/typography/heading";
 import Paragraph from "@/components/ui/typography/paragraph";
 import AnimatedIllustration from "./animated-illustration";
-
-const appchainFeatures = [
-  { label: "Onchain oracle updates" },
-  { label: "Transaction prioritization" },
-  { label: "Prioritized and partial liquidations" },
-  { label: "Protocol-wide risk controls" },
-  { label: "Security enforced at the runtime level" },
-] as const;
 
 // Endpoint positions and colors match the unmodified Figma export.
 const branchEndpoints = [
@@ -58,7 +52,7 @@ export default function IntegratedSystemRegular() {
           animationVariants={none()}
           className="max-w-[18ch] text-balance text-purple lg:text-[3.25rem]"
         >
-          Why Hydration Is Different
+          {homepageCopy.why.title}
         </Heading>
         <div className="mt-7 max-w-[44rem] space-y-4">
           <Paragraph
@@ -66,17 +60,14 @@ export default function IntegratedSystemRegular() {
             animationVariants={none()}
             className="text-balance text-purple/70"
           >
-            Most DeFi protocols depend on external infrastructure they cannot
-            fully control. Hydration owns the full DeFi stack.
+            {homepageCopy.why.paragraphs[0]}
           </Paragraph>
           <Paragraph
             size="large"
             animationVariants={none()}
             className="text-pretty text-purple/70"
           >
-            By combining execution, liquidity, lending, stablecoins, oracles,
-            and security at the appchain level, Hydration can coordinate
-            products more efficiently and protect users at every layer.
+            {homepageCopy.why.paragraphs[1]}
           </Paragraph>
         </div>
       </AnimateOnView>
@@ -88,24 +79,21 @@ export default function IntegratedSystemRegular() {
       >
         <motion.div className="max-w-[31rem] md:order-2" variants={reveal}>
           <h3 className="max-w-[17ch] text-balance font-gazpacho text-[2rem] font-medium leading-tight text-purple lg:text-[2.5rem]">
-            One integrated financial system
+            {homepageCopy.integrated.title}
           </h3>
           <Paragraph
             size="large"
             animationVariants={none()}
             className="mt-4 text-purple/70"
           >
-            Hydration’s products are designed to work together rather than
-            operate as isolated applications.
+            {homepageCopy.integrated.paragraphs[0]}
           </Paragraph>
           <Paragraph
             size="large"
             animationVariants={none()}
             className="mt-3 text-purple/70"
           >
-            Capital can move efficiently between strategies, borrowing markets,
-            liquidity, and HOLLAR without relying on fragmented external
-            infrastructure.
+            {homepageCopy.integrated.paragraphs[1]}
           </Paragraph>
         </motion.div>
         <motion.div
@@ -134,7 +122,7 @@ export default function IntegratedSystemRegular() {
         >
           <div>
             <h3 className="text-balance font-gazpacho text-[2rem] font-medium leading-tight text-purple lg:text-[2.5rem]">
-              Appchain-level execution
+              {homepageCopy.appchain.title}
             </h3>
           </div>
           <Paragraph
@@ -142,8 +130,7 @@ export default function IntegratedSystemRegular() {
             animationVariants={none()}
             className="max-w-[34rem] text-purple/70"
           >
-            Owning the execution environment allows Hydration to optimize how
-            financial activity is processed. This includes:
+            {homepageCopy.appchain.paragraphs[0]}
           </Paragraph>
         </motion.div>
 

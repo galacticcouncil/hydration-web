@@ -97,7 +97,7 @@ export function formatCompactMetric(value: number | null, prefix: "" | "$") {
   if (value === null || !Number.isFinite(value)) return "—";
   return `${prefix}${new Intl.NumberFormat("en-US", {
     notation: "compact",
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 1,
     minimumFractionDigits: value >= 1_000_000 ? 1 : 0,
   }).format(value)}`;
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { strategyOpportunities } from "@/content/homepage";
+
 import Image, { type StaticImageData } from "next/image";
 import { useRef } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
@@ -22,25 +24,25 @@ type MarqueeItem = {
 // strategy pages, and BIL borrowing flow. These are examples, without live rates.
 const opportunityRows: MarqueeItem[][] = [
   [
-    { label: "Provide ETH liquidity", images: [Ethereum] },
-    { label: "Borrow HOLLAR", images: [Hollar] },
+    { label: strategyOpportunities[0], images: [Ethereum] },
+    { label: strategyOpportunities[1], images: [Hollar] },
     { label: "Bitcoin", images: [Bitcoin], tokenOnly: true },
-    { label: "Earn with HOLLAR Bonds", images: [Hollar] },
-    { label: "Provide DOT liquidity", images: [Polkadot] },
+    { label: strategyOpportunities[2], images: [Hollar] },
+    { label: strategyOpportunities[3], images: [Polkadot] },
     { label: "Hydration", images: [Hydration], tokenOnly: true },
   ],
   [
-    { label: "Earn with BIL", images: ["/assets/strategies/bil.svg"] },
+    { label: strategyOpportunities[4], images: ["/assets/strategies/bil.svg"] },
     { label: "USDC", images: [Usdc], tokenOnly: true },
-    { label: "Provide Omnipool liquidity", images: [Ethereum, Polkadot] },
-    { label: "Provide stablecoin liquidity", images: [Usdc, Tether] },
+    { label: strategyOpportunities[5], images: [Ethereum, Polkadot] },
+    { label: strategyOpportunities[6], images: [Usdc, Tether] },
     {
       label: "PRIME",
       images: ["/assets/strategies/prime.png"],
       tokenOnly: true,
     },
     {
-      label: "Borrow against BIL",
+      label: strategyOpportunities[7],
       images: ["/assets/strategies/bil.svg", Hollar],
     },
   ],

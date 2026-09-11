@@ -29,6 +29,7 @@ export default function AnimateOnView({
   const reducedMotion = useReducedMotion();
   const showImmediately = alwaysVisible || reducedMotion;
   const props = {
+    "data-reveal": "",
     className,
     initial: showImmediately ? "visible" : "initial",
     animate: showImmediately ? "visible" : undefined,

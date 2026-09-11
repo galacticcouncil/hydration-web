@@ -1,5 +1,7 @@
 "use client";
 
+import { homepageCopy } from "@/content/homepage";
+
 import {
   formatCompactMetric,
   type CapitalMetric,
@@ -108,6 +110,7 @@ export default function HeroSection() {
     >
       <div className="relative flex flex-col overflow-hidden lg:sticky lg:top-0 lg:block lg:h-screen">
         <motion.div
+          data-hero-intro
           className="pointer-events-none relative z-20 flex items-center px-6 pb-12 pt-28 md:px-[50px] lg:absolute lg:inset-x-0 lg:top-0 lg:h-[66vh] lg:min-h-[34rem] lg:pb-0 lg:pt-20 xl:px-16"
           style={{ y: reducedMotion || mobileLayout ? 0 : heroContentY }}
         >
@@ -116,6 +119,7 @@ export default function HeroSection() {
           </div>
         </motion.div>
         <motion.div
+          data-hero-background
           className="invisible absolute inset-0 z-[9] overflow-hidden bg-beige lg:visible"
           style={{ opacity: reducedMotion ? 0 : sceneFillOpacity }}
           aria-hidden="true"
@@ -142,15 +146,15 @@ export default function HeroSection() {
         </motion.div>
 
         <motion.div
-          className="relative z-10 h-[clamp(22rem,70svh,38rem)] isolate overflow-hidden bg-beige lg:absolute lg:inset-0 lg:h-auto"
+          data-hero-scene
+          className="relative z-10 h-[clamp(22rem,70svh,38rem)] isolate overflow-hidden bg-beige [clip-path:var(--hero-mobile-clip)] lg:absolute lg:inset-0 lg:h-auto lg:[clip-path:var(--hero-desktop-clip)]"
           style={{
-            clipPath: mobileLayout
-              ? reducedMotion
-                ? mobileSceneClip
-                : mobileClip
-              : reducedMotion
-                ? "inset(66vh 7vw 0 7vw round 2.75rem 2.75rem 0 0)"
-                : sceneClip,
+            // Keep both motion bindings stable across hydration and resizing.
+            // CSS selects the mask at the same breakpoint as the scene layout.
+            "--hero-mobile-clip": reducedMotion ? mobileSceneClip : mobileClip,
+            "--hero-desktop-clip": reducedMotion
+              ? "inset(66vh 7vw 0 7vw round 2.75rem 2.75rem 0 0)"
+              : sceneClip,
             maskImage:
               sceneEdgeFeatherEnabled && !reducedMotion
                 ? sceneFeatherMask
@@ -161,7 +165,7 @@ export default function HeroSection() {
                 : undefined,
             maskComposite: "intersect",
             WebkitMaskComposite: "source-in",
-          }}
+          } as MotionStyle}
         >
           <motion.div
             className="absolute inset-0"
@@ -248,7 +252,8 @@ function HeroSectionContent() {
   return (
     <div className="pointer-events-auto flex min-w-0 w-full flex-col items-center gap-8 lg:pb-[100px] lg:pt-[150px]">
       <motion.h1 className="w-full max-w-[19ch] min-w-0 text-balance text-center font-gazpacho text-[clamp(2.35rem,11.25vw,2.75rem)] font-medium leading-[0.92] text-purple sm:text-[clamp(2.75rem,7.3vw,5.5rem)] xl:text-[88px]">
-        <span className="sm:hidden">
+        <span className="sr-only">{homepageCopy.hero.title}</span>
+        <span className="sm:hidden" aria-hidden="true">
           <AnimatedHeadlineText text="A secure" />
           <br />
           <AnimatedHeadlineText delay={0.12} text="home for" />
@@ -259,7 +264,7 @@ function HeroSectionContent() {
             <AnimatedHeadlineText delay={0.38} text="capital." />
           </span>
         </span>
-        <span className="hidden sm:inline">
+        <span className="hidden sm:inline" aria-hidden="true">
           <AnimatedHeadlineText text="A secure home for" />
           <br />
           <span className="font-normal italic text-[#240E32]">
@@ -277,8 +282,7 @@ function HeroSectionContent() {
           size="large"
           className="mx-auto w-full max-w-[46rem] min-w-0 text-balance text-center text-[20px] leading-[1.25] text-purple lg:text-[24px]"
         >
-          Earn sustainable yield through strategies built on productive assets,
-          enhanced by DeFi, and protected by cutting-edge security.
+          {homepageCopy.hero.paragraphs[0]}
         </Paragraph>
       </motion.div>
       <motion.div
@@ -431,7 +435,7 @@ function AnimatedHeadlineText({
   const reducedMotion = useReducedMotion();
 
   return (
-    <motion.span aria-label={text} className={className}>
+    <motion.span data-animated-heading className={className}>
       {Array.from(text).map((letter, letterIndex) => (
         <motion.span
           aria-hidden="true"

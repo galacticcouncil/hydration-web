@@ -1,5 +1,7 @@
 "use client";
 
+import { homepageCopy, hdxBenefits, yieldPillarCopy } from "@/content/homepage";
+
 import AnimateOnView from "@/animation/motion-section";
 import { fadeUp, revealStagger, staggerChildren } from "@/animation/variants";
 import HdxFlowLogo from "@/components/sections/built-to-be-unstoppable/assets/logo.svg";
@@ -25,23 +27,20 @@ import Link from "next/link";
 
 const yieldPillars = [
   {
-    title: "Productive assets",
-    description:
-      "Generate sustainable yield from assets backed by real economic activity rather than short-lived token emissions.",
+    title: yieldPillarCopy[0].title,
+    description: yieldPillarCopy[0].description,
     accent: "lavender",
     icon: <ProductiveAssetsIcon />,
   },
   {
-    title: "Curated strategies",
-    description:
-      "Access strategies that combine productive assets with DeFi to improve capital efficiency and maximize risk-adjusted returns.",
+    title: yieldPillarCopy[1].title,
+    description: yieldPillarCopy[1].description,
     accent: "blue",
     icon: <StrategyNetworkIcon />,
   },
   {
-    title: "Security first",
-    description:
-      "Protect capital through appchain-native security, invariant enforcement, circuit breakers, audits, continuous testing, and layered protocol controls.",
+    title: yieldPillarCopy[2].title,
+    description: yieldPillarCopy[2].description,
     accent: "green",
     icon: <LockIcon className="h-[68px] w-[60px]" />,
   },
@@ -61,29 +60,6 @@ const stationarySectionReveal = (staggerChildren: number): Variants => ({
     transition: { staggerChildren },
   },
 });
-
-const hdxBenefits = [
-  {
-    title: "Participate in governance",
-    description:
-      "Vote on protocol upgrades, treasury deployment, risk parameters, incentives, and the future direction of Hydration.",
-  },
-  {
-    title: "Earn through staking",
-    description:
-      "Stake HDX to participate in governance, strengthen long-term alignment, and become eligible for protocol incentives and revenue distribution.",
-  },
-  {
-    title: "Share in protocol growth",
-    description:
-      "Benefit from mechanisms that redirect protocol revenue toward aligned HDX holders and long-term ecosystem participants.",
-  },
-  {
-    title: "Influence capital allocation",
-    description:
-      "Help determine how treasury capital, incentives, and protocol-owned liquidity are deployed across strategies and markets.",
-  },
-] as const;
 
 export function CapitalAtWorkSection() {
   const capitalMetrics = useCapitalMetrics();
@@ -172,15 +148,13 @@ export function ProductiveYieldSection() {
             Productive yield
           </SectionLabel>
           <Heading size="large" className="mt-5 text-balance text-purple">
-            Real-world yield, enhanced by DeFi
+            {homepageCopy.productive.title}
           </Heading>
           <Paragraph
             size="large"
             className="mt-6 max-w-[48rem] text-balance text-purple-dim"
           >
-            Hydration turns productive onchain assets into accessible yield
-            opportunities, combining durable sources of return with the
-            efficiency and composability of DeFi.
+            {homepageCopy.productive.paragraphs[0]}
           </Paragraph>
         </motion.div>
 
@@ -227,18 +201,14 @@ export function StrategiesSection() {
             animationVariants={fadeUp(14)}
             className="max-w-[24ch] text-balance text-purple lg:text-[3.25rem] lg:leading-tight"
           >
-            Put your capital to work
+            {homepageCopy.strategies.title}
           </Heading>
           <div className="max-w-[54rem]">
             <Paragraph size="large" className="text-purple/65">
-              Explore strategies built around the opportunities available across
-              Hydration — from earning yield and providing liquidity to borrowing,
-              looping, and more active capital management.
+              {homepageCopy.strategies.paragraphs[0]}
             </Paragraph>
             <Paragraph size="large" className="mt-4 text-purple/65">
-              Browse different ways to deploy your assets, understand how each
-              strategy works, and choose the level of complexity and risk that
-              suits you.
+              {homepageCopy.strategies.paragraphs[1]}
             </Paragraph>
           </div>
         </motion.div>
@@ -322,17 +292,14 @@ export function HdxSection() {
             size="large"
             className="max-w-[18ch] text-balance text-[2.55rem] leading-[1.08] text-purple md:text-5xl md:leading-[1.2]"
           >
-            Powered by HDX
+            {homepageCopy.hdx.title}
           </Heading>
           <div className="mt-7 max-w-[36.1rem] space-y-7 text-balance text-purple/65 lg:mt-8">
             <Paragraph size="large" className="leading-7">
-              HDX connects protocol growth, governance participation, and value
-              distribution across the Hydration ecosystem.
+              {homepageCopy.hdx.paragraphs[0]}
             </Paragraph>
             <Paragraph size="large" className="leading-7">
-              As Hydration generates more revenue, expands its strategies, and
-              attracts more capital, HDX holders help decide how that value is
-              used and distributed.
+              {homepageCopy.hdx.paragraphs[1]}
             </Paragraph>
           </div>
           <h3 className="mt-8 font-gazpacho text-[1.7rem] font-medium leading-[1.05] text-pink md:text-[1.8125rem] md:leading-[1.035]">
@@ -468,22 +435,19 @@ export function CommunityBuildSection() {
                 Community
               </SectionLabel>
               <h2 className="mt-7 max-w-[17ch] text-balance font-gazpacho text-[2.4rem] font-normal leading-[1.04] text-white md:text-[3rem] lg:text-[3.25rem]">
-                Built and governed by the community
+                {homepageCopy.community.title}
               </h2>
               <Paragraph
                 size="large"
                 className="mt-8 max-w-[39rem] text-white/65"
               >
-                Hydration is shaped by an open community of users, contributors,
-                liquidity providers, and HDX holders.
+                {homepageCopy.community.paragraphs[0]}
               </Paragraph>
               <Paragraph
                 size="large"
                 className="mt-4 max-w-[39rem] text-white/65"
               >
-                Together, they govern the protocol, allocate resources,
-                distribute value, and build a more secure and productive home
-                for onchain capital.
+                {homepageCopy.community.paragraphs[1]}
               </Paragraph>
               <p className="mt-10 font-gazpacho text-[1.5rem] font-medium leading-none text-lavender md:text-[1.65rem]">
                 Join the Community

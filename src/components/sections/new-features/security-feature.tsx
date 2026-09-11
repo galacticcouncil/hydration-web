@@ -1,5 +1,7 @@
 "use client";
 
+import { homepageCopy, securityGroups } from "@/content/homepage";
+
 import AnimateOnView from "@/animation/motion-section";
 import { fadeUp, revealStagger } from "@/animation/variants";
 import ScrollAnchor from "@/components/scroll-anchor";
@@ -17,47 +19,6 @@ type SecurityGroup = {
   icon: string;
   mechanisms: readonly string[];
 };
-
-const securityGroups: readonly SecurityGroup[] = [
-  {
-    title: "Authority & access",
-    icon: "/assets/security-authority.svg",
-    mechanisms: [
-      "Onchain governance as the ultimate decision-making and authorization layer (no msigs)",
-      "Fine-grained protocol permissions",
-      "Appchain-native security controls",
-    ],
-  },
-  {
-    title: "Exposure boundaries",
-    icon: "/assets/security-exposure.svg",
-    mechanisms: [
-      "Per-asset transaction pausing",
-      "Per-asset deposit, withdrawal, borrowing, and exposure limits",
-      "Asset and contract whitelisting",
-    ],
-  },
-  {
-    title: "Runtime safeguards",
-    icon: "/assets/security-runtime.svg",
-    mechanisms: [
-      "Invariant enforcement",
-      "Automated circuit breakers",
-      "Prioritized and partial liquidations",
-      "Onchain oracle updates",
-    ],
-  },
-  {
-    title: "Continuous assurance",
-    icon: "/assets/security-assurance.svg",
-    mechanisms: [
-      "Independent security audits",
-      "Continuous fuzzing",
-      "AI-assisted security analysis",
-      "A top-10 Immunefi bug bounty program",
-    ],
-  },
-] as const;
 
 export default function SecurityFeature() {
   return (
@@ -110,18 +71,15 @@ function SecurityIntro({ className = "" }: { className?: string }) {
         className="max-w-[14ch] font-gazpacho text-[2.55rem] font-medium leading-[1.06] text-purple md:text-5xl md:leading-[1.2]"
         variants={fadeUp(18)}
       >
-        Security without compromise
+        {homepageCopy.security.title}
       </motion.h2>
       <motion.p
         className="max-w-[718px] font-geist text-base leading-[1.55] text-purple-dim md:text-[1.115rem]"
         variants={fadeUp(14)}
       >
-        Hydration is built around a simple principle: assume that every layer
-        can fail.
+        {homepageCopy.security.paragraphs[0]}
         <span className="block">
-          Instead of relying on a single line of defense, the protocol uses
-          multiple independent protections across governance, infrastructure,
-          execution, and product design.
+          {homepageCopy.security.paragraphs[1]}
         </span>
       </motion.p>
     </motion.div>

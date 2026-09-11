@@ -10,11 +10,14 @@ import {
   StrategiesSection,
 } from "@/components/sections/homepage-v3/sections";
 import { Metadata } from "next";
+import { homepageStructuredData } from "@/lib/agent-content";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Hydration | A secure home for onchain capital",
-  description:
-    "Earn sustainable yield through productive onchain assets, curated DeFi strategies, and appchain-native security.",
+  title: site.title,
+  description: site.description,
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true, "max-image-preview": "large" },
   icons: [
     {
       rel: "apple-touch-icon",
@@ -63,6 +66,12 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://hydration.net"),
   openGraph: {
+    type: "website",
+    url: site.url,
+    siteName: site.name,
+    title: site.title,
+    description: site.description,
+    locale: "en_US",
     images: [
       {
         url: "https://hydration.net/opengraph-image.jpg",
@@ -75,6 +84,10 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
+    card: "summary_large_image",
+    site: "@hydration_net",
+    title: site.title,
+    description: site.description,
     images: [
       {
         url: "https://hydration.net/twitter-image.png",
@@ -91,8 +104,28 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="bg-white-100 overflow-x-clip">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageStructuredData()).replace(/</g, "\\u003c") }} />
+      <noscript>
+        <style>{`
+          main [style*="opacity:0"], main [data-reveal], main .reveal-on-view {
+            opacity: 1 !important; filter: none !important;
+          }
+          [data-animated-heading] [style] { opacity: 1 !important; transform: none !important; }
+          [data-homepage-hero] { height: auto !important; min-height: 0 !important; }
+          [data-homepage-hero] > div { position: relative !important; height: auto !important; }
+          [data-hero-intro], [data-hero-scene], #capital { position: relative !important; height: auto !important; }
+          [data-hero-scene] { height: 32rem !important; clip-path: none !important; }
+          [data-hero-background] { display: none !important; }
+          [data-hero-intro] { padding-top: 8rem !important; }
+        `}</style>
+      </noscript>
       <Header className="fixed top-0 left-0 right-0 xl:top-4" />
       <HeroSection />
+      <noscript>
+        <p className="bg-beige px-6 pb-8 text-center font-geist text-sm text-purple">
+          <a className="underline" href="/index.md">Read this page as plain Markdown</a>.
+        </p>
+      </noscript>
       <ProductiveYieldSection />
       <StrategiesSection />
       <IntegratedSystemSection />
