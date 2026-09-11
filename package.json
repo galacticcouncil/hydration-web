@@ -6,6 +6,12 @@
     "node": "24.x"
   },
   "scripts": {
+    "postinstall": "node scripts/patch-next-vary.mjs",
+    "predev": "node scripts/patch-next-vary.mjs",
+    "predev:clean": "node scripts/patch-next-vary.mjs",
+    "prebuild": "node scripts/patch-next-vary.mjs",
+    "prebuild:check": "node scripts/patch-next-vary.mjs",
+    "prestart": "node scripts/patch-next-vary.mjs",
     "dev": "next dev",
     "dev:clean": "rm -rf .next && next dev",
     "build": "next build",

@@ -42,7 +42,7 @@ This website explains Hydration. Trading, lending and wallet actions take place 
 ## Landing page
 
 - [Homepage as Markdown](${siteUrl("/index.md")}): Products, strategies, appchain architecture, security, HDX and community. Main content from the visual landing page, without animations.
-- [Homepage](${siteUrl("/")}): The visual landing page. Its Link header advertises the Markdown URL above.
+- [Homepage](${siteUrl("/")}): The visual landing page. Request it with Accept: text/markdown for the Markdown representation, or use the explicit Markdown URL above.
 
 ## Official resources
 
