@@ -14,6 +14,21 @@ const accentClasses = {
     "bg-green/55 text-purple shadow-[0_0_0_18px_rgba(179,207,146,0.3)]",
 } as const;
 
+const gradientAccentClasses = {
+  lavender: {
+    fill: "from-lavender/10 via-lavender/30 to-lavender/55",
+    halo: "from-lavender/5 via-lavender/15 to-lavender/30",
+  },
+  blue: {
+    fill: "from-blue/10 via-blue/30 to-blue/55",
+    halo: "from-blue/5 via-blue/15 to-blue/30",
+  },
+  green: {
+    fill: "from-green/10 via-green/30 to-green/55",
+    halo: "from-green/5 via-green/15 to-green/30",
+  },
+} as const;
+
 const cardMaskStyle = {
   WebkitMaskImage:
     "radial-gradient(circle 2rem at 0 100%, transparent 0 1.98rem, #000 2rem), radial-gradient(circle 2rem at 100% 100%, transparent 0 1.98rem, #000 2rem)",
@@ -34,11 +49,13 @@ export default function ArchFeatureCard({
   description,
   accent,
   icon,
+  accentFill = "solid",
 }: {
   title: string;
   description: string;
   accent: ArchFeatureAccent;
   icon: ReactNode;
+  accentFill?: "solid" | "gradient";
 }) {
   return (
     <motion.article
@@ -51,9 +68,15 @@ export default function ArchFeatureCard({
         variants={fadeUp(16)}
       >
         <div
-          className={`grid h-24 w-24 place-items-center rounded-full lg:h-32 lg:w-32 ${accentClasses[accent]}`}
+          className={`relative grid h-24 w-24 place-items-center rounded-full lg:h-32 lg:w-32 ${accentFill === "gradient" ? "text-purple" : accentClasses[accent]}`}
         >
-          <span className="flex h-[68px] w-[68px] shrink-0 items-center justify-center [&>svg]:block">
+          {accentFill === "gradient" && (
+            <>
+              <span aria-hidden="true" className={`pointer-events-none absolute -inset-[18px] rounded-full bg-gradient-to-br ${gradientAccentClasses[accent].halo}`} />
+              <span aria-hidden="true" className={`pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br ${gradientAccentClasses[accent].fill}`} />
+            </>
+          )}
+          <span className="relative flex h-[68px] w-[68px] shrink-0 items-center justify-center [&>svg]:block">
             {icon}
           </span>
         </div>

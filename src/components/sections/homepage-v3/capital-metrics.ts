@@ -93,11 +93,15 @@ export function useCapitalMetrics() {
   return metrics;
 }
 
+// Scroll-driven counters format several values every frame. Reuse the two
+// formatters rather than allocating/initializing ICU formatters on every tick.
+const compactMetricFormatters = [0, 1].map((minimumFractionDigits) => new Intl.NumberFormat("en-US", {
+  notation: "compact",
+  maximumFractionDigits: 1,
+  minimumFractionDigits,
+}));
+
 export function formatCompactMetric(value: number | null, prefix: "" | "$") {
   if (value === null || !Number.isFinite(value)) return "—";
-  return `${prefix}${new Intl.NumberFormat("en-US", {
-    notation: "compact",
-    maximumFractionDigits: 1,
-    minimumFractionDigits: value >= 1_000_000 ? 1 : 0,
-  }).format(value)}`;
+  return `${prefix}${compactMetricFormatters[value >= 1_000_000 ? 1 : 0].format(value)}`;
 }

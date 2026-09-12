@@ -1,10 +1,20 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import type { MotionValue } from "framer-motion";
 
 const RIPPLE_COUNT = 12;
 const DESKTOP_HERO_EFFECT_QUERY = "(min-width: 768px)";
+const DEFAULT_TRANSITION_COLOR = [0.141, 0.055, 0.196] as const;
+
+function subscribeToDesktopEffect(onChange: () => void) {
+  const query = window.matchMedia(DESKTOP_HERO_EFFECT_QUERY);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+const desktopEffectEnabled = () => window.matchMedia(DESKTOP_HERO_EFFECT_QUERY).matches;
+const serverEffectEnabled = () => false;
 
 const HERO_RIPPLE_SETTINGS = {
   distortion: 4.72,
@@ -100,6 +110,9 @@ const fragmentShaderSource = `
     for (int i = 0; i < ${RIPPLE_COUNT}; i++) {
       vec4 ripple = u_ripples[i];
       float age = t - ripple.z;
+      // This condition is uniform across pixels. Empty/expired slots contribute
+      // exactly zero, so skip their distance, sine and exponential calculations.
+      if (ripple.w <= 0.0 || age < 0.0 || age >= 2.85 * tail) continue;
       float isAlive = step(0.0, ripple.w) * step(0.0, age) * (1.0 - smoothstep(2.15 * tail, 2.85 * tail, age));
       vec2 toRipple = p - ripple.xy;
       float dist = length(toRipple);
@@ -195,7 +208,7 @@ function createShader(
 export default function HeroWaterCanvas({
   className,
   showCapitalBand = true,
-  transitionColor = [0.141, 0.055, 0.196],
+  transitionColor = DEFAULT_TRANSITION_COLOR,
   transitionHeightPx = 72,
 }: {
   className?: string;
@@ -204,12 +217,13 @@ export default function HeroWaterCanvas({
   transitionHeightPx?: number | MotionValue<number>;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const desktopEffect = useSyncExternalStore(subscribeToDesktopEffect, desktopEffectEnabled, serverEffectEnabled);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const surface = canvas?.parentElement;
     if (!canvas || !surface) return;
-    if (!window.matchMedia(DESKTOP_HERO_EFFECT_QUERY).matches) return;
+    if (!desktopEffect) return;
     const drawingCanvas = canvas;
     const interactiveSurface = surface;
 
@@ -338,6 +352,24 @@ export default function HeroWaterCanvas({
     let imageHeight = 1;
     let surfaceHeight = 1;
     let pointerInsideSurface = false;
+    let pendingPointer: Pick<PointerEvent, "clientX" | "clientY" | "pointerType"> | null = null;
+
+    // This context is owned by this component. Geometry and effect settings do
+    // not change between frames; only resize/image load update their uniforms.
+    webgl.useProgram(renderProgram);
+    webgl.bindBuffer(webgl.ARRAY_BUFFER, geometryBuffer);
+    webgl.enableVertexAttribArray(positionLocation);
+    webgl.vertexAttribPointer(positionLocation, 2, webgl.FLOAT, false, 0, 0);
+    webgl.activeTexture(webgl.TEXTURE0);
+    webgl.bindTexture(webgl.TEXTURE_2D, imageTexture);
+    webgl.uniform1i(textureLocation, 0);
+    webgl.uniform2f(imageResolutionLocation, imageWidth, imageHeight);
+    webgl.uniform4f(effectsLocation, HERO_RIPPLE_SETTINGS.distortion, HERO_RIPPLE_SETTINGS.light, HERO_RIPPLE_SETTINGS.speed, HERO_RIPPLE_SETTINGS.edge);
+    webgl.uniform4f(rippleSettingsLocation, HERO_RIPPLE_SETTINGS.rippleSpeed, HERO_RIPPLE_SETTINGS.rippleFade, HERO_RIPPLE_SETTINGS.tail, HERO_RIPPLE_SETTINGS.cursorLag);
+    webgl.uniform4f(trailSettingsLocation, HERO_RIPPLE_SETTINGS.tail, HERO_RIPPLE_SETTINGS.trailDensity, 0, 0);
+    webgl.uniform4f(areaSettingsLocation, HERO_RIPPLE_SETTINGS.cursorArea, HERO_RIPPLE_SETTINGS.cursorFalloff, HERO_RIPPLE_SETTINGS.rippleArea, HERO_RIPPLE_SETTINGS.rippleSmoothing);
+    webgl.uniform1f(chromaticAberrationLocation, HERO_RIPPLE_SETTINGS.chromaticAberration);
+    webgl.uniform3f(transitionColorLocation, transitionColor[0], transitionColor[1], transitionColor[2]);
 
     const image = new Image();
     image.decoding = "async";
@@ -353,6 +385,7 @@ export default function HeroWaterCanvas({
         webgl.UNSIGNED_BYTE,
         image
       );
+      webgl.uniform2f(imageResolutionLocation, imageWidth, imageHeight);
       if (reducedMotion) render(performance.now());
     };
     const responsiveHeroImage = interactiveSurface.querySelector<HTMLImageElement>(
@@ -380,6 +413,7 @@ export default function HeroWaterCanvas({
         drawingCanvas.height = height;
       }
       webgl.viewport(0, 0, width, height);
+      webgl.uniform2f(resolutionLocation, width, height);
     }
 
     function writeRipple(x: number, y: number, time: number, strength: number) {
@@ -433,60 +467,22 @@ export default function HeroWaterCanvas({
     }
 
     function render(now: number) {
+      frame = 0;
+      if (!visible || document.hidden) return;
+      if (pendingPointer) {
+        const pointer = pendingPointer;
+        pendingPointer = null;
+        updatePointer(pointer);
+      }
       const hoverEase = 0.08 / HERO_RIPPLE_SETTINGS.cursorLag;
       const pointerEase = 0.12 / HERO_RIPPLE_SETTINGS.cursorLag;
       pointerX += (targetPointerX - pointerX) * pointerEase;
       pointerY += (targetPointerY - pointerY) * pointerEase;
       hover += (targetHover - hover) * hoverEase;
 
-      webgl.useProgram(renderProgram);
-      webgl.bindBuffer(webgl.ARRAY_BUFFER, geometryBuffer);
-      webgl.enableVertexAttribArray(positionLocation);
-      webgl.vertexAttribPointer(positionLocation, 2, webgl.FLOAT, false, 0, 0);
-      webgl.activeTexture(webgl.TEXTURE0);
-      webgl.bindTexture(webgl.TEXTURE_2D, imageTexture);
-      webgl.uniform1i(textureLocation, 0);
-      webgl.uniform2f(
-        resolutionLocation,
-        drawingCanvas.width,
-        drawingCanvas.height,
-      );
-      webgl.uniform2f(imageResolutionLocation, imageWidth, imageHeight);
       webgl.uniform2f(pointerLocation, pointerX, pointerY);
       webgl.uniform1f(timeLocation, (now - startTime) / 1000);
       webgl.uniform1f(hoverLocation, hover);
-      webgl.uniform4f(
-        effectsLocation,
-        HERO_RIPPLE_SETTINGS.distortion,
-        HERO_RIPPLE_SETTINGS.light,
-        HERO_RIPPLE_SETTINGS.speed,
-        HERO_RIPPLE_SETTINGS.edge
-      );
-      webgl.uniform4f(
-        rippleSettingsLocation,
-        HERO_RIPPLE_SETTINGS.rippleSpeed,
-        HERO_RIPPLE_SETTINGS.rippleFade,
-        HERO_RIPPLE_SETTINGS.tail,
-        HERO_RIPPLE_SETTINGS.cursorLag
-      );
-      webgl.uniform4f(
-        trailSettingsLocation,
-        HERO_RIPPLE_SETTINGS.tail,
-        HERO_RIPPLE_SETTINGS.trailDensity,
-        0,
-        0
-      );
-      webgl.uniform4f(
-        areaSettingsLocation,
-        HERO_RIPPLE_SETTINGS.cursorArea,
-        HERO_RIPPLE_SETTINGS.cursorFalloff,
-        HERO_RIPPLE_SETTINGS.rippleArea,
-        HERO_RIPPLE_SETTINGS.rippleSmoothing
-      );
-      webgl.uniform1f(
-        chromaticAberrationLocation,
-        HERO_RIPPLE_SETTINGS.chromaticAberration
-      );
       webgl.uniform1f(
         transitionHeightLocation,
         showCapitalBand
@@ -499,19 +495,19 @@ export default function HeroWaterCanvas({
             )
           : -1
       );
-      webgl.uniform3f(
-        transitionColorLocation,
-        transitionColor[0],
-        transitionColor[1],
-        transitionColor[2]
-      );
       webgl.uniform4fv(ripplesLocation, ripples);
       webgl.drawArrays(webgl.TRIANGLE_STRIP, 0, 4);
 
-      if (!reducedMotion && visible) frame = requestAnimationFrame(render);
+      scheduleRender();
     }
 
     function onPointerMove(event: PointerEvent) {
+      if (!visible || document.hidden || reducedMotion) return;
+      // Coalesce high-frequency pointer events before reading layout/hit testing.
+      pendingPointer = { clientX: event.clientX, clientY: event.clientY, pointerType: event.pointerType };
+    }
+
+    function updatePointer(event: Pick<PointerEvent, "clientX" | "clientY" | "pointerType">) {
       const rect = drawingCanvas.getBoundingClientRect();
       const isInsideSurface =
         event.clientX >= rect.left &&
@@ -543,9 +539,28 @@ export default function HeroWaterCanvas({
     }
 
     function onPointerLeave() {
+      pendingPointer = null;
       targetHover = 0;
       pointerInsideSurface = false;
       hasRipplePosition = false;
+    }
+
+    function scheduleRender() {
+      if (!frame && !reducedMotion && visible && !document.hidden) {
+        frame = requestAnimationFrame(render);
+      }
+    }
+
+    function stopRendering() {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      onPointerLeave();
+    }
+
+    function onVisibilityChange() {
+      if (document.hidden) stopRendering();
+      else if (reducedMotion) render(performance.now());
+      else scheduleRender();
     }
 
     const resizeObserver = new ResizeObserver(resize);
@@ -554,14 +569,10 @@ export default function HeroWaterCanvas({
 
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
-        const nextVisible = entry.isIntersecting;
-        if (nextVisible && !visible && !reducedMotion) {
-          visible = true;
-          frame = requestAnimationFrame(render);
-        } else {
-          visible = nextVisible;
-          if (!visible) cancelAnimationFrame(frame);
-        }
+        visible = entry.isIntersecting;
+        if (visible && reducedMotion) render(performance.now());
+        else if (visible) scheduleRender();
+        else stopRendering();
       },
       { rootMargin: "120px 0px", threshold: 0.01 }
     );
@@ -572,6 +583,7 @@ export default function HeroWaterCanvas({
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     document.documentElement.addEventListener("pointerleave", onPointerLeave);
     window.addEventListener("blur", onPointerLeave);
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     render(startTime);
 
@@ -585,17 +597,18 @@ export default function HeroWaterCanvas({
         onPointerLeave
       );
       window.removeEventListener("blur", onPointerLeave);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       image.onload = null;
       webgl.deleteBuffer(geometryBuffer);
       webgl.deleteTexture(imageTexture);
       webgl.deleteProgram(renderProgram);
     };
-  }, [showCapitalBand, transitionColor, transitionHeightPx]);
+  }, [desktopEffect, showCapitalBand, transitionColor, transitionHeightPx]);
 
   return (
     <canvas
       ref={canvasRef}
-      className={`pointer-events-none absolute inset-x-0 top-0 h-full w-full ${className ?? ""}`}
+      className={`pointer-events-none absolute inset-x-0 top-0 hidden h-full w-full md:block ${className ?? ""}`}
       aria-hidden="true"
     />
   );

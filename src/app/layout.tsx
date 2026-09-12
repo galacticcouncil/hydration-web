@@ -13,6 +13,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="preload" href="/font/geist/geist.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/font/gazpacho/Gazpacho-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/font/gazpacho/Gazpacho-Italic-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="alternate" type="text/markdown" href="/index.md" title="Hydration as Markdown" />
         <link rel="describedby" type="text/plain" href="/llms.txt" title="Hydration resources for agents" />
       </head>

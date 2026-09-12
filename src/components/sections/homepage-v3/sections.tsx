@@ -6,10 +6,10 @@ import AnimateOnView from "@/animation/motion-section";
 import { fadeUp, revealStagger, staggerChildren } from "@/animation/variants";
 import HdxFlowLogo from "@/components/sections/built-to-be-unstoppable/assets/logo.svg";
 import ArchFeatureCard from "@/components/sections/arch-feature-card";
-import LockIcon from "@/components/sections/devs-and-security/icons/lock";
 import DiscordLogo from "@/components/footer/assets/discord.svg";
 import TelegramLogo from "@/components/footer/assets/telegram.svg";
 import XLogo from "@/components/footer/assets/x.svg";
+import LockIcon from "@/components/sections/devs-and-security/icons/lock";
 import {
   ProductiveAssetsIcon,
   StrategyNetworkIcon,
@@ -172,6 +172,7 @@ export function ProductiveYieldSection() {
               description={pillar.description}
               accent={pillar.accent}
               icon={pillar.icon}
+              accentFill="gradient"
             />
           ))}
         </motion.div>
