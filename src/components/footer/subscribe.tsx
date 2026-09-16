@@ -23,14 +23,14 @@ export default function SubscribeToNewsletter({
       </p>
       <form
         className={twMerge(
-          "flex h-[3rem] justify-between gap-4 rounded-xl bg-beige p-1 sm:max-w-[22.7rem]",
+          "flex h-[3.25rem] justify-between gap-2 rounded-xl bg-beige p-1 sm:h-12 sm:max-w-[22.7rem] sm:gap-4",
           dark && "border border-white/15 bg-white/[0.06]"
         )}
       >
         <Input
           placeholder="Email address"
           className={twMerge(
-            "min-w-0",
+            "min-w-0 px-3 sm:px-4",
             dark &&
               "bg-transparent text-white placeholder:text-white/35 focus:outline-none"
           )}

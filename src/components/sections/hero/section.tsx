@@ -13,6 +13,7 @@ import SupportingBadge from "@/components/badges/supportingBadge";
 import { HeroLaunchAppButton } from "@/components/header/launch-app-button";
 import {
   motion,
+  useInView,
   useMotionTemplate,
   useMotionValueEvent,
   useReducedMotion,
@@ -28,14 +29,13 @@ import { useEffect, useRef, useState } from "react";
 const headlineEase = [0.2, 0.65, 0.3, 0.9] as const;
 const beigeShaderColor = [246 / 255, 246 / 255, 236 / 255] as const;
 const metricRevealEase = (value: number) => 1 - Math.pow(1 - value, 3);
-const mobileSceneClip =
-  "inset(0vh 7vw 0vh 7vw round 2.75rem 2.75rem 0rem 0rem)";
 // Preserved for another pass: progressively feathers the real scene container
 // while it expands, without introducing a duplicate blurred background.
 const sceneEdgeFeatherEnabled = false;
 
 export default function HeroSection() {
   const sceneRef = useRef<HTMLDivElement>(null);
+  const mobileSceneRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
   const { width: viewportWidth, height: viewportHeight } = useScreenSize();
   const mobileLayout = viewportWidth < 1024;
@@ -43,20 +43,13 @@ export default function HeroSection() {
     target: sceneRef,
     offset: ["start start", "end end"],
   });
-  // Open the mobile image on scroll while text and metrics stay in normal flow.
+  // Track the image itself so its motion happens while it is on screen.
+  // The mobile scene and its metrics share one full-width, normal-flow section.
   const { scrollYProgress: mobileSceneProgress } = useScroll({
-    target: sceneRef,
-    offset: ["start start", "start -55%"],
+    target: mobileSceneRef,
+    offset: ["start end", "end start"],
   });
-  const mobileClip = useTransform(
-    mobileSceneProgress,
-    [0, 1],
-    [
-      mobileSceneClip,
-      "inset(0vh 0vw 0vh 0vw round 0rem 0rem 0rem 0rem)",
-    ],
-  );
-  const mobileScale = useTransform(mobileSceneProgress, [0, 1], [1, 1.08]);
+  const mobileScale = useTransform(mobileSceneProgress, [0, 1], [1, 1.06]);
 
   const sceneClip = useTransform(
     scrollYProgress,
@@ -145,80 +138,100 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
-        <motion.div
-          data-hero-scene
-          className="relative z-10 h-[clamp(22rem,70svh,38rem)] isolate overflow-hidden bg-beige [clip-path:var(--hero-mobile-clip)] lg:absolute lg:inset-0 lg:h-auto lg:[clip-path:var(--hero-desktop-clip)]"
-          style={{
-            // Keep both motion bindings stable across hydration and resizing.
-            // CSS selects the mask at the same breakpoint as the scene layout.
-            "--hero-mobile-clip": reducedMotion ? mobileSceneClip : mobileClip,
-            "--hero-desktop-clip": reducedMotion
-              ? "inset(66vh 7vw 0 7vw round 2.75rem 2.75rem 0 0)"
-              : sceneClip,
-            maskImage:
-              sceneEdgeFeatherEnabled && !reducedMotion
-                ? sceneFeatherMask
-                : undefined,
-            WebkitMaskImage:
-              sceneEdgeFeatherEnabled && !reducedMotion
-                ? sceneFeatherMask
-                : undefined,
-            maskComposite: "intersect",
-            WebkitMaskComposite: "source-in",
-          } as MotionStyle}
+        <div
+          ref={mobileSceneRef}
+          data-hero-mobile-scene
+          className="relative isolate lg:contents"
         >
           <motion.div
-            className="absolute inset-0"
+            data-hero-scene
+            className="absolute inset-x-0 top-0 z-10 h-[22rem] isolate overflow-hidden bg-beige [mask-image:linear-gradient(to_bottom,black_95%,transparent)] sm:h-[26rem] lg:inset-0 lg:h-auto lg:[clip-path:var(--hero-desktop-clip)] lg:[mask-image:none]"
             style={{
-              scale: reducedMotion ? 1 : mobileLayout ? mobileScale : sceneScale,
-            }}
+              // Keep the desktop motion binding stable across hydration/resizing.
+              // The mobile scene stays full width; its bottom mask only fades
+              // the composited image edge to prevent a fractional-pixel seam.
+              "--hero-desktop-clip": reducedMotion
+                ? "inset(66vh 7vw 0 7vw round 2.75rem 2.75rem 0 0)"
+                : sceneClip,
+              maskImage:
+                sceneEdgeFeatherEnabled && !reducedMotion
+                  ? sceneFeatherMask
+                  : undefined,
+              WebkitMaskImage:
+                sceneEdgeFeatherEnabled && !reducedMotion
+                  ? sceneFeatherMask
+                  : undefined,
+              maskComposite: "intersect",
+              WebkitMaskComposite: "source-in",
+            } as MotionStyle}
           >
             <motion.div
-              className="absolute inset-0 will-change-transform"
-              initial={reducedMotion ? false : { opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.55,
-                duration: 1.05,
-                ease: headlineEase,
+              className="absolute inset-0"
+              style={{
+                scale: reducedMotion ? 1 : mobileLayout ? mobileScale : sceneScale,
               }}
             >
-              <div
-                className="absolute inset-0 overflow-hidden"
-                aria-hidden="true"
+              <motion.div
+                className="absolute inset-0 will-change-transform"
+                initial={reducedMotion ? false : { opacity: 0, y: 22 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.55,
+                  duration: 1.05,
+                  ease: headlineEase,
+                }}
               >
-                <Image
-                  src="/assets/hero-arches-sunset-wide.webp"
-                  alt=""
-                  fill
-                  loading="lazy"
-                  quality={74}
-                  sizes="100vw"
-                  className="object-cover object-[54%_center]"
+                <div
+                  className="absolute inset-0 overflow-hidden"
+                  aria-hidden="true"
+                >
+                  <Image
+                    src="/assets/hero-arches-sunset-wide.webp"
+                    alt=""
+                    fill
+                    loading="lazy"
+                    quality={74}
+                    sizes="100vw"
+                    className="object-cover object-center lg:object-[54%_center]"
+                  />
+                </div>
+                <HeroWaterCanvas
+                  className="hero-water-camera"
+                  showCapitalBand
+                  transitionColor={beigeShaderColor}
+                  transitionHeightPx={sceneTransitionHeight}
                 />
-              </div>
-              <HeroWaterCanvas
-                className="hero-water-camera"
-                showCapitalBand
-                transitionColor={beigeShaderColor}
-                transitionHeightPx={sceneTransitionHeight}
-              />
-              <div
-                className="pointer-events-none absolute inset-0 z-[7] bg-[url('/noise.svg')] bg-repeat opacity-20 mix-blend-multiply grayscale"
-                style={{ backgroundSize: "640px 640px" }}
-                aria-hidden="true"
-              />
+                <div
+                  className="pointer-events-none absolute inset-0 z-[7] bg-[url('/noise.svg')] bg-repeat opacity-20 mix-blend-multiply grayscale"
+                  style={{ backgroundSize: "640px 640px" }}
+                  aria-hidden="true"
+                />
+              </motion.div>
             </motion.div>
+
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 -bottom-px top-0 z-[8] bg-[linear-gradient(to_bottom,rgba(246,246,236,0)_18%,rgba(246,246,236,0.86)_60%,#f6f6ec_94%)] lg:hidden"
+            />
           </motion.div>
 
+          <HeroCapitalStats
+            progress={scrollYProgress}
+            staticValues={mobileLayout}
+            style={{
+              opacity: reducedMotion || mobileLayout ? 1 : statsOpacity,
+              y: reducedMotion || mobileLayout ? 0 : statsY,
+            }}
+          />
+
           <motion.div
-            className="absolute inset-x-0 bottom-8 z-20 mx-auto px-4 lg:px-[8vw]"
+            className="relative z-30 mx-auto px-4 pb-8 lg:absolute lg:inset-x-0 lg:bottom-8 lg:z-20 lg:px-[8vw] lg:pb-0"
             style={{
               opacity: reducedMotion || mobileLayout ? 1 : introChromeOpacity,
             }}
           >
             <motion.div
-              className="flex w-full flex-col items-center gap-5 lg:flex-row lg:justify-between lg:gap-0"
+              className="flex w-full flex-col items-center gap-3 lg:flex-row lg:justify-between lg:gap-0"
               initial={reducedMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -231,16 +244,7 @@ export default function HeroSection() {
               <SupportingBadge />
             </motion.div>
           </motion.div>
-        </motion.div>
-
-        <HeroCapitalStats
-          progress={scrollYProgress}
-          staticValues={mobileLayout}
-          style={{
-            opacity: reducedMotion || mobileLayout ? 1 : statsOpacity,
-            y: reducedMotion || mobileLayout ? 0 : statsY,
-          }}
-        />
+        </div>
       </div>
     </section>
   );
@@ -310,14 +314,14 @@ function HeroCapitalStats({
   return (
     <motion.div
       id="capital"
-      className="relative z-30 flex flex-col justify-end bg-transparent px-6 py-10 text-purple md:px-[50px] lg:absolute lg:inset-x-0 lg:bottom-0 lg:min-h-[40vh] lg:pb-[7vh] lg:pt-8 xl:px-0"
+      className="relative z-30 flex flex-col justify-end bg-transparent px-6 pb-6 pt-28 text-purple sm:pt-32 md:px-[50px] lg:absolute lg:inset-x-0 lg:bottom-0 lg:min-h-[40vh] lg:pb-[7vh] lg:pt-8 xl:px-0"
       style={style}
     >
       <div className="container mx-auto w-full max-xl:!px-0">
         <h2 className="text-center font-gazpacho text-lg font-medium leading-none tracking-tight text-purple md:text-[1.25rem]">
           Capital at work
         </h2>
-        <div className="mt-7 grid w-full grid-cols-2 gap-x-5 gap-y-8 lg:mt-8 lg:grid-cols-4 lg:gap-10">
+        <div className="mx-auto mt-6 grid w-full max-w-[36rem] grid-cols-2 gap-x-5 gap-y-6 lg:mt-8 lg:max-w-none lg:grid-cols-4 lg:gap-10">
           {metrics.map((metric, index) => (
             <AnimatedCapitalMetric
               index={index}
@@ -345,6 +349,9 @@ function AnimatedCapitalMetric({
   staticValue?: boolean;
 }) {
   const reducedMotion = useReducedMotion();
+  const metricRef = useRef<HTMLElement>(null);
+  const metricInView = useInView(metricRef, { once: true, amount: 0.4 });
+  const revealOnMobile = staticValue && !reducedMotion && !metricInView;
   const showFinalValue = reducedMotion || staticValue;
   const hasLiveValue = metric.value !== null && Number.isFinite(metric.value);
   const targetValue = metric.value ?? 0;
@@ -371,12 +378,14 @@ function AnimatedCapitalMetric({
   );
 
   useEffect(() => {
+    if (showFinalValue) return;
     setDisplayValue(
       formatCompactMetric(countProgress.get() * targetValue, metric.prefix),
     );
-  }, [countProgress, metric.prefix, targetValue]);
+  }, [countProgress, metric.prefix, showFinalValue, targetValue]);
 
   useMotionValueEvent(countProgress, "change", (latest) => {
+    if (showFinalValue) return;
     const nextValue = formatCompactMetric(latest * targetValue, metric.prefix);
     setDisplayValue((current) => (current === nextValue ? current : nextValue));
   });
@@ -385,36 +394,47 @@ function AnimatedCapitalMetric({
 
   return (
     <motion.article
+      ref={metricRef}
       className="min-w-0 text-center lg:text-left"
       style={{
         opacity: showFinalValue ? 1 : metricOpacity,
         y: showFinalValue ? 0 : metricY,
       }}
     >
-      <motion.p
-        className="font-gazpacho text-[clamp(1.75rem,7.5vw,4.125rem)] font-medium leading-[0.95] tracking-[-0.045em] text-purple tabular-nums lg:text-[clamp(3.5rem,4.45vw,4.65rem)] lg:leading-[0.84]"
-        style={{ filter: showFinalValue ? "blur(0px)" : valueFilter }}
+      <motion.div
+        initial={false}
+        animate={{ opacity: revealOnMobile ? 0 : 1, y: revealOnMobile ? 20 : 0 }}
+        transition={{
+          duration: reducedMotion ? 0 : 0.6,
+          delay: reducedMotion ? 0 : index * 0.07,
+          ease: headlineEase,
+        }}
       >
-        {hasLiveValue ? (
-          <>
-            <span aria-hidden="true">
-              {showFinalValue ? finalValue : displayValue}
-            </span>
-            <span className="sr-only">{finalValue}</span>
-          </>
-        ) : (
-          "—"
+        <motion.p
+          className="font-gazpacho text-[clamp(2rem,10vw,3.5rem)] font-medium leading-[0.95] tracking-[-0.045em] text-purple tabular-nums lg:text-[clamp(3.5rem,4.45vw,4.65rem)] lg:leading-[0.84]"
+          style={{ filter: showFinalValue ? "blur(0px)" : valueFilter }}
+        >
+          {hasLiveValue ? (
+            <>
+              <span aria-hidden="true">
+                {showFinalValue ? finalValue : displayValue}
+              </span>
+              <span className="sr-only">{finalValue}</span>
+            </>
+          ) : (
+            "—"
+          )}
+        </motion.p>
+        <h3 className="mx-auto mt-3 max-w-[18rem] text-balance font-geist text-xs font-medium leading-snug text-purple/75 md:text-sm lg:mx-0 lg:max-w-none lg:whitespace-nowrap lg:font-gazpacho lg:text-[0.82rem] lg:leading-[1.08] lg:tracking-tight xl:text-[0.9rem]">
+          {metric.title}
+        </h3>
+        {metric.delta !== null && (
+          <p className="mt-1 font-geist text-xs font-medium tabular-nums text-purple/65">
+            {metric.delta >= 0 ? "+" : "−"}
+            {formatCompactMetric(Math.abs(metric.delta), metric.prefix)}
+          </p>
         )}
-      </motion.p>
-      <h3 className="mt-3 max-w-[18rem] text-balance font-gazpacho text-[0.8rem] font-medium leading-[1.08] tracking-tight text-purple/75 md:text-[0.9rem] lg:max-w-none lg:whitespace-nowrap lg:text-[0.82rem] xl:text-[0.9rem]">
-        {metric.title}
-      </h3>
-      {metric.delta !== null && (
-        <p className="mt-1 font-geist text-xs font-medium tabular-nums text-purple/65">
-          {metric.delta >= 0 ? "+" : "−"}
-          {formatCompactMetric(Math.abs(metric.delta), metric.prefix)}
-        </p>
-      )}
+      </motion.div>
     </motion.article>
   );
 }

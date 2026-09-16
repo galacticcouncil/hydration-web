@@ -382,7 +382,6 @@ export function HdxSection() {
               alt="HDX at the center of Hydration governance"
               className="h-[3.75rem] w-[3.75rem] shrink-0"
             />
-            <div className="h-px flex-1 bg-pink/40" />
           </div>
           <div className="ml-9 border-l border-pink/40 pb-1 pt-9">
             {hdxBenefits.map((benefit, index) => (
