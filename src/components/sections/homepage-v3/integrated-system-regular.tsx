@@ -73,7 +73,7 @@ export default function IntegratedSystemRegular() {
       </AnimateOnView>
 
       <AnimateOnView
-        className="mt-12 grid items-center gap-10 border-t border-purple/10 pt-12 md:grid-cols-2 md:gap-12 lg:mt-16 lg:pt-16"
+        className="mt-28 grid items-center gap-10 md:grid-cols-2 md:gap-12 lg:mt-40"
         variants={staggerChildren(0.1)}
         threshold={0.2}
       >
@@ -101,18 +101,18 @@ export default function IntegratedSystemRegular() {
           variants={reveal}
         >
           <AnimatedIllustration
-            src="/assets/why-hydration-integrated-layers.svg"
-            animatedSrc="/assets/why-hydration-integrated-layers-animated.svg"
-            alt="Hydration connects soft colored layers into one integrated financial system"
-            width={418}
-            height={420}
+            src="/assets/why-hydration-integrated-grid.svg"
+            animatedSrc="/assets/why-hydration-integrated-grid-animated.svg"
+            alt="Connected colored tiles form one integrated financial system"
+            width={402}
+            height={267}
             className="h-auto w-full"
           />
         </motion.div>
       </AnimateOnView>
 
       <AnimateOnView
-        className="mt-12 border-t border-purple/10 pt-12 lg:mt-16 lg:pt-16"
+        className="mt-28 lg:mt-40"
         variants={staggerChildren(0.1)}
         threshold={0.2}
       >
