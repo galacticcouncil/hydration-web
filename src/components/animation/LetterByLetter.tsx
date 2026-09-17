@@ -43,10 +43,13 @@ export default function LetterByLetter({
   };
 
   return (
-    <motion.div variants={staggerChildren(staggerDelay)}>
-      {React.Children.map(children, (child) => (
-        <Fragment>{parseChildren(child)}</Fragment>
-      ))}
-    </motion.div>
+    <span className="block" data-animated-heading>
+      <span className="sr-only">{children}</span>
+      <motion.span className="block" aria-hidden="true" variants={staggerChildren(staggerDelay)}>
+        {React.Children.map(children, (child) => (
+          <Fragment>{parseChildren(child)}</Fragment>
+        ))}
+      </motion.span>
+    </span>
   );
 }

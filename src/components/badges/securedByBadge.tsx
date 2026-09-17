@@ -6,14 +6,28 @@ import Link from "next/link";
 
 type Props = {
   className?: string;
+  dark?: boolean;
 };
 
-export default function SecuredByBadge({ className }: Props) {
+export default function SecuredByBadge({ className, dark = false }: Props) {
   return (
-    <Badge className={twMerge("bg-transparent px-0", className)}>
+    <Badge
+      className={twMerge(
+        "bg-transparent px-0",
+        dark && "text-white/50",
+        className
+      )}
+    >
       Secured by
       <Link href="https://polkadot.network" target="_blank">
-        <Image className="py-2.5" src={PolkadotLogo} alt="polkadot logo" />
+        <Image
+          className={twMerge(
+            "py-2.5",
+            dark && "brightness-0 invert opacity-75"
+          )}
+          src={PolkadotLogo}
+          alt="polkadot logo"
+        />
       </Link>
     </Badge>
   );

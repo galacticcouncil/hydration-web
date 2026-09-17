@@ -43,12 +43,13 @@ const socials = [
 
 type Props = {
   className?: string;
+  dark?: boolean;
 };
 
-export default function Socials({ className }: Props) {
+export default function Socials({ className, dark = false }: Props) {
   return (
     <motion.div
-      className={twMerge("flex gap-8 items-center", className)}
+      className={twMerge("flex gap-4 items-center lg:gap-8", className)}
       variants={fadeUp()}
     >
       {socials.map((social) => (
@@ -56,9 +57,15 @@ export default function Socials({ className }: Props) {
           key={social.name}
           href={social.href}
           target="_blank"
-          className="cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 lg:h-7 lg:w-7"
         >
-          <Image src={social.logo} alt={social.name} width={28} height={28} />
+          <Image
+            src={social.logo}
+            alt={social.name}
+            width={28}
+            height={28}
+            className={dark ? "brightness-0 invert opacity-75" : undefined}
+          />
         </Link>
       ))}
     </motion.div>
