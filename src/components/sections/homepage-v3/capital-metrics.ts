@@ -12,6 +12,7 @@ export type { CapitalMetric } from "@/lib/capital-metrics";
 
 const CACHE_KEY = "hydration:capital-metrics:v2";
 const REFRESH_MS = 60_000;
+const EMPTY_METRICS = emptyCapitalMetrics();
 let pending: Promise<CapitalMetric[]> | null = null;
 
 function readCache(): CapitalMetric[] {
@@ -31,6 +32,21 @@ function writeCache(metrics: CapitalMetric[]) {
   }
 }
 
+function preferNewest(
+  initialMetrics: CapitalMetric[],
+  cachedMetrics: CapitalMetric[],
+) {
+  return initialMetrics.map((initial, index) => {
+    const cached = cachedMetrics[index];
+    if (!cached || cached.value === null) return initial;
+    if (initial.value === null) return cached;
+
+    const initialTime = Date.parse(initial.retrievedAt ?? "");
+    const cachedTime = Date.parse(cached.retrievedAt ?? "");
+    return cachedTime > initialTime ? cached : initial;
+  });
+}
+
 function fetchMetrics() {
   if (!pending) {
     pending = fetch("/api/capital-metrics", { signal: AbortSignal.timeout(12_000) })
@@ -43,13 +59,15 @@ function fetchMetrics() {
   return pending;
 }
 
-export function useCapitalMetrics() {
-  const [metrics, setMetrics] = useState<CapitalMetric[]>(emptyCapitalMetrics);
+export function useCapitalMetrics(
+  initialMetrics: CapitalMetric[] = EMPTY_METRICS,
+) {
+  const [metrics, setMetrics] = useState<CapitalMetric[]>(initialMetrics);
 
   useEffect(() => {
     let active = true;
     let refreshing = false;
-    let current = readCache();
+    let current = preferNewest(initialMetrics, readCache());
     setMetrics(current);
 
     const refresh = async () => {
@@ -88,7 +106,7 @@ export function useCapitalMetrics() {
       document.removeEventListener("visibilitychange", refresh);
       window.removeEventListener("online", refresh);
     };
-  }, []);
+  }, [initialMetrics]);
 
   return metrics;
 }

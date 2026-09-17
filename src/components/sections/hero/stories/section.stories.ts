@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { capitalMetricDefinitions } from "@/lib/capital-metrics";
 import HeroSection from "../section";
+
+const sampleValues = [66_000_000, 3_000_000, 3_000_000, 12_700_000];
+const retrievedAt = new Date().toISOString();
 
 const meta = {
   title: "Hero",
@@ -16,13 +20,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    stats: {
-      tvl: 66_000_000,
-      vol_30d: 60_000_000,
-      xcm_vol_30d: 28_000_000,
-      assets_count: 42,
-      accounts_count: 109_000,
-    },
+    initialMetrics: capitalMetricDefinitions.map((definition, index) => ({
+      ...definition,
+      value: sampleValues[index],
+      delta: null,
+      retrievedAt,
+      asOf: null,
+      status: "fresh" as const,
+    })),
   },
   parameters: {
     viewport: {

@@ -1,6 +1,7 @@
 import Footer from "@/components/footer/footer";
 import Header from "@/components/header/header";
 import HeroSection from "@/components/sections/hero/section";
+import { getCachedCapitalMetrics } from "@/api/capital-metrics.cached";
 import SecurityFeature from "@/components/sections/new-features/security-feature";
 import {
   CommunityBuildSection,
@@ -101,7 +102,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export const revalidate = 60;
+
+export default async function Home() {
+  const { metrics } = await getCachedCapitalMetrics();
+
   return (
     <main className="bg-white-100 overflow-x-clip">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageStructuredData()).replace(/</g, "\\u003c") }} />
@@ -120,7 +125,7 @@ export default function Home() {
         `}</style>
       </noscript>
       <Header className="fixed top-0 left-0 right-0 xl:top-4" />
-      <HeroSection />
+      <HeroSection initialMetrics={metrics} />
       <noscript>
         <p className="bg-beige px-6 pb-8 text-center font-geist text-sm text-purple">
           <a className="underline" href="/index.md">Read this page as plain Markdown</a>.

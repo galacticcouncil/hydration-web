@@ -33,7 +33,11 @@ const metricRevealEase = (value: number) => 1 - Math.pow(1 - value, 3);
 // while it expands, without introducing a duplicate blurred background.
 const sceneEdgeFeatherEnabled = false;
 
-export default function HeroSection() {
+export default function HeroSection({
+  initialMetrics,
+}: {
+  initialMetrics?: CapitalMetric[];
+}) {
   const sceneRef = useRef<HTMLDivElement>(null);
   const mobileSceneRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
@@ -216,6 +220,7 @@ export default function HeroSection() {
           </motion.div>
 
           <HeroCapitalStats
+            initialMetrics={initialMetrics}
             progress={scrollYProgress}
             staticValues={mobileLayout}
             style={{
@@ -301,15 +306,17 @@ function HeroSectionContent() {
 }
 
 function HeroCapitalStats({
+  initialMetrics,
   progress,
   style,
   staticValues = false,
 }: {
+  initialMetrics?: CapitalMetric[];
   progress: MotionValue<number>;
   style: MotionStyle;
   staticValues?: boolean;
 }) {
-  const metrics = useCapitalMetrics();
+  const metrics = useCapitalMetrics(initialMetrics);
   const reducedMotion = useReducedMotion();
   const headingRef = useRef<HTMLHeadingElement>(null);
   const headingInView = useInView(headingRef, { once: true, amount: 0.8 });

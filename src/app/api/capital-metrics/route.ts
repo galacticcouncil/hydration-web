@@ -1,12 +1,10 @@
-import { createCapitalMetricsService } from "@/api/capital-metrics.server";
+import { getCachedCapitalMetrics } from "@/api/capital-metrics.cached";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const getCapitalMetrics = createCapitalMetricsService();
-
 export async function GET() {
-  const data = await getCapitalMetrics();
+  const data = await getCachedCapitalMetrics();
   const available = data.metrics.some((metric) => metric.value !== null);
   const fresh = data.metrics.every((metric) => metric.status === "fresh");
   return Response.json(data, {
