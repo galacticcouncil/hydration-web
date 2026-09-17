@@ -16,7 +16,6 @@ import {
 } from "@/components/sections/new-features/rwa-feature";
 import Heading from "@/components/ui/typography/heading";
 import Paragraph from "@/components/ui/typography/paragraph";
-import SectionLabel from "@/components/ui/labels/section";
 import DiamondIcon from "@/components/ui/labels/icons/diamond";
 import { formatCompactMetric, useCapitalMetrics } from "./capital-metrics";
 import StrategyAssetCloud from "./strategy-asset-cloud";
@@ -144,10 +143,7 @@ export function ProductiveYieldSection() {
           className="mx-auto flex max-w-[54rem] flex-col items-center text-center"
           variants={fadeUp(14)}
         >
-          <SectionLabel captionClassName="text-pink" iconClassName="bg-pink">
-            Productive yield
-          </SectionLabel>
-          <Heading size="large" className="mt-5 text-balance text-purple">
+          <Heading size="large" className="text-balance text-purple">
             {homepageCopy.productive.title}
           </Heading>
           <Paragraph
@@ -427,25 +423,22 @@ export function CommunityBuildSection() {
             className="flex items-center px-6 py-20 md:px-[50px] lg:px-[max(50px,calc((100vw-83rem)/2+4rem))] lg:py-28 lg:pr-16 xl:pr-24"
             variants={fadeUp(14)}
           >
-            <motion.div className="max-w-[48rem]" variants={fadeUp(10)}>
-              <SectionLabel
-                captionClassName="text-lavender"
-                iconClassName="bg-pink"
-              >
-                Community
-              </SectionLabel>
-              <h2 className="mt-7 max-w-[17ch] text-balance font-gazpacho text-[2.4rem] font-normal leading-[1.04] text-white md:text-[3rem] lg:text-[3.25rem]">
+            <motion.div
+              className="mx-auto max-w-[48rem] text-center lg:mx-0 lg:text-left"
+              variants={fadeUp(10)}
+            >
+              <h2 className="mx-auto max-w-[17ch] text-balance font-gazpacho text-[2.4rem] font-normal leading-[1.04] text-white md:text-[3rem] lg:mx-0 lg:text-[3.25rem]">
                 {homepageCopy.community.title}
               </h2>
               <Paragraph
                 size="large"
-                className="mt-8 max-w-[39rem] text-white/65"
+                className="mx-auto mt-8 max-w-[39rem] text-white/65 lg:mx-0"
               >
                 {homepageCopy.community.paragraphs[0]}
               </Paragraph>
               <Paragraph
                 size="large"
-                className="mt-4 max-w-[39rem] text-white/65"
+                className="mx-auto mt-4 max-w-[39rem] text-white/65 lg:mx-0"
               >
                 {homepageCopy.community.paragraphs[1]}
               </Paragraph>
@@ -453,7 +446,7 @@ export function CommunityBuildSection() {
                 Join the Community
               </p>
               <motion.div
-                className="mt-6 grid gap-2 sm:grid-cols-3"
+                className="mx-auto mt-6 grid w-full max-w-[20rem] gap-2 sm:max-w-none sm:grid-cols-3 lg:mx-0"
                 variants={staggerChildren(0.09)}
               >
                 <CommunityLink
@@ -525,7 +518,7 @@ function CommunityLink({
         target="_blank"
         rel="noreferrer"
         aria-label={`Open Hydration on ${name}`}
-        className={`${className} group flex min-h-[4.25rem] items-center justify-center rounded-full px-5 py-3 text-purple transition-transform duration-200 ease-out hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white`}
+        className={`${className} group flex min-h-14 items-center justify-center rounded-full px-4 py-2 text-purple transition-transform duration-200 ease-out hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:min-h-[4.25rem] lg:px-5 lg:py-3`}
       >
         <span className="flex items-center gap-3">
           <Image
@@ -533,9 +526,11 @@ function CommunityLink({
             alt=""
             width={28}
             height={28}
-            className="h-7 w-auto"
+            className="h-6 w-auto lg:h-7"
           />
-          <span className="font-geist text-base font-medium">{name}</span>
+          <span className="font-geist text-[0.9375rem] font-medium lg:text-base">
+            {name}
+          </span>
         </span>
       </Link>
     </motion.div>

@@ -310,6 +310,10 @@ function HeroCapitalStats({
   staticValues?: boolean;
 }) {
   const metrics = useCapitalMetrics();
+  const reducedMotion = useReducedMotion();
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const headingInView = useInView(headingRef, { once: true, amount: 0.8 });
+  const revealHeading = staticValues && !reducedMotion;
 
   return (
     <motion.div
@@ -318,9 +322,25 @@ function HeroCapitalStats({
       style={style}
     >
       <div className="container mx-auto w-full max-xl:!px-0">
-        <h2 className="text-center font-gazpacho text-lg font-medium leading-none tracking-tight text-purple md:text-[1.25rem]">
+        <motion.h2
+          ref={headingRef}
+          className="text-center font-gazpacho text-lg font-medium leading-none tracking-tight text-purple md:text-[1.25rem]"
+          initial={revealHeading ? { opacity: 0, y: 12 } : false}
+          animate={
+            revealHeading
+              ? {
+                  opacity: headingInView ? 1 : 0,
+                  y: headingInView ? 0 : 12,
+                }
+              : { opacity: 1, y: 0 }
+          }
+          transition={{
+            duration: reducedMotion ? 0 : 0.6,
+            ease: headlineEase,
+          }}
+        >
           Capital at work
-        </h2>
+        </motion.h2>
         <div className="mx-auto mt-6 grid w-full max-w-[36rem] grid-cols-2 gap-x-5 gap-y-6 lg:mt-8 lg:max-w-none lg:grid-cols-4 lg:gap-10">
           {metrics.map((metric, index) => (
             <AnimatedCapitalMetric
