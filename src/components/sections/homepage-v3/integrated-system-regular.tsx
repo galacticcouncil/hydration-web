@@ -73,7 +73,7 @@ export default function IntegratedSystemRegular() {
       </AnimateOnView>
 
       <AnimateOnView
-        className="mt-28 grid items-center gap-10 md:grid-cols-2 md:gap-12 lg:mt-40"
+        className="mt-28 grid items-center gap-16 md:grid-cols-2 md:gap-12 lg:mt-40"
         variants={staggerChildren(0.1)}
         threshold={0.2}
       >
@@ -112,7 +112,7 @@ export default function IntegratedSystemRegular() {
       </AnimateOnView>
 
       <AnimateOnView
-        className="mt-28 lg:mt-40"
+        className="mt-8 md:mt-28 lg:mt-40"
         variants={staggerChildren(0.1)}
         threshold={0.2}
       >

@@ -126,18 +126,19 @@ function CapitalMetricCard({
 
 export function ProductiveYieldSection() {
   return (
-    <AnimateOnView
-      className="bg-beige bg-[url('/square.svg')] bg-repeat px-6 py-16 md:px-[50px] lg:py-28 xl:px-0"
-      variants={revealStagger(0.1, 18)}
+    <section
+      id="productive-yield"
+      className="scroll-mt-24 bg-beige bg-[url('/square.svg')] bg-repeat px-6 py-16 md:px-[50px] lg:scroll-mt-28 lg:py-28 xl:px-0"
       style={{
         backgroundSize: "clamp(4.375rem, 0.804rem + 8.929vi, 9.375rem)",
       }}
-      threshold={0.12}
-      viewportMargin="0px 0px -10% 0px"
     >
-      <section
-        id="productive-yield"
-        className="container mx-auto scroll-mt-24 max-xl:!px-0 lg:scroll-mt-28"
+      <AnimateOnView
+        element="div"
+        className="container mx-auto max-xl:!px-0"
+        variants={revealStagger(0.1, 18)}
+        threshold={0.12}
+        viewportMargin="0px 0px -10% 0px"
       >
         <motion.div
           className="mx-auto flex max-w-[54rem] flex-col items-center text-center"
@@ -172,8 +173,8 @@ export function ProductiveYieldSection() {
             />
           ))}
         </motion.div>
-      </section>
-    </AnimateOnView>
+      </AnimateOnView>
+    </section>
   );
 }
 
