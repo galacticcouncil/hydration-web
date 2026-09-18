@@ -16,12 +16,12 @@ import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { twMerge } from "tailwind-merge";
 import Heading from "@/components/ui/typography/heading";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { fadeUp, none, scaleUp, staggerChildren } from "@/animation/variants";
 
 export default function Galaxy() {
   return (
-    <motion.div
+    <m.div
       className="w-[110%] -ml-[5%] md:ml-auto md:w-[full] mx-auto max-w-[750px] aspect-square relative bg-white"
       variants={scaleUp()}
     >
@@ -30,7 +30,7 @@ export default function Galaxy() {
       <ThirdRank />
       <FourthRank />
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center w-[500px] z-20">
-        <motion.div variants={fadeUp()}>
+        <m.div variants={fadeUp()}>
           <Heading
             className="~text-[1.5rem]/4xl text-center"
             size="medium"
@@ -52,9 +52,9 @@ export default function Galaxy() {
           >
             any supported asset
           </Heading>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 

@@ -20,7 +20,7 @@ import DiamondIcon from "@/components/ui/labels/icons/diamond";
 import { formatCompactMetric, useCapitalMetrics } from "./capital-metrics";
 import StrategyAssetCloud from "./strategy-asset-cloud";
 import IntegratedSystemRegular from "./integrated-system-regular";
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 
@@ -73,23 +73,23 @@ export function CapitalAtWorkSection() {
         id="capital"
         className="container relative z-20 mx-auto scroll-mt-32 max-xl:!px-0 lg:-mt-12 lg:scroll-mt-36"
       >
-        <motion.div
+        <m.div
           className="mx-auto flex w-full min-w-0 max-w-[64rem] flex-col items-center text-center"
           variants={fadeUp(10)}
         >
           <h2 className="w-full min-w-0 font-gazpacho text-base font-medium leading-none tracking-tight text-lavender md:text-[1.125rem]">
             Capital at work
           </h2>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="mt-1 grid md:mt-1.5 lg:mt-1.5 md:grid-cols-2 lg:grid-cols-4"
           variants={staggerChildren(0.1)}
         >
           {capitalMetrics.map((metric) => (
             <CapitalMetricCard key={metric.title} metric={metric} />
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </AnimateOnView>
   );
@@ -108,7 +108,7 @@ function CapitalMetricCard({
   const displayValue = formatCompactMetric(metric.value, metric.prefix);
 
   return (
-    <motion.article
+    <m.article
       className="group relative flex min-h-[6.5rem] flex-col justify-end px-1 py-2 md:min-h-[6.25rem] md:px-6 md:py-3 lg:min-h-[6rem] lg:px-8 lg:py-3 lg:first:pl-0 lg:last:pr-0"
       variants={fadeUp(16)}
     >
@@ -120,7 +120,7 @@ function CapitalMetricCard({
           {metric.title}
         </h3>
       </div>
-    </motion.article>
+    </m.article>
   );
 }
 
@@ -140,7 +140,7 @@ export function ProductiveYieldSection() {
         threshold={0.12}
         viewportMargin="0px 0px -10% 0px"
       >
-        <motion.div
+        <m.div
           className="mx-auto flex max-w-[54rem] flex-col items-center text-center"
           variants={fadeUp(14)}
         >
@@ -153,9 +153,9 @@ export function ProductiveYieldSection() {
           >
             {homepageCopy.productive.paragraphs[0]}
           </Paragraph>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3 lg:gap-8"
           initial="initial"
           whileInView="visible"
@@ -172,7 +172,7 @@ export function ProductiveYieldSection() {
               accentFill="gradient"
             />
           ))}
-        </motion.div>
+        </m.div>
       </AnimateOnView>
     </section>
   );
@@ -190,7 +190,7 @@ export function StrategiesSection() {
         id="strategies"
         className="container mx-auto scroll-mt-24 px-6 md:px-[50px] lg:scroll-mt-28 xl:px-16"
       >
-        <motion.div
+        <m.div
           className="grid gap-7"
           variants={fadeUp(14)}
         >
@@ -209,14 +209,14 @@ export function StrategiesSection() {
               {homepageCopy.strategies.paragraphs[1]}
             </Paragraph>
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="mt-12 min-w-0 lg:mt-20"
           variants={fadeUp(14)}
         >
           <StrategyAssetCloud />
-        </motion.div>
+        </m.div>
       </section>
     </AnimateOnView>
   );
@@ -273,7 +273,7 @@ export function HdxSection() {
       threshold={0.1}
       viewportMargin="0px 0px -10% 0px"
     >
-      <motion.div
+      <m.div
         aria-hidden="true"
         className="absolute inset-0 bg-lavender"
         variants={sectionFillFade}
@@ -282,7 +282,7 @@ export function HdxSection() {
         id="hdx"
         className="container relative mx-auto scroll-mt-24 max-xl:!px-0 lg:scroll-mt-28"
       >
-        <motion.div
+        <m.div
           className="mx-auto flex max-w-[64rem] flex-col items-center text-center"
           variants={fadeUp(14)}
         >
@@ -303,9 +303,9 @@ export function HdxSection() {
           <h3 className="mt-8 font-gazpacho text-[1.7rem] font-medium leading-[1.05] text-pink md:text-[1.8125rem] md:leading-[1.035]">
             Why hodl HDX
           </h3>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="relative mx-auto mt-16 hidden max-w-[75rem] lg:block"
           initial="initial"
           whileInView="visible"
@@ -326,7 +326,7 @@ export function HdxSection() {
 
           <div className="grid grid-cols-4">
             {hdxBenefits.map((benefit, index) => (
-              <motion.article
+              <m.article
                 key={benefit.title}
                 className="flex min-w-0 flex-col items-center text-center"
                 variants={fadeUp(18)}
@@ -359,12 +359,12 @@ export function HdxSection() {
                 >
                   {benefit.description}
                 </Paragraph>
-              </motion.article>
+              </m.article>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="mx-auto mt-10 max-w-[34rem] lg:hidden"
           initial="initial"
           whileInView="visible"
@@ -382,7 +382,7 @@ export function HdxSection() {
           </div>
           <div className="ml-9 border-l border-pink/40 pb-1 pt-9">
             {hdxBenefits.map((benefit, index) => (
-              <motion.article
+              <m.article
                 key={benefit.title}
                 className={
                   index === 0 ? "relative pl-9" : "relative mt-10 pl-9"
@@ -400,10 +400,10 @@ export function HdxSection() {
                 >
                   {benefit.description}
                 </Paragraph>
-              </motion.article>
+              </m.article>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </section>
     </AnimateOnView>
   );
@@ -420,11 +420,11 @@ export function CommunityBuildSection() {
     >
       <section id="community" className="relative scroll-mt-24 lg:scroll-mt-28">
         <div className="grid min-h-[56rem] lg:min-h-[58rem] lg:grid-cols-[minmax(0,1.05fr)_minmax(34rem,0.95fr)]">
-          <motion.div
+          <m.div
             className="flex items-center px-6 py-20 md:px-[50px] lg:px-[max(50px,calc((100vw-83rem)/2+4rem))] lg:py-28 lg:pr-16 xl:pr-24"
             variants={fadeUp(14)}
           >
-            <motion.div
+            <m.div
               className="mx-auto max-w-[48rem] text-center lg:mx-0 lg:text-left"
               variants={fadeUp(10)}
             >
@@ -446,7 +446,7 @@ export function CommunityBuildSection() {
               <p className="mt-10 font-gazpacho text-[1.5rem] font-medium leading-none text-lavender md:text-[1.65rem]">
                 Join the Community
               </p>
-              <motion.div
+              <m.div
                 className="mx-auto mt-6 grid w-full max-w-[20rem] gap-2 sm:max-w-none sm:grid-cols-3 lg:mx-0"
                 variants={staggerChildren(0.09)}
               >
@@ -468,16 +468,16 @@ export function CommunityBuildSection() {
                   icon={TelegramLogo}
                   className="bg-green"
                 />
-              </motion.div>
-            </motion.div>
-          </motion.div>
+              </m.div>
+            </m.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             className="relative min-h-[32rem] border-t border-white/15 bg-white/[0.035] lg:min-h-full lg:border-l lg:border-t-0"
             variants={fadeUp(20)}
           >
             <ConstructionDrawing />
-          </motion.div>
+          </m.div>
         </div>
       </section>
     </AnimateOnView>
@@ -513,7 +513,7 @@ function CommunityLink({
   className: string;
 }) {
   return (
-    <motion.div variants={fadeUp(14)}>
+    <m.div variants={fadeUp(14)}>
       <Link
         href={href}
         target="_blank"
@@ -534,6 +534,6 @@ function CommunityLink({
           </span>
         </span>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }

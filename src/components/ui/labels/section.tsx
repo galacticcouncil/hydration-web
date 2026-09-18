@@ -1,7 +1,7 @@
 "use client";
 
 import { fadeUp } from "@/animation/variants";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Caption from "../typography/caption";
 import { twMerge } from "tailwind-merge";
 
@@ -16,7 +16,7 @@ export default function SectionLabel({
   captionClassName,
 }: Props) {
   return (
-    <motion.div
+    <m.div
       className="flex items-center"
       variants={fadeUp(10)}
     >
@@ -25,6 +25,6 @@ export default function SectionLabel({
       >
         {children}
       </Caption>
-    </motion.div>
+    </m.div>
   );
 }

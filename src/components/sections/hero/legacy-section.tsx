@@ -4,7 +4,7 @@ import Paragraph from "@/components/ui/typography/paragraph";
 import Button from "@/components/ui/buttons/button";
 import Socials from "@/components/footer/socials";
 import SupportingBadge from "@/components/badges/supportingBadge";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { delayChildren } from "@/animation/variants";
 import AnimateOnView from "@/animation/motion-section";
@@ -40,13 +40,13 @@ export default function LegacyHeroSection() {
       <div className="relative z-20 lg:min-h-[820px]">
         <div className="container relative mx-auto flex justify-between px-6 md:px-[50px] xl:px-16 lg:min-h-[820px]">
           <HeroSectionContent />
-          <motion.div
+          <m.div
             className="absolute inset-x-0 bottom-4 mx-auto flex flex-col items-center gap-[3.25rem] px-6 md:px-[50px] lg:bottom-[2.375rem] lg:flex-row lg:justify-between lg:gap-0 xl:px-16"
             variants={delayChildren(0.75)}
           >
             <Socials />
             <SupportingBadge />
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </AnimateOnView>
@@ -105,7 +105,7 @@ function HeroSectionContent() {
 
   return (
     <div className="flex w-full flex-col items-center gap-8 pb-[13.438rem] pt-[10.5rem] lg:items-start lg:pb-[11.625rem] lg:pt-[17rem]">
-      <motion.section
+      <m.section
         className="w-full font-gazpacho text-center text-[54px] font-medium leading-[50px] text-purple sm:text-[78px] sm:leading-[70px] lg:text-left lg:text-[85px] lg:leading-[76px]"
       >
         <div className="block lg:whitespace-nowrap">
@@ -129,7 +129,7 @@ function HeroSectionContent() {
             ) : null}
           </AnimatePresence>
         </span>
-      </motion.section>
+      </m.section>
       <Paragraph
         size="large"
         className="max-w-[43rem] text-center text-[20px] leading-[1.2] text-purple lg:text-left lg:text-[24px]"
@@ -167,9 +167,9 @@ function AnimatedHeadlineText({
   y?: number;
 }) {
   return (
-    <motion.span aria-label={text} className={className}>
+    <m.span aria-label={text} className={className}>
       {Array.from(text).map((letter, letterIndex) => (
-        <motion.span
+        <m.span
           aria-hidden="true"
           className="inline-block"
           initial={{ opacity: 0, y }}
@@ -197,8 +197,8 @@ function AnimatedHeadlineText({
           key={`${letter}-${letterIndex}`}
         >
           {letter === " " ? "\u00A0" : letter}
-        </motion.span>
+        </m.span>
       ))}
-    </motion.span>
+    </m.span>
   );
 }

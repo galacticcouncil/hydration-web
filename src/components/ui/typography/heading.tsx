@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import LetterByLetter from "@/components/animation/LetterByLetter";
 import { ReactNode } from "react";
 import { Variants } from "framer-motion";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 type HeadingProps = {
   children: ReactNode;
@@ -28,7 +28,7 @@ export default function Heading({
         )}
       >
         {animationVariants ? (
-          <motion.span className="block" variants={animationVariants}>{children}</motion.span>
+          <m.span className="block" variants={animationVariants}>{children}</m.span>
         ) : (
           <LetterByLetter staggerDelay={0.02}>{children}</LetterByLetter>
         )}
@@ -45,7 +45,7 @@ export default function Heading({
         )}
       >
         {animationVariants ? (
-          <motion.span className="block" variants={animationVariants}>{children}</motion.span>
+          <m.span className="block" variants={animationVariants}>{children}</m.span>
         ) : (
           <LetterByLetter staggerDelay={0.03}>{children}</LetterByLetter>
         )}
@@ -61,7 +61,7 @@ export default function Heading({
       )}
     >
       {animationVariants ? (
-        <motion.span className="block" variants={animationVariants}>{children}</motion.span>
+        <m.span className="block" variants={animationVariants}>{children}</m.span>
       ) : (
         <LetterByLetter staggerDelay={0.03}>{children}</LetterByLetter>
       )}

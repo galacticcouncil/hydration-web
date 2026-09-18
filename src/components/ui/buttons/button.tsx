@@ -5,7 +5,7 @@ import Star from "@/components/icons/star";
 import Link from "next/link";
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { fadeUp } from "@/animation/variants";
 
 type ButtonAction =
@@ -71,7 +71,7 @@ export default function Button({
 }: ButtonProps) {
   const colorClassName = getButtonStyles(role, fill);
   return (
-    <motion.div variants={fadeUp()}>
+    <m.div variants={fadeUp()}>
       <ButtonWrapper action={action}>
         <button
           className={twMerge(
@@ -84,7 +84,7 @@ export default function Button({
           <ButtonContent decoration={decoration}>{children}</ButtonContent>
         </button>
       </ButtonWrapper>
-    </motion.div>
+    </m.div>
   );
 }
 

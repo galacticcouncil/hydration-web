@@ -9,7 +9,7 @@ import CodeIcon from "./icons/code";
 import GithubIcon from "./icons/github";
 import DocumentIcon from "./icons/document";
 import AnimateOnView from "@/animation/motion-section";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { staggerChildren } from "@/animation/variants";
 import useProgressiveImage from "@/hooks/useProgressiveImage";
 import ScrollAnchor from "@/components/scroll-anchor";
@@ -83,14 +83,14 @@ export default function DevsAndSecuritySection() {
           </Paragraph>
         </div>
       </div>
-      <motion.div
+      <m.div
         variants={staggerChildren(0.2)}
         className="~pt-8/16 ~pb-16/[16.938rem] flex flex-col gap-4 items-center z-10 relative container mx-auto"
       >
         {items.map((item) => (
           <DevsAndSecurityItem key={item.title} {...item} />
         ))}
-      </motion.div>
+      </m.div>
     </AnimateOnView>
   );
 }

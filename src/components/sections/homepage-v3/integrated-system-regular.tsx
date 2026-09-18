@@ -3,7 +3,7 @@
 import { homepageCopy, appchainFeatures } from "@/content/homepage";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import AnimateOnView from "@/animation/motion-section";
 import { fadeUp, none, staggerChildren } from "@/animation/variants";
 import Heading from "@/components/ui/typography/heading";
@@ -77,7 +77,7 @@ export default function IntegratedSystemRegular() {
         variants={staggerChildren(0.1)}
         threshold={0.2}
       >
-        <motion.div className="max-w-[31rem] md:order-2" variants={reveal}>
+        <m.div className="max-w-[31rem] md:order-2" variants={reveal}>
           <h3 className="max-w-[17ch] text-balance font-gazpacho text-[2rem] font-medium leading-tight text-purple lg:text-[2.5rem]">
             {homepageCopy.integrated.title}
           </h3>
@@ -95,8 +95,8 @@ export default function IntegratedSystemRegular() {
           >
             {homepageCopy.integrated.paragraphs[1]}
           </Paragraph>
-        </motion.div>
-        <motion.div
+        </m.div>
+        <m.div
           className="mx-auto w-full max-w-[26rem] md:order-1"
           variants={reveal}
         >
@@ -108,7 +108,7 @@ export default function IntegratedSystemRegular() {
             height={267}
             className="h-auto w-full"
           />
-        </motion.div>
+        </m.div>
       </AnimateOnView>
 
       <AnimateOnView
@@ -116,7 +116,7 @@ export default function IntegratedSystemRegular() {
         variants={staggerChildren(0.1)}
         threshold={0.2}
       >
-        <motion.div
+        <m.div
           className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-20"
           variants={reveal}
         >
@@ -132,11 +132,11 @@ export default function IntegratedSystemRegular() {
           >
             {homepageCopy.appchain.paragraphs[0]}
           </Paragraph>
-        </motion.div>
+        </m.div>
 
-        <motion.div className="mt-10 lg:mt-16" variants={staggerChildren(0.07)}>
+        <m.div className="mt-10 lg:mt-16" variants={staggerChildren(0.07)}>
           <div className="relative hidden aspect-[830/172] w-full lg:block">
-            <motion.div
+            <m.div
               className="absolute left-0 top-0 h-full w-[65.015%]"
               variants={reveal}
             >
@@ -148,24 +148,24 @@ export default function IntegratedSystemRegular() {
                 height={172}
                 className="h-full w-full"
               />
-            </motion.div>
-            <motion.ul variants={staggerChildren(0.07)}>
+            </m.div>
+            <m.ul variants={staggerChildren(0.07)}>
               {appchainFeatures.map((feature, index) => (
                 <li
                   key={feature.label}
                   className="absolute left-[66.5%] right-0 -translate-y-1/2 font-geist text-base leading-snug text-purple xl:text-lg"
                   style={{ top: `${branchEndpoints[index].top}%` }}
                 >
-                  <motion.span className="block" variants={reveal}>
+                  <m.span className="block" variants={reveal}>
                     {feature.label}
-                  </motion.span>
+                  </m.span>
                 </li>
               ))}
-            </motion.ul>
+            </m.ul>
           </div>
 
           <div className="lg:hidden">
-            <motion.div
+            <m.div
               className="relative mx-auto aspect-[540/172] w-full max-w-[36rem]"
               variants={reveal}
             >
@@ -177,13 +177,13 @@ export default function IntegratedSystemRegular() {
                 sizes="(max-width: 767px) calc(100vw - 48px), 576px"
                 className="object-contain"
               />
-            </motion.div>
-            <motion.ul
+            </m.div>
+            <m.ul
               className="mt-10 grid gap-x-8 gap-y-4 md:grid-cols-2"
               variants={staggerChildren(0.07)}
             >
               {appchainFeatures.map((feature, index) => (
-                <motion.li
+                <m.li
                   key={feature.label}
                   variants={reveal}
                   className="flex items-center gap-3 font-geist text-base leading-snug text-purple"
@@ -194,11 +194,11 @@ export default function IntegratedSystemRegular() {
                     style={{ backgroundColor: branchEndpoints[index].color }}
                   />
                   {feature.label}
-                </motion.li>
+                </m.li>
               ))}
-            </motion.ul>
+            </m.ul>
           </div>
-        </motion.div>
+        </m.div>
       </AnimateOnView>
     </div>
   );

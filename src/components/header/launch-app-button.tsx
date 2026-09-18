@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { useLayoutEffect, useRef, useState } from "react";
 
 const launchAppStyles =
@@ -64,7 +64,7 @@ export default function LaunchAppButton() {
 
   return (
     <div ref={slotRef} className="shrink-0">
-      <motion.a
+      <m.a
         href="https://app.hydration.net"
         target="_blank"
         rel="noopener noreferrer"
@@ -77,7 +77,7 @@ export default function LaunchAppButton() {
         style={{ pointerEvents: visible ? "auto" : "none" }}
       >
         Launch the app
-      </motion.a>
+      </m.a>
     </div>
   );
 }

@@ -2,5 +2,19 @@
   "extends": [
     "next/core-web-vitals",
     "plugin:storybook/recommended"
-  ]
+  ],
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "framer-motion",
+            "importNames": ["motion"],
+            "message": "Use m with the shared MotionProvider to avoid bundling unused drag and layout features."
+          }
+        ]
+      }
+    ]
+  }
 }

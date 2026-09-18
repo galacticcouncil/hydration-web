@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useLayoutEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 
 type ModalProps = {
@@ -81,7 +81,7 @@ export default function Modal({
       {isOpen && (
         <>
           {/* Backdrop and Modal Container */}
-          <motion.div
+          <m.div
             data-lenis-prevent
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -91,7 +91,7 @@ export default function Modal({
             onClick={onClose}
           >
             {/* Modal */}
-            <motion.div
+            <m.div
               ref={panelRef}
               role="dialog"
               aria-modal="true"
@@ -143,8 +143,8 @@ export default function Modal({
               >
                 {children}
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>,

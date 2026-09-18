@@ -2,7 +2,7 @@
 
 import { fadeUp, revealStagger } from "@/animation/variants";
 import Paragraph from "@/components/ui/typography/paragraph";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { CSSProperties, ReactNode } from "react";
 
 const accentClasses = {
@@ -58,12 +58,12 @@ export default function ArchFeatureCard({
   accentFill?: "solid" | "gradient";
 }) {
   return (
-    <motion.article
+    <m.article
       className="relative mx-auto flex min-h-[25rem] w-[80vw] max-w-[24rem] flex-col items-center overflow-hidden rounded-t-full bg-white px-7 pb-11 pt-[3.25rem] text-center shadow-[0_18px_60px_rgba(36,14,50,0.08)] lg:min-h-[37rem] lg:w-full lg:max-w-[30rem] lg:px-12 lg:pb-14 lg:pt-20"
       style={cardMaskStyle}
       variants={revealStagger(0.08, 28)}
     >
-      <motion.div
+      <m.div
         className="relative z-10 mt-1 grid w-full justify-items-center lg:mt-0"
         variants={fadeUp(16)}
       >
@@ -80,9 +80,9 @@ export default function ArchFeatureCard({
             {icon}
           </span>
         </div>
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         className="relative z-10 mt-12 flex max-w-[22rem] flex-col items-center lg:mt-20 lg:max-w-[24rem]"
         variants={fadeUp(22)}
       >
@@ -95,7 +95,7 @@ export default function ArchFeatureCard({
         >
           {description}
         </Paragraph>
-      </motion.div>
-    </motion.article>
+      </m.div>
+    </m.article>
   );
 }

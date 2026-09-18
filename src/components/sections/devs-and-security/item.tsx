@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Title from "@/components/ui/typography/title";
 import Paragraph from "@/components/ui/typography/paragraph";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { fadeUp } from "@/animation/variants";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -22,7 +22,7 @@ export default function DevsAndSecurityItem({
   const [hoverAnimationActive, setHoverAnimationActive] = useState(false);
   return (
     <Link href={href} target="_blank">
-      <motion.div
+      <m.div
         variants={fadeUp()}
         onAnimationComplete={() => setHoverAnimationActive(true)}
         className={twMerge(
@@ -43,7 +43,7 @@ export default function DevsAndSecurityItem({
             {description}
           </Paragraph>
         </div>
-      </motion.div>
+      </m.div>
     </Link>
   );
 }

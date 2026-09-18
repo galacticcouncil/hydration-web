@@ -8,7 +8,7 @@ import Button from "@/components/ui/buttons/button";
 import Heading from "@/components/ui/typography/heading";
 import Paragraph from "@/components/ui/typography/paragraph";
 import SectionLabel from "@/components/ui/labels/section";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export function ProductiveAssetsIcon() {
   return (
@@ -175,7 +175,7 @@ export default function RwaFeature() {
           </Button>
         </div>
 
-        <motion.div
+        <m.div
           className="mt-16 grid gap-8 lg:grid-cols-3 lg:gap-8"
           variants={staggerChildren(0.14)}
         >
@@ -188,7 +188,7 @@ export default function RwaFeature() {
               icon={<card.Icon />}
             />
           ))}
-        </motion.div>
+        </m.div>
       </section>
     </AnimateOnView>
   );

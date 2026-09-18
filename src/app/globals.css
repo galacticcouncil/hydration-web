@@ -123,6 +123,44 @@ html.lenis body {
   font-display: swap;
 }
 
+/* Prefer compact Latin faces for the page copy. The full faces above retain
+   every original character for other languages and symbols. */
+@font-face {
+  font-family: "Gazpacho";
+  src: url("/font/gazpacho/Gazpacho-Regular-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20A0-20CF, U+2113, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Gazpacho";
+  src: url("/font/gazpacho/Gazpacho-Medium-latin.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20A0-20CF, U+2113, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Gazpacho";
+  src: url("/font/gazpacho/Gazpacho-Italic-Regular-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20A0-20CF, U+2113, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/font/geist/geist-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20A0-20CF, U+2113, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* @font-face {
   font-family: "Inter";
   font-style: normal;
@@ -518,6 +556,40 @@ html.lenis body {
   .appchain-stack-core span {
     width: 4rem;
     height: 4rem;
+  }
+}
+
+/* Mobile hero content is visible in the server response. Keep the larger-screen
+   entrance sequence in CSS so it doesn't wait for React hydration. */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--hero-enter-y));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .hero-headline-letter {
+    animation: hero-enter 0.45s cubic-bezier(0.2, 0.65, 0.3, 0.9) var(--hero-enter-delay) both;
+  }
+
+  .hero-copy-enter {
+    --hero-enter-y: 12px;
+    animation: hero-enter 0.65s cubic-bezier(0.2, 0.65, 0.3, 0.9) 0.94s both;
+  }
+
+  .hero-action-enter {
+    --hero-enter-y: 10px;
+    animation: hero-enter 0.65s cubic-bezier(0.2, 0.65, 0.3, 0.9) 1.08s both;
+  }
+
+  .hero-scene-enter {
+    --hero-enter-y: 22px;
+    animation: hero-enter 1.05s cubic-bezier(0.2, 0.65, 0.3, 0.9) 0.55s both;
   }
 }
 

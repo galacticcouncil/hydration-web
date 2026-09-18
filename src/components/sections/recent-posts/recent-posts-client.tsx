@@ -6,7 +6,7 @@ import ScrollAnchor from "@/components/scroll-anchor";
 import Heading from "@/components/ui/typography/heading";
 import Paragraph from "@/components/ui/typography/paragraph";
 import SectionLabel from "@/components/ui/labels/section";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -74,13 +74,13 @@ export default function RecentPostsClient({ posts }: { posts: Post[] }) {
     >
       <section className="container relative mx-auto max-xl:!px-0">
         <ScrollAnchor id="blog" />
-        <motion.div className="max-w-2xl lg:max-w-none" variants={fadeUp(14)}>
+        <m.div className="max-w-2xl lg:max-w-none" variants={fadeUp(14)}>
           <SectionLabel>From the blog</SectionLabel>
           <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
             <Heading size="large" className="min-w-0 text-purple">
               Recent notes
             </Heading>
-            <motion.div variants={fadeUp(10)}>
+            <m.div variants={fadeUp(10)}>
               <Link
                 href="https://hydration.substack.com/"
                 target="_blank"
@@ -89,15 +89,15 @@ export default function RecentPostsClient({ posts }: { posts: Post[] }) {
               >
                 Visit Substack
               </Link>
-            </motion.div>
+            </m.div>
           </div>
           <Paragraph size="large" className="mt-4 max-w-xl text-purple-dim">
             Short reads on security, strategy, and product updates from the
             Hydration team.
           </Paragraph>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           ref={postsRef}
           className="-mx-4 mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pl-6 pr-6 pb-4 [scrollbar-width:none] [scroll-padding-left:1.5rem] md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0 md:[scroll-padding-left:0] [&::-webkit-scrollbar]:hidden"
           variants={staggerChildren(0.12)}
@@ -105,7 +105,7 @@ export default function RecentPostsClient({ posts }: { posts: Post[] }) {
           {posts.map((post) => (
             <PostCard key={post.href} post={post} />
           ))}
-        </motion.div>
+        </m.div>
 
         <div className="mt-1 flex justify-center gap-1.5 md:hidden">
           {posts.map((post, index) => (
@@ -124,7 +124,7 @@ export default function RecentPostsClient({ posts }: { posts: Post[] }) {
 
 function PostCard({ post }: { post: Post }) {
   return (
-    <motion.div
+    <m.div
       className="flex h-full w-[82vw] max-w-[22rem] shrink-0 snap-start first:ml-0 md:w-auto md:max-w-none"
       variants={fadeUp(24)}
     >
@@ -155,16 +155,16 @@ function PostCard({ post }: { post: Post }) {
               {post.title}
             </h3>
             <p className="text-sm leading-6 text-purple-dim">{post.preview}</p>
-            <motion.div
+            <m.div
               className="mt-auto inline-flex items-center gap-2 text-sm font-medium text-pink transition group-hover:translate-x-0.5"
               variants={fadeUp(10)}
             >
               Read on Substack
               <span aria-hidden="true">→</span>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </Link>
-    </motion.div>
+    </m.div>
   );
 }

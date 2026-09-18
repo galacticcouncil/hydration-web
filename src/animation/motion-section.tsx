@@ -1,8 +1,8 @@
 import type { ComponentProps, ReactNode } from "react";
-import { Variants, motion, useReducedMotion } from "framer-motion";
+import { Variants, m, useReducedMotion } from "framer-motion";
 
 type MotionViewport = NonNullable<
-  ComponentProps<typeof motion.section>["viewport"]
+  ComponentProps<typeof m.section>["viewport"]
 >;
 
 export type MotionSectionProps = {
@@ -39,7 +39,7 @@ export default function AnimateOnView({
     style,
   };
   if (element === "div") {
-    return <motion.div {...props}>{children}</motion.div>;
+    return <m.div {...props}>{children}</m.div>;
   }
-  return <motion.section {...props}>{children}</motion.section>;
+  return <m.section {...props}>{children}</m.section>;
 }

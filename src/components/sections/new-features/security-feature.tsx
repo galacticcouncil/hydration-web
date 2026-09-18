@@ -7,7 +7,7 @@ import { fadeUp, revealStagger } from "@/animation/variants";
 import ScrollAnchor from "@/components/scroll-anchor";
 import Image from "next/image";
 import {
-  motion,
+  m,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -42,7 +42,7 @@ function OriginalSecurityLayout() {
       <div className="container mx-auto w-full px-6 pt-10 md:px-[50px] md:pt-12 lg:pt-16 xl:px-16">
         <SecurityIntro className="lg:pb-9 lg:pr-[70px]" />
 
-        <motion.div
+        <m.div
           className="relative mt-12 grid before:pointer-events-none before:absolute before:left-1/2 before:top-0 before:h-px before:w-screen before:-translate-x-1/2 before:bg-purple/15 md:grid-cols-2 lg:grid-cols-4"
           variants={revealStagger(0.06, 14)}
         >
@@ -53,7 +53,7 @@ function OriginalSecurityLayout() {
               groupIndex={groupIndex}
             />
           ))}
-        </motion.div>
+        </m.div>
       </div>
 
       <SecurityPhoto />
@@ -63,17 +63,17 @@ function OriginalSecurityLayout() {
 
 function SecurityIntro({ className = "" }: { className?: string }) {
   return (
-    <motion.div
+    <m.div
       className={`mx-auto flex w-full max-w-[900px] flex-col items-center gap-5 text-center ${className}`}
       variants={revealStagger(0.12, 18)}
     >
-      <motion.h2
+      <m.h2
         className="max-w-[14ch] font-gazpacho text-[2.55rem] font-medium leading-[1.06] text-purple md:text-5xl md:leading-[1.2]"
         variants={fadeUp(18)}
       >
         {homepageCopy.security.title}
-      </motion.h2>
-      <motion.p
+      </m.h2>
+      <m.p
         className="max-w-[718px] font-geist text-base leading-[1.55] text-purple-dim md:text-[1.115rem]"
         variants={fadeUp(14)}
       >
@@ -81,8 +81,8 @@ function SecurityIntro({ className = "" }: { className?: string }) {
         <span className="block">
           {homepageCopy.security.paragraphs[1]}
         </span>
-      </motion.p>
-    </motion.div>
+      </m.p>
+    </m.div>
   );
 }
 
@@ -101,12 +101,12 @@ function SecurityPhoto() {
   );
 
   return (
-    <motion.div
+    <m.div
       ref={photoRef}
       className="relative aspect-[1780/635] min-h-[25rem] w-full overflow-hidden sm:min-h-[28rem]"
       variants={fadeUp(16)}
     >
-      <motion.div
+      <m.div
         className="absolute inset-0 will-change-transform"
         style={{
           y: reducedMotion ? 0 : imageY,
@@ -120,8 +120,8 @@ function SecurityPhoto() {
           className="object-cover object-center"
           sizes="100vw"
         />
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
 
@@ -132,7 +132,7 @@ function SecurityColumn({
   groupIndex,
 }: SecurityGroup & { groupIndex: number }) {
   return (
-    <motion.article
+    <m.article
       className={`min-h-[17rem] border-b border-purple/15 px-0 py-7 md:min-h-[19rem] md:px-7 lg:min-h-[388px] lg:border-b-0 ${
         groupIndex % 2 === 1 ? "md:border-l" : ""
       } ${groupIndex > 0 ? "lg:border-l" : "lg:pl-0"}`}
@@ -160,6 +160,6 @@ function SecurityColumn({
           </li>
         ))}
       </ul>
-    </motion.article>
+    </m.article>
   );
 }
