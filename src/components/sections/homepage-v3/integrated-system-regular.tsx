@@ -135,9 +135,9 @@ export default function IntegratedSystemRegular() {
         </m.div>
 
         <m.div className="mt-10 lg:mt-16" variants={staggerChildren(0.07)}>
-          <div className="relative hidden aspect-[830/172] w-full lg:block">
+          <div className="hidden w-full grid-cols-[0.9fr_1.1fr] gap-20 lg:grid">
             <m.div
-              className="absolute left-0 top-0 h-full w-[65.015%]"
+              className="relative aspect-[540/172] w-full"
               variants={reveal}
             >
               <AnimatedIllustration
@@ -149,11 +149,11 @@ export default function IntegratedSystemRegular() {
                 className="h-full w-full"
               />
             </m.div>
-            <m.ul variants={staggerChildren(0.07)}>
+            <m.ul className="relative" variants={staggerChildren(0.07)}>
               {appchainFeatures.map((feature, index) => (
                 <li
                   key={feature.label}
-                  className="absolute left-[66.5%] right-0 -translate-y-1/2 font-geist text-base leading-snug text-purple xl:text-lg"
+                  className="absolute left-0 right-0 -translate-y-1/2 font-geist text-base leading-snug text-purple xl:text-lg"
                   style={{ top: `${branchEndpoints[index].top}%` }}
                 >
                   <m.span className="block" variants={reveal}>
