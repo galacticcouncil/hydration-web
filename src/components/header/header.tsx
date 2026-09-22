@@ -284,7 +284,7 @@ export default function Header({
               type="button"
               className="xl:hidden flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-purple/15 bg-white/80 text-purple shadow-sm backdrop-blur-sm transition hover:border-purple/25 hover:bg-white"
               aria-expanded={menuOpen}
-              aria-controls={panelId}
+              aria-controls={menuOpen ? panelId : undefined}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               onClick={() => setMenuOpen((o) => !o)}
             >

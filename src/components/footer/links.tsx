@@ -126,14 +126,14 @@ function LinkColumn({
 
   return (
     <div className="flex flex-col gap-6">
-      <h4
+      <h3
         className={twMerge(
           "font-geist font-medium text-purple-dim",
           dark && "text-lavender/55"
         )}
       >
         {title}
-      </h4>
+      </h3>
       {links.map((link) => (
         <div key={link.href}>
           <Link
