@@ -263,6 +263,7 @@ export default function Header({
                 key={item.href}
                 href={item.href}
                 target={item.target}
+                rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
                 className="inline-flex items-center gap-1 transition group-hover:opacity-50 hover:!opacity-100 text-sm font-medium font-geist leading-5 text-purple pointer-events-auto"
                 onClick={(e) => {
                   if (item.target === "_blank") return;
@@ -328,6 +329,7 @@ export default function Header({
                   key={item.href}
                   href={item.href}
                   target={item.target}
+                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
                   className="flex items-center gap-1.5 rounded-xl px-2 py-2.5 text-base font-medium font-geist text-purple transition hover:bg-beige hover:text-pink"
                   onClick={(e) => {
                     if (item.target !== "_blank") {
