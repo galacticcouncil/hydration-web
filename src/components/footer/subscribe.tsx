@@ -29,7 +29,7 @@ export default function SubscribeToNewsletter({
         href="https://hydration.substack.com/"
         className={twMerge(
           "inline-flex w-fit items-center gap-2.5 rounded-xl bg-pink px-5 py-3 font-geist text-base leading-6 text-white transition-colors hover:bg-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink",
-          dark && "px-[2.5rem] py-5 text-lg font-normal hover:bg-lavender hover:text-purple"
+          dark && "footer-blog-cta font-normal hover:bg-lavender hover:text-purple"
         )}
       >
         Follow our blog

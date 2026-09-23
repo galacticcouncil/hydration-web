@@ -17,8 +17,9 @@ export default function Footer({
       <footer className="overflow-hidden border-t border-lavender/15 bg-purple text-white">
         <RevealOnView className="container mx-auto">
           <div className="flex flex-col items-center gap-[2.5rem] pt-24 text-center md:pt-28">
-            <h2 className="max-w-[24ch] text-balance font-gazpacho text-[clamp(2.75rem,5vw,5.5rem)] font-medium leading-[1.06] text-lavender">
-              Get the latest from Hydration
+            <h2 className="max-w-full font-gazpacho text-[clamp(2rem,10vw,2.75rem)] font-medium leading-[1.06] text-lavender sm:text-[clamp(2.75rem,5vw,5.5rem)]">
+              <span className="block whitespace-nowrap">Get the latest</span>{" "}
+              <span className="block whitespace-nowrap">from Hydration</span>
             </h2>
             <SubscribeToNewsletter className="mt-0 items-center" dark showLabel={false} />
           </div>

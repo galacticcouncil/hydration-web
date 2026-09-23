@@ -11,6 +11,20 @@
   display: none;
 }
 
+.footer-blog-cta {
+  padding: 20px 40px;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+@media (max-width: 1200px) {
+  .footer-blog-cta {
+    padding: 12px 32px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
