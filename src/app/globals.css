@@ -636,6 +636,21 @@ html.lenis body {
   .hero-water-camera {
     animation: none;
   }
+
+  [data-hero-scene-scale] {
+    transform: scale(1) !important;
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+  [data-hero-intro] {
+    --hero-content-y: clamp(14px, calc(7.2vh - 37.84px), 56px) !important;
+    transform: translateY(var(--hero-content-y)) !important;
+  }
+
+  [data-hero-scene-scale] {
+    transform: scale(1.13) !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1645,5 +1660,18 @@ html.lenis body {
     filter: none;
     transform: none;
     transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
   }
 }

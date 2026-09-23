@@ -1,8 +1,10 @@
 "use client";
 
 import { ReactLenis } from "@studio-freight/react-lenis";
+import { usePrefersReducedMotion } from "@/animation/reduced-motion";
 
 function SmoothScrolling({ children }: { children: React.ReactNode }) {
+  const reducedMotion = usePrefersReducedMotion();
   // Firefox can lose wheel scrolling when this older Lenis release cancels
   // the native wheel event before its animation frame advances. Keep Lenis
   // available for anchor navigation there, but let Firefox own wheel input.
@@ -10,7 +12,7 @@ function SmoothScrolling({ children }: { children: React.ReactNode }) {
     typeof navigator !== "undefined" && /Firefox\//.test(navigator.userAgent);
   const lenisOptions = {
     lerp: 0.1,
-    smoothWheel: !isFirefox,
+    smoothWheel: !isFirefox && !reducedMotion,
     syncTouch: false,
   };
 

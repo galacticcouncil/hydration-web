@@ -4,7 +4,8 @@ import { strategyOpportunities } from "@/content/homepage";
 
 import Image, { type StaticImageData } from "next/image";
 import { useRef } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { usePrefersReducedMotion } from "@/animation/reduced-motion";
 import Bitcoin from "@/components/sections/bring-your-own-gas/assets/bitcoin.svg";
 import Ethereum from "@/components/sections/bring-your-own-gas/assets/ethereum.svg";
 import Usdc from "@/components/sections/bring-your-own-gas/assets/usdc.svg";
@@ -51,7 +52,7 @@ const opportunityRows: MarqueeItem[][] = [
 export default function StrategyAssetCloud() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { amount: 0.1 });
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = usePrefersReducedMotion();
 
   return (
     <div

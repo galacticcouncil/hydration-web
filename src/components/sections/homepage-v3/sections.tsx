@@ -155,12 +155,12 @@ export function ProductiveYieldSection() {
           </Paragraph>
         </m.div>
 
-        <m.div
+        <AnimateOnView
+          element="div"
           className="mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3 lg:gap-8"
-          initial="initial"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.16, margin: "0px 0px -8% 0px" }}
           variants={revealStagger(0.13, 28)}
+          threshold={0.16}
+          viewportMargin="0px 0px -8% 0px"
         >
           {yieldPillars.map((pillar) => (
             <ArchFeatureCard
@@ -172,7 +172,7 @@ export function ProductiveYieldSection() {
               accentFill="gradient"
             />
           ))}
-        </m.div>
+        </AnimateOnView>
       </AnimateOnView>
     </section>
   );
@@ -305,12 +305,12 @@ export function HdxSection() {
           </h3>
         </m.div>
 
-        <m.div
+        <AnimateOnView
+          element="div"
           className="relative mx-auto mt-16 hidden max-w-[75rem] lg:block"
-          initial="initial"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.16, margin: "0px 0px -8% 0px" }}
           variants={revealStagger(0.1, 26)}
+          threshold={0.16}
+          viewportMargin="0px 0px -8% 0px"
         >
           <div className="absolute left-[16.667%] right-1/2 top-0 h-px bg-pink" />
           <div className="absolute left-1/2 right-[15.833%] top-0 h-px bg-pink" />
@@ -362,14 +362,14 @@ export function HdxSection() {
               </m.article>
             ))}
           </div>
-        </m.div>
+        </AnimateOnView>
 
-        <m.div
+        <AnimateOnView
+          element="div"
           className="mx-auto mt-10 max-w-[34rem] lg:hidden"
-          initial="initial"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1, margin: "0px 0px -8% 0px" }}
           variants={revealStagger(0.1, 24)}
+          threshold={0.1}
+          viewportMargin="0px 0px -8% 0px"
         >
           <div className="ml-px flex items-center gap-4">
             <Image
@@ -403,7 +403,7 @@ export function HdxSection() {
               </m.article>
             ))}
           </div>
-        </m.div>
+        </AnimateOnView>
       </section>
     </AnimateOnView>
   );

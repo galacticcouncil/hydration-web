@@ -8,10 +8,10 @@ import ScrollAnchor from "@/components/scroll-anchor";
 import Image from "next/image";
 import {
   m,
-  useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
+import { usePrefersReducedMotion } from "@/animation/reduced-motion";
 import { useRef } from "react";
 
 type SecurityGroup = {
@@ -88,7 +88,7 @@ function SecurityIntro({ className = "" }: { className?: string }) {
 
 function SecurityPhoto() {
   const photoRef = useRef<HTMLDivElement>(null);
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({
     target: photoRef,
     offset: ["start end", "end start"],

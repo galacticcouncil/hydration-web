@@ -5,6 +5,7 @@ import Button from "../ui/buttons/button";
 import Logo from "../icons/logo";
 import { twMerge } from "tailwind-merge";
 import { useLenis } from "@studio-freight/react-lenis";
+import { usePrefersReducedMotion } from "@/animation/reduced-motion";
 import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import LaunchAppButton from "./launch-app-button";
 
@@ -116,6 +117,7 @@ export default function Header({
   version = "current",
 }: HeaderProps) {
   const lenis = useLenis();
+  const reducedMotion = usePrefersReducedMotion();
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuTopPx, setMenuTopPx] = useState(96);
   const [pastHero, setPastHero] = useState(false);
@@ -229,7 +231,10 @@ export default function Header({
     setMenuOpen(false);
     if (item.target === "_blank") return;
     lenis?.start();
-    lenis?.scrollTo(item.href, { offset: scrollOffset });
+    lenis?.scrollTo(item.href, {
+      offset: scrollOffset,
+      immediate: reducedMotion,
+    });
   }
 
   return (
@@ -248,7 +253,7 @@ export default function Header({
             type="button"
             onClick={() => {
               lenis?.start();
-              lenis?.scrollTo(0);
+              lenis?.scrollTo(0, { immediate: reducedMotion });
               setMenuOpen(false);
             }}
             aria-label="Scroll to top"
@@ -267,7 +272,10 @@ export default function Header({
                 onClick={(e) => {
                   if (item.target === "_blank") return;
                   e.preventDefault();
-                  lenis?.scrollTo(item.href, { offset: scrollOffset });
+                  lenis?.scrollTo(item.href, {
+                    offset: scrollOffset,
+                    immediate: reducedMotion,
+                  });
                 }}
               >
                 {item.label}

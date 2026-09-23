@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { useLenis } from "@studio-freight/react-lenis";
+import { usePrefersReducedMotion } from "@/animation/reduced-motion";
 
 const currentLinkColumns: LinkColumnProps[] = [
   {
@@ -115,6 +116,7 @@ function LinkColumn({
   dark = false,
 }: LinkColumnProps) {
   const lenis = useLenis();
+  const reducedMotion = usePrefersReducedMotion();
 
   return (
     <div className={twMerge("flex flex-col gap-6", version === "current" && "gap-3 md:flex-row md:items-baseline md:gap-8")}>
@@ -161,6 +163,7 @@ function LinkColumn({
               e.preventDefault();
               lenis?.scrollTo(link.href, {
                 offset: version === "previous" ? 0 : sectionScrollOffset,
+              immediate: reducedMotion,
               });
             }}
           >

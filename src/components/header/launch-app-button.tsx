@@ -1,6 +1,7 @@
 "use client";
 
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
+import { usePrefersReducedMotion } from "@/animation/reduced-motion";
 import { useLayoutEffect, useRef, useState } from "react";
 
 const launchAppStyles =
@@ -22,7 +23,7 @@ export function HeroLaunchAppButton() {
 
 export default function LaunchAppButton() {
   const slotRef = useRef<HTMLDivElement>(null);
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = usePrefersReducedMotion();
   const [visible, setVisible] = useState(false);
 
   useLayoutEffect(() => {

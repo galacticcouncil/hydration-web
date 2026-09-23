@@ -3,7 +3,7 @@
 import { homepageCopy, appchainFeatures } from "@/content/homepage";
 
 import Image from "next/image";
-import { m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 import AnimateOnView from "@/animation/motion-section";
 import { fadeUp, none, staggerChildren } from "@/animation/variants";
 import Heading from "@/components/ui/typography/heading";
@@ -20,8 +20,7 @@ const branchEndpoints = [
 ] as const;
 
 export default function IntegratedSystemRegular() {
-  const reducedMotion = useReducedMotion();
-  const reveal = reducedMotion ? none() : fadeUp(10);
+  const reveal = fadeUp(10);
 
   return (
     <div className="pb-16 pt-12 lg:pb-[200px] lg:pt-20">
