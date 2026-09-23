@@ -155,12 +155,12 @@ export function ProductiveYieldSection() {
           </Paragraph>
         </m.div>
 
-        <m.div
+        <AnimateOnView
+          element="div"
           className="mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3 lg:gap-8"
-          initial="initial"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.16, margin: "0px 0px -8% 0px" }}
           variants={revealStagger(0.13, 28)}
+          threshold={0.16}
+          viewportMargin="0px 0px -8% 0px"
         >
           {yieldPillars.map((pillar) => (
             <ArchFeatureCard
@@ -172,7 +172,7 @@ export function ProductiveYieldSection() {
               accentFill="gradient"
             />
           ))}
-        </m.div>
+        </AnimateOnView>
       </AnimateOnView>
     </section>
   );
@@ -292,7 +292,7 @@ export function HdxSection() {
           >
             {homepageCopy.hdx.title}
           </Heading>
-          <div className="mt-7 max-w-[36.1rem] space-y-7 text-balance text-purple/65 lg:mt-8">
+          <div className="mt-7 max-w-[36.1rem] space-y-7 text-purple/65 lg:mt-8">
             <Paragraph size="large" className="leading-7">
               {homepageCopy.hdx.paragraphs[0]}
             </Paragraph>
@@ -305,12 +305,12 @@ export function HdxSection() {
           </h3>
         </m.div>
 
-        <m.div
+        <AnimateOnView
+          element="div"
           className="relative mx-auto mt-16 hidden max-w-[75rem] lg:block"
-          initial="initial"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.16, margin: "0px 0px -8% 0px" }}
           variants={revealStagger(0.1, 26)}
+          threshold={0.16}
+          viewportMargin="0px 0px -8% 0px"
         >
           <div className="absolute left-[16.667%] right-1/2 top-0 h-px bg-pink" />
           <div className="absolute left-1/2 right-[15.833%] top-0 h-px bg-pink" />
@@ -362,14 +362,14 @@ export function HdxSection() {
               </m.article>
             ))}
           </div>
-        </m.div>
+        </AnimateOnView>
 
-        <m.div
+        <AnimateOnView
+          element="div"
           className="mx-auto mt-10 max-w-[34rem] lg:hidden"
-          initial="initial"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1, margin: "0px 0px -8% 0px" }}
           variants={revealStagger(0.1, 24)}
+          threshold={0.1}
+          viewportMargin="0px 0px -8% 0px"
         >
           <div className="ml-px flex items-center gap-4">
             <Image
@@ -403,7 +403,7 @@ export function HdxSection() {
               </m.article>
             ))}
           </div>
-        </m.div>
+        </AnimateOnView>
       </section>
     </AnimateOnView>
   );
@@ -517,7 +517,7 @@ function CommunityLink({
       <ExternalLink
         href={href}
         aria-label={`Open Hydration on ${name}`}
-        className={`${className} group flex min-h-14 items-center justify-center rounded-full px-4 py-2 text-purple transition-transform duration-200 ease-out hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:min-h-[4.25rem] lg:px-5 lg:py-3`}
+        className={`${className} group flex min-h-14 items-center justify-center rounded-full px-4 py-2 text-purple transition-transform duration-200 ease-out will-change-transform hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:min-h-[4.25rem] lg:px-5 lg:py-3`}
       >
         <span className="flex items-center gap-3">
           <Image

@@ -109,7 +109,7 @@ export default function RecentPostsClient({ posts }: { posts: Post[] }) {
           {posts.map((post, index) => (
             <span
               key={post.href}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-[width,background-color] duration-300 ${
                 activePostIndex === index ? "w-6 bg-pink" : "w-1.5 bg-purple/20"
               }`}
             />
@@ -136,7 +136,7 @@ function PostCard({ post }: { post: Post }) {
               src={post.image}
               alt={post.title}
               fill
-              className="object-cover transition duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
               sizes="(min-width: 1024px) 33vw, 100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-purple/45 via-transparent to-transparent" />

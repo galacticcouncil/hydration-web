@@ -226,6 +226,11 @@ export default function HeroWaterCanvas({
     if (!desktopEffect) return;
     const drawingCanvas = canvas;
     const interactiveSurface = surface;
+    drawingCanvas.style.opacity = "0";
+    const responsiveHeroImage =
+      interactiveSurface.querySelector<HTMLImageElement>(
+        'img[src*="hero-arches-sunset-wide"]',
+      );
 
     const gl = canvas.getContext("webgl", {
       alpha: false,
@@ -334,6 +339,7 @@ export default function HeroWaterCanvas({
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+
     const startTime = performance.now();
     let frame = 0;
     let visible = true;
@@ -350,6 +356,7 @@ export default function HeroWaterCanvas({
     let hasRipplePosition = false;
     let imageWidth = 1;
     let imageHeight = 1;
+    let imageReady = false;
     let surfaceHeight = 1;
     let pointerInsideSurface = false;
     let pendingPointer: Pick<PointerEvent, "clientX" | "clientY" | "pointerType"> | null = null;
@@ -374,8 +381,10 @@ export default function HeroWaterCanvas({
     const image = new Image();
     image.decoding = "async";
     image.onload = () => {
+      imageReady = true;
       imageWidth = image.naturalWidth;
       imageHeight = image.naturalHeight;
+
       webgl.bindTexture(webgl.TEXTURE_2D, imageTexture);
       webgl.texImage2D(
         webgl.TEXTURE_2D,
@@ -388,9 +397,6 @@ export default function HeroWaterCanvas({
       webgl.uniform2f(imageResolutionLocation, imageWidth, imageHeight);
       if (reducedMotion) render(performance.now());
     };
-    const responsiveHeroImage = interactiveSurface.querySelector<HTMLImageElement>(
-      'img[src*="hero-arches-sunset-wide"]',
-    );
     image.src =
       responsiveHeroImage?.currentSrc ||
       responsiveHeroImage?.src ||
@@ -501,6 +507,10 @@ export default function HeroWaterCanvas({
       webgl.uniform4fv(ripplesLocation, ripples);
       webgl.drawArrays(webgl.TRIANGLE_STRIP, 0, 4);
 
+      if (imageReady && drawingCanvas.style.opacity !== "1") {
+        drawingCanvas.style.opacity = "1";
+      }
+
       scheduleRender();
     }
 
@@ -594,6 +604,7 @@ export default function HeroWaterCanvas({
     render(startTime);
 
     return () => {
+      drawingCanvas.style.opacity = "0";
       cancelAnimationFrame(frame);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
@@ -614,7 +625,7 @@ export default function HeroWaterCanvas({
   return (
     <canvas
       ref={canvasRef}
-      className={`pointer-events-none absolute inset-x-0 top-0 hidden h-full w-full md:block ${className ?? ""}`}
+      className={`pointer-events-none absolute inset-x-0 top-0 hidden h-full w-full opacity-0 transition-opacity duration-150 md:block ${className ?? ""}`}
       aria-hidden="true"
     />
   );

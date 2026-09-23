@@ -56,7 +56,7 @@ export default function Socials({ className, dark = false }: Props) {
         <ExternalLink
           key={social.name}
           href={social.href}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 lg:h-7 lg:w-7"
+          className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-sm cursor-pointer hover:scale-105 transition-transform duration-200 ease-out will-change-transform lg:before:absolute lg:before:-inset-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 lg:h-7 lg:w-7"
         >
           <Image
             src={social.logo}

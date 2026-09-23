@@ -16,10 +16,10 @@ import {
   useInView,
   useMotionTemplate,
   useMotionValueEvent,
-  useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
+import { usePrefersReducedMotion } from "@/animation/reduced-motion";
 import type { MotionStyle, MotionValue } from "framer-motion";
 import useScreenSize from "@/hooks/useScreenSize";
 import Image from "next/image";
@@ -28,7 +28,6 @@ import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from 
 const HeroWaterCanvas = lazy(() => import("./water-canvas"));
 
 const headlineEase = [0.2, 0.65, 0.3, 0.9] as const;
-const beigeShaderColor = [246 / 255, 246 / 255, 236 / 255] as const;
 const metricRevealEase = (value: number) => 1 - Math.pow(1 - value, 3);
 // Preserved for another pass: progressively feathers the real scene container
 // while it expands, without introducing a duplicate blurred background.
@@ -40,7 +39,7 @@ export default function HeroSection({
   initialMetrics?: CapitalMetric[];
 }) {
   const sceneRef = useRef<HTMLDivElement>(null);
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = usePrefersReducedMotion();
   const { width: viewportWidth, height: viewportHeight } = useScreenSize();
   const mobileLayout = viewportWidth < 1024;
   const { scrollY, scrollYProgress } = useScroll({
@@ -80,12 +79,8 @@ export default function HeroSection({
   );
   const sceneFeatherMask = useMotionTemplate`linear-gradient(to bottom, rgba(0, 0, 0, ${sceneMaskEdgeAlpha}) ${sceneMaskTop}, black calc(${sceneMaskTop} + 26px), black calc(100% - 20px), rgba(0, 0, 0, ${sceneMaskEdgeAlpha}) 100%), linear-gradient(to right, rgba(0, 0, 0, ${sceneMaskEdgeAlpha}) ${sceneMaskSide}, black calc(${sceneMaskSide} + 22px), black calc(100% - ${sceneMaskSide} - 22px), rgba(0, 0, 0, ${sceneMaskEdgeAlpha}) calc(100% - ${sceneMaskSide}))`;
   const sceneFillOpacity = useTransform(scrollYProgress, [0, 0.16], [0, 1]);
-  const sceneTransitionHeight = useTransform(
-    scrollYProgress,
-    [0, 0.14, 0.22],
-    [0, 0, 72],
-  );
-  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 1.13]);
+  const finalSceneScale = 1.13;
+  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, finalSceneScale]);
   const heroContentShift = Math.min(
     56,
     14 + Math.max(0, (viewportHeight - 720) * 0.072),
@@ -95,6 +90,7 @@ export default function HeroSection({
     [0, 0.32, 0.68],
     [14, 14, heroContentShift],
   );
+  const heroContentYWithUnit = useMotionTemplate`${heroContentY}px`;
   const introChromeOpacity = useTransform(scrollYProgress, [0.06, 0.23], [1, 0]);
   const statsOpacity = useTransform(scrollYProgress, [0.22, 0.36], [0, 1]);
   const statsY = useTransform(scrollYProgress, [0.22, 0.4], [42, 0]);
@@ -103,13 +99,17 @@ export default function HeroSection({
     <section
       ref={sceneRef}
       data-homepage-hero
-      className="relative z-10 bg-beige lg:h-[165vh] lg:min-h-[86rem]"
+      className="relative z-10 bg-beige lg:h-[165vh] lg:min-h-[86rem] lg:motion-reduce:h-auto lg:motion-reduce:min-h-0"
     >
       <div className="relative flex flex-col overflow-hidden lg:sticky lg:top-0 lg:block lg:h-screen">
         <m.div
           data-hero-intro
-          className="pointer-events-none relative z-20 flex items-center px-6 pb-12 pt-28 md:px-[50px] lg:absolute lg:inset-x-0 lg:top-0 lg:h-[66vh] lg:min-h-[34rem] lg:pb-0 lg:pt-20 xl:px-16"
-          style={{ y: reducedMotion || mobileLayout ? 0 : heroContentY }}
+          className="pointer-events-none relative z-20 flex items-center px-6 pb-12 pt-28 md:px-[50px] lg:absolute lg:inset-x-0 lg:top-0 lg:h-[66vh] lg:min-h-[34rem] lg:pb-0 lg:pt-20 lg:[transform:translateY(var(--hero-content-y))] xl:px-16"
+          style={{
+            "--hero-content-y": reducedMotion
+              ? `${heroContentShift}px`
+              : heroContentYWithUnit,
+          } as MotionStyle}
         >
           <div className="container relative mx-auto flex min-w-0 justify-center max-xl:!px-0">
             <HeroSectionContent />
@@ -147,14 +147,12 @@ export default function HeroSection({
         >
           <m.div
             data-hero-scene
-            className="absolute inset-x-0 top-0 z-10 h-[22rem] isolate overflow-hidden bg-beige [mask-image:linear-gradient(to_bottom,black_95%,transparent)] sm:h-[26rem] lg:inset-0 lg:h-auto lg:[clip-path:var(--hero-desktop-clip)] lg:[mask-image:none]"
+            className="absolute inset-x-0 top-0 z-10 h-[22rem] isolate overflow-hidden bg-beige [mask-image:linear-gradient(to_bottom,black_95%,transparent)] sm:h-[26rem] lg:inset-0 lg:h-auto lg:[clip-path:var(--hero-desktop-clip)] lg:[mask-image:none] lg:motion-reduce:[clip-path:none]"
             style={{
               // Keep the desktop motion binding stable across hydration/resizing.
               // The mobile scene stays full width; its bottom mask only fades
               // the composited image edge to prevent a fractional-pixel seam.
-              "--hero-desktop-clip": reducedMotion
-                ? "inset(66vh 7vw 0 7vw round 2.75rem 2.75rem 0 0)"
-                : sceneClip,
+              "--hero-desktop-clip": sceneClip,
               maskImage:
                 sceneEdgeFeatherEnabled && !reducedMotion
                   ? sceneFeatherMask
@@ -168,9 +166,12 @@ export default function HeroSection({
             } as MotionStyle}
           >
             <m.div
+              data-hero-scene-scale
               className="absolute inset-0"
               style={{
-                scale: reducedMotion ? 1 : mobileLayout ? mobileScale : sceneScale,
+                scale: mobileLayout
+                  ? reducedMotion ? 1 : mobileScale
+                  : reducedMotion ? finalSceneScale : sceneScale,
               }}
             >
               <div className="hero-scene-enter absolute inset-0">
@@ -186,16 +187,24 @@ export default function HeroSection({
                     fetchPriority="high"
                     quality={74}
                     sizes="100vw"
-                    className="object-cover object-center lg:object-[54%_center]"
+                    className="object-cover object-center md:[filter:grayscale(6%)] md:[transform:scale(1.124,1.018)]"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 hidden bg-beige/20 md:block"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 hidden md:block"
+                    style={{
+                      background:
+                        "radial-gradient(ellipse 70.7% 58% at center, rgba(246, 246, 236, 0.16) 0%, rgba(246, 246, 236, 0.16) 27.5%, rgba(246, 246, 236, 0) 100%)",
+                    }}
                   />
                 </div>
-                {viewportWidth >= 768 && (
+                {viewportWidth >= 768 && !reducedMotion && (
                   <Suspense fallback={null}>
                     <HeroWaterCanvas
                       className="hero-water-camera"
-                      showCapitalBand
-                      transitionColor={beigeShaderColor}
-                      transitionHeightPx={sceneTransitionHeight}
+                      showCapitalBand={false}
                     />
                   </Suspense>
                 )}
@@ -224,7 +233,7 @@ export default function HeroSection({
           />
 
           <m.div
-            className="relative z-30 mx-auto px-4 pb-8 lg:absolute lg:inset-x-0 lg:bottom-8 lg:z-20 lg:px-[8vw] lg:pb-0"
+            className="relative z-30 mx-auto px-4 pb-8 lg:absolute lg:inset-x-0 lg:bottom-8 lg:z-20 lg:px-[8vw] lg:pb-0 lg:motion-reduce:hidden"
             style={{
               opacity: reducedMotion || mobileLayout ? 1 : introChromeOpacity,
             }}
@@ -300,7 +309,7 @@ function HeroCapitalStats({
   staticValues?: boolean;
 }) {
   const metrics = useCapitalMetrics(initialMetrics);
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = usePrefersReducedMotion();
   const headingRef = useRef<HTMLHeadingElement>(null);
   const headingInView = useInView(headingRef, { once: true, amount: 0.8 });
   const revealHeading = staticValues && !reducedMotion;
@@ -358,7 +367,7 @@ function AnimatedCapitalMetric({
   progress: MotionValue<number>;
   staticValue?: boolean;
 }) {
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = usePrefersReducedMotion();
   const metricRef = useRef<HTMLElement>(null);
   const metricInView = useInView(metricRef, { once: true, amount: 0.4 });
   const revealOnMobile = staticValue && !reducedMotion && !metricInView;

@@ -1,5 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
-import { Variants, m, useReducedMotion } from "framer-motion";
+import { Variants, m } from "framer-motion";
+import { usePrefersReducedMotion } from "@/animation/reduced-motion";
 
 type MotionViewport = NonNullable<
   ComponentProps<typeof m.section>["viewport"]
@@ -26,7 +27,7 @@ export default function AnimateOnView({
   threshold = 0.5,
   viewportMargin = "0px",
 }: MotionSectionProps) {
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = usePrefersReducedMotion();
   const showImmediately = alwaysVisible || reducedMotion;
   const props = {
     "data-reveal": "",

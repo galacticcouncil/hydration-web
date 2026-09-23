@@ -2,7 +2,8 @@
 
 import Image, { type ImageProps } from "next/image";
 import { useRef } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { usePrefersReducedMotion } from "@/animation/reduced-motion";
 
 type AnimatedIllustrationProps = Omit<ImageProps, "src"> & {
   src: string;
@@ -17,7 +18,7 @@ export default function AnimatedIllustration({
 }: AnimatedIllustrationProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.15 });
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = usePrefersReducedMotion();
 
   return (
     <div ref={ref} className="relative h-full w-full">

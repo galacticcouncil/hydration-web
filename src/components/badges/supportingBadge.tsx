@@ -29,7 +29,7 @@ function Icons() {
         href="https://metamask.io"
       >
         <Image
-          className="transition-transform hover:scale-105"
+          className="transition-transform will-change-transform hover:scale-105"
           width={32}
           height={32}
           src={MetaMaskLogo}
@@ -40,7 +40,7 @@ function Icons() {
         href="https://novawallet.io"
       >
         <Image
-          className="transition-transform hover:scale-105"
+          className="transition-transform will-change-transform hover:scale-105"
           width={32}
           height={32}
           src={NovaLogo}
@@ -51,7 +51,7 @@ function Icons() {
         href="https://subwallet.app"
       >
         <Image
-          className="transition-transform hover:scale-105"
+          className="transition-transform will-change-transform hover:scale-105"
           width={32}
           height={32}
           src={SubwalletLogo}
@@ -62,7 +62,7 @@ function Icons() {
         href="https://talisman.xyz"
       >
         <Image
-          className="transition-transform hover:scale-105"
+          className="transition-transform will-change-transform hover:scale-105"
           width={32}
           height={32}
           src={TalismanLogo}
@@ -73,7 +73,7 @@ function Icons() {
         href="https://www.ledger.com"
       >
         <Image
-          className="transition-transform hover:scale-105 rounded-[4px]"
+          className="transition-transform will-change-transform hover:scale-105 rounded-[4px]"
           width={31}
           height={31}
           src={LedgerLogo}
