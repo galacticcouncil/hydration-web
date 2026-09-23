@@ -69,7 +69,7 @@ const sectionScrollOffset = -88;
 
 function HamburgerIcon({ open }: { open: boolean }) {
   const bar =
-    "h-0.5 w-[1.375rem] origin-center rounded-full bg-purple transition duration-200 ease-out";
+    "h-0.5 w-[1.375rem] origin-center rounded-full bg-purple transition-[transform,opacity] duration-200 ease-out";
   return (
     <span className="flex h-5 w-5 flex-col items-center justify-center gap-[5px]">
       <span
@@ -99,7 +99,8 @@ function ExternalLinkIcon({ className }: { className?: string }) {
       <path
         d="M6 3H3.75A.75.75 0 0 0 3 3.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75V10M9 3h4v4M13 3 7.5 8.5"
         stroke="currentColor"
-        strokeWidth="1.35"
+        strokeWidth="1.75"
+        vectorEffect="non-scaling-stroke"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -268,7 +269,7 @@ export default function Header({
                 href={item.href}
                 target={item.target}
                 rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-1 rounded-sm text-sm font-medium font-geist leading-5 text-purple pointer-events-auto transition-colors hover:text-pink focus-visible:text-pink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink"
+                className="relative inline-flex items-center gap-1 rounded-sm text-sm before:absolute before:-inset-x-3 before:-inset-y-2.5 font-medium font-geist leading-5 text-purple pointer-events-auto transition-colors hover:text-pink focus-visible:text-pink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink"
                 onClick={(e) => {
                   if (item.target === "_blank") return;
                   e.preventDefault();
@@ -289,7 +290,7 @@ export default function Header({
             <button
               ref={menuButtonRef}
               type="button"
-              className="xl:hidden flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-purple/15 bg-white/80 text-purple shadow-sm backdrop-blur-sm transition hover:border-purple/25 hover:bg-white"
+              className="xl:hidden flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/80 text-purple shadow-[0_0_0_1px_rgba(36,14,50,0.12),0_1px_2px_rgba(36,14,50,0.06)] backdrop-blur-sm transition-[background-color,box-shadow] hover:bg-white hover:shadow-[0_0_0_1px_rgba(36,14,50,0.2),0_1px_2px_rgba(36,14,50,0.06)]"
               aria-expanded={menuOpen}
               aria-controls={menuOpen ? panelId : undefined}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -329,7 +330,7 @@ export default function Header({
                 top: menuTopPx,
                 maxHeight: `calc(100dvh - ${menuTopPx + 16}px - env(safe-area-inset-bottom, 0px))`,
               }}
-              className="fixed inset-x-4 z-50 flex flex-col gap-6 overflow-y-auto overscroll-contain rounded-[1.35rem] border border-purple/10 bg-white/95 px-7 py-6 shadow-[0_20px_60px_rgba(36,14,50,0.14)] sm:inset-x-auto sm:right-4 sm:w-[min(30rem,calc(100vw-2rem))] xl:hidden backdrop-blur-md"
+              className="fixed inset-x-4 z-50 flex flex-col gap-6 overflow-y-auto overscroll-contain rounded-[1.35rem] bg-white/95 px-7 py-6 shadow-[0_0_0_1px_rgba(36,14,50,0.08),0_20px_60px_rgba(36,14,50,0.14)] sm:inset-x-auto sm:right-4 sm:w-[min(30rem,calc(100vw-2rem))] xl:hidden backdrop-blur-md"
             >
               {mobileMenuGroups.map((group) => (
                 <div key={group.label} className="flex flex-col">

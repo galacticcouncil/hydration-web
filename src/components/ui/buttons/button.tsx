@@ -76,7 +76,7 @@ export default function Button({
         <button
           className={twMerge(
             colorClassName,
-            "cursor-pointer rounded-xl px-5 py-3 font-geist text-base leading-6 font-normal transition",
+            "cursor-pointer rounded-xl px-5 py-3 font-geist text-base leading-6 font-normal transition-colors",
             className
           )}
           disabled={disabled}

@@ -292,7 +292,7 @@ export function HdxSection() {
           >
             {homepageCopy.hdx.title}
           </Heading>
-          <div className="mt-7 max-w-[36.1rem] space-y-7 text-balance text-purple/65 lg:mt-8">
+          <div className="mt-7 max-w-[36.1rem] space-y-7 text-purple/65 lg:mt-8">
             <Paragraph size="large" className="leading-7">
               {homepageCopy.hdx.paragraphs[0]}
             </Paragraph>
@@ -517,7 +517,7 @@ function CommunityLink({
       <ExternalLink
         href={href}
         aria-label={`Open Hydration on ${name}`}
-        className={`${className} group flex min-h-14 items-center justify-center rounded-full px-4 py-2 text-purple transition-transform duration-200 ease-out hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:min-h-[4.25rem] lg:px-5 lg:py-3`}
+        className={`${className} group flex min-h-14 items-center justify-center rounded-full px-4 py-2 text-purple transition-transform duration-200 ease-out will-change-transform hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:min-h-[4.25rem] lg:px-5 lg:py-3`}
       >
         <span className="flex items-center gap-3">
           <Image

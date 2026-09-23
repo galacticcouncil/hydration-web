@@ -78,7 +78,7 @@ export default function StrategyAssetCloud() {
                   {items.map((item) => (
                     <div
                       key={item.label}
-                      className={`flex shrink-0 items-center rounded-full border border-purple/[0.08] bg-white shadow-[0_8px_24px_-16px_rgba(36,14,50,0.2)] ${
+                      className={`flex shrink-0 items-center rounded-full bg-white shadow-[0_0_0_1px_rgba(36,14,50,0.08),0_8px_24px_-16px_rgba(36,14,50,0.2)] ${
                         item.tokenOnly
                           ? "justify-center p-4 md:p-5"
                           : "gap-4 px-5 py-4 md:px-7 md:py-5"
@@ -93,7 +93,7 @@ export default function StrategyAssetCloud() {
                             width={48}
                             height={48}
                             draggable={false}
-                            className="h-10 w-10 rounded-full ring-[3px] ring-white md:h-12 md:w-12"
+                            className="h-10 w-10 rounded-full outline outline-1 -outline-offset-1 outline-[oklch(0_0_0/0.1)] ring-[3px] ring-white md:h-12 md:w-12"
                           />
                         ))}
                       </div>

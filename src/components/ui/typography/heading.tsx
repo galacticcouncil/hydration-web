@@ -23,7 +23,7 @@ export default function Heading({
     return (
       <h4
         className={twMerge(
-          "font-gazpacho font-medium ~text-2xl/3xl leading-tight text-purple",
+          "font-gazpacho font-medium ~text-2xl/3xl leading-tight text-balance text-purple",
           className
         )}
       >
@@ -40,7 +40,7 @@ export default function Heading({
     return (
       <h2
         className={twMerge(
-          "font-gazpacho font-medium ~text-3xl/5xl leading-tight text-purple",
+          "font-gazpacho font-medium ~text-3xl/5xl leading-tight text-balance text-purple",
           className
         )}
       >
@@ -56,7 +56,7 @@ export default function Heading({
   return (
     <h3
       className={twMerge(
-        "font-gazpacho font-bold ~text-3xl/4xl leading-tight text-purple",
+        "font-gazpacho font-bold ~text-3xl/4xl leading-tight text-balance text-purple",
         className
       )}
     >

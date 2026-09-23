@@ -21,7 +21,7 @@ export default function Legal({ className, dark = false }: LegalProps) {
       <div className={twMerge("flex gap-4", className)}>
         <button
           onClick={() => setPrivacyOpen(true)}
-          className="min-h-11 font-inter font-medium cursor-pointer lg:min-h-0"
+          className="relative min-h-11 font-medium cursor-pointer lg:min-h-0 lg:before:absolute lg:before:-inset-y-2.5 lg:before:inset-x-0"
         >
           <Paragraph
             size="small"
@@ -35,7 +35,7 @@ export default function Legal({ className, dark = false }: LegalProps) {
         </button>
         <button
           onClick={() => setTosOpen(true)}
-          className="min-h-11 font-inter font-medium cursor-pointer lg:min-h-0"
+          className="relative min-h-11 font-medium cursor-pointer lg:min-h-0 lg:before:absolute lg:before:-inset-y-2.5 lg:before:inset-x-0"
         >
           <Paragraph
             size="small"

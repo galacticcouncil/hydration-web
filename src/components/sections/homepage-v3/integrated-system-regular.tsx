@@ -64,7 +64,7 @@ export default function IntegratedSystemRegular() {
           <Paragraph
             size="large"
             animationVariants={none()}
-            className="text-pretty text-purple/70"
+            className="text-purple/70"
           >
             {homepageCopy.why.paragraphs[1]}
           </Paragraph>

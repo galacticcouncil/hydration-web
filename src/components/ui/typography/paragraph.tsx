@@ -21,7 +21,7 @@ export default function Paragraph({
     return (
       <m.p
         className={twMerge(
-          "font-geist font-normal ~text-base/lg leading-snug text-purple",
+          "font-geist font-normal ~text-base/lg leading-snug text-pretty text-purple",
           className
         )}
         variants={animationVariants || fadeUp()}
@@ -35,7 +35,7 @@ export default function Paragraph({
     return (
       <m.p
         className={twMerge(
-          "font-geist font-normal text-base leading-tight text-purple",
+          "font-geist font-normal text-base leading-tight text-pretty text-purple",
           className
         )}
         variants={animationVariants || fadeUp()}
@@ -48,7 +48,7 @@ export default function Paragraph({
   return (
     <m.p
       className={twMerge(
-        "font-geist font-normal text-sm leading-tight text-purple",
+        "font-geist font-normal text-sm leading-tight text-pretty text-purple",
         className
       )}
       variants={animationVariants || fadeUp()}

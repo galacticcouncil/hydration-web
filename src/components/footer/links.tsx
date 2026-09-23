@@ -132,7 +132,7 @@ function LinkColumn({
       <div
         className={twMerge(
           "flex flex-col gap-6",
-          version === "current" && "gap-3 md:flex-row md:flex-wrap md:gap-x-8"
+          version === "current" && "gap-0 md:flex-row md:flex-wrap md:gap-x-8 md:gap-y-3"
         )}
       >
       {links.map((link) => (
@@ -144,7 +144,7 @@ function LinkColumn({
             className={
               version === "current"
                 ? twMerge(
-                    "inline-block rounded-sm font-geist text-base font-medium text-purple transition-colors hover:text-pink hover:underline hover:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink",
+                    "inline-flex min-h-11 items-center rounded-sm font-geist text-base font-medium text-purple transition-colors md:min-h-0 hover:text-pink hover:underline hover:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink",
                     dark && "text-white/80 hover:text-white focus-visible:outline-lavender"
                   )
                 : twMerge(
