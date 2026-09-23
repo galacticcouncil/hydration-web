@@ -126,19 +126,20 @@ function LinkColumn({
 
   return (
     <div className="flex flex-col gap-6">
-      <h4
+      <h3
         className={twMerge(
           "font-geist font-medium text-purple-dim",
           dark && "text-lavender/55"
         )}
       >
         {title}
-      </h4>
+      </h3>
       {links.map((link) => (
         <div key={link.href}>
           <Link
             href={link.href}
             target={link.target}
+            rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
             className={twMerge(
               "inline-block bg-purple-to-transparent bg-[bottom_left] bg-[length:0_2px] bg-no-repeat pb-[2px] font-geist text-base text-purple hover:bg-[bottom_right] hover:bg-[length:100%_2px]",
               dark &&

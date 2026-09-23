@@ -2,7 +2,7 @@ import Badge from "./badge";
 import Image from "next/image";
 import PolkadotLogo from "./assets/polkadot.svg";
 import { twMerge } from "tailwind-merge";
-import Link from "next/link";
+import ExternalLink from "@/components/ui/external-link";
 
 type Props = {
   className?: string;
@@ -19,7 +19,7 @@ export default function SecuredByBadge({ className, dark = false }: Props) {
       )}
     >
       Secured by
-      <Link href="https://polkadot.network" target="_blank">
+      <ExternalLink href="https://polkadot.network">
         <Image
           className={twMerge(
             "py-2.5",
@@ -28,7 +28,7 @@ export default function SecuredByBadge({ className, dark = false }: Props) {
           src={PolkadotLogo}
           alt="polkadot logo"
         />
-      </Link>
+      </ExternalLink>
     </Badge>
   );
 }

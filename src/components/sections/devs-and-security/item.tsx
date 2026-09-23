@@ -3,7 +3,7 @@ import Title from "@/components/ui/typography/title";
 import Paragraph from "@/components/ui/typography/paragraph";
 import { m } from "framer-motion";
 import { fadeUp } from "@/animation/variants";
-import Link from "next/link";
+import ExternalLink from "@/components/ui/external-link";
 import { twMerge } from "tailwind-merge";
 
 export type DevsAndSecurityItemProps = {
@@ -21,7 +21,7 @@ export default function DevsAndSecurityItem({
 }: DevsAndSecurityItemProps) {
   const [hoverAnimationActive, setHoverAnimationActive] = useState(false);
   return (
-    <Link href={href} target="_blank">
+    <ExternalLink href={href}>
       <m.div
         variants={fadeUp()}
         onAnimationComplete={() => setHoverAnimationActive(true)}
@@ -44,6 +44,6 @@ export default function DevsAndSecurityItem({
           </Paragraph>
         </div>
       </m.div>
-    </Link>
+    </ExternalLink>
   );
 }

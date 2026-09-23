@@ -28,6 +28,10 @@ export default function SubscribeToNewsletter({
         )}
       >
         <Input
+          type="email"
+          name="email"
+          autoComplete="email"
+          aria-label="Email address"
           placeholder="Email address"
           className={twMerge(
             "min-w-0 px-3 sm:px-4",

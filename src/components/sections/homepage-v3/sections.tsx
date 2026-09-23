@@ -22,7 +22,7 @@ import StrategyAssetCloud from "./strategy-asset-cloud";
 import IntegratedSystemRegular from "./integrated-system-regular";
 import { m, type Variants } from "framer-motion";
 import Image, { type StaticImageData } from "next/image";
-import Link from "next/link";
+import ExternalLink from "@/components/ui/external-link";
 
 const yieldPillars = [
   {
@@ -514,10 +514,8 @@ function CommunityLink({
 }) {
   return (
     <m.div variants={fadeUp(14)}>
-      <Link
+      <ExternalLink
         href={href}
-        target="_blank"
-        rel="noreferrer"
         aria-label={`Open Hydration on ${name}`}
         className={`${className} group flex min-h-14 items-center justify-center rounded-full px-4 py-2 text-purple transition-transform duration-200 ease-out hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:min-h-[4.25rem] lg:px-5 lg:py-3`}
       >
@@ -533,7 +531,7 @@ function CommunityLink({
             {name}
           </span>
         </span>
-      </Link>
+      </ExternalLink>
     </m.div>
   );
 }

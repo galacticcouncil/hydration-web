@@ -408,12 +408,15 @@ export default function HeroWaterCanvas({
       );
       const width = Math.max(1, Math.round(rect.width * dpr));
       const height = Math.max(1, Math.round(rect.height * dpr));
-      if (drawingCanvas.width !== width || drawingCanvas.height !== height) {
+      const bufferResized =
+        drawingCanvas.width !== width || drawingCanvas.height !== height;
+      if (bufferResized) {
         drawingCanvas.width = width;
         drawingCanvas.height = height;
       }
       webgl.viewport(0, 0, width, height);
       webgl.uniform2f(resolutionLocation, width, height);
+      return bufferResized;
     }
 
     function writeRipple(x: number, y: number, time: number, strength: number) {
@@ -563,7 +566,10 @@ export default function HeroWaterCanvas({
       else scheduleRender();
     }
 
-    const resizeObserver = new ResizeObserver(resize);
+    const resizeObserver = new ResizeObserver(() => {
+      const bufferResized = resize();
+      if (bufferResized) render(performance.now());
+    });
     resizeObserver.observe(interactiveSurface);
     resize();
 

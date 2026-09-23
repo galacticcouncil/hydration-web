@@ -263,6 +263,7 @@ export default function Header({
                 key={item.href}
                 href={item.href}
                 target={item.target}
+                rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
                 className="inline-flex items-center gap-1 transition group-hover:opacity-50 hover:!opacity-100 text-sm font-medium font-geist leading-5 text-purple pointer-events-auto"
                 onClick={(e) => {
                   if (item.target === "_blank") return;
@@ -283,7 +284,7 @@ export default function Header({
               type="button"
               className="xl:hidden flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-purple/15 bg-white/80 text-purple shadow-sm backdrop-blur-sm transition hover:border-purple/25 hover:bg-white"
               aria-expanded={menuOpen}
-              aria-controls={panelId}
+              aria-controls={menuOpen ? panelId : undefined}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               onClick={() => setMenuOpen((o) => !o)}
             >
@@ -328,6 +329,7 @@ export default function Header({
                   key={item.href}
                   href={item.href}
                   target={item.target}
+                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
                   className="flex items-center gap-1.5 rounded-xl px-2 py-2.5 text-base font-medium font-geist text-purple transition hover:bg-beige hover:text-pink"
                   onClick={(e) => {
                     if (item.target !== "_blank") {

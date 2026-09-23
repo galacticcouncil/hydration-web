@@ -8,7 +8,7 @@ import Paragraph from "@/components/ui/typography/paragraph";
 import SectionLabel from "@/components/ui/labels/section";
 import { m } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+import ExternalLink from "@/components/ui/external-link";
 import { useEffect, useRef, useState } from "react";
 import type { Post } from "./section";
 
@@ -81,14 +81,12 @@ export default function RecentPostsClient({ posts }: { posts: Post[] }) {
               Recent notes
             </Heading>
             <m.div variants={fadeUp(10)}>
-              <Link
+              <ExternalLink
                 href="https://hydration.substack.com/"
-                target="_blank"
-                rel="noreferrer noopener"
                 className="inline-flex w-fit shrink-0 items-center justify-center rounded-full bg-pink px-5 py-3 text-sm lg:text-base text-white transition hover:bg-purple"
               >
                 Visit Substack
-              </Link>
+              </ExternalLink>
             </m.div>
           </div>
           <Paragraph size="large" className="mt-4 max-w-xl text-purple-dim">
@@ -128,10 +126,8 @@ function PostCard({ post }: { post: Post }) {
       className="flex h-full w-[82vw] max-w-[22rem] shrink-0 snap-start first:ml-0 md:w-auto md:max-w-none"
       variants={fadeUp(24)}
     >
-      <Link
+      <ExternalLink
         href={post.href}
-        target="_blank"
-        rel="noreferrer noopener"
         className="group flex h-full w-full flex-col overflow-hidden rounded-[2rem] bg-white transition duration-300"
       >
         <div className="flex flex-1 flex-col p-5 md:p-6">
@@ -164,7 +160,7 @@ function PostCard({ post }: { post: Post }) {
             </m.div>
           </div>
         </div>
-      </Link>
+      </ExternalLink>
     </m.div>
   );
 }
