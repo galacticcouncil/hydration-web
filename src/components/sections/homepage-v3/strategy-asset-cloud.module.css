@@ -56,36 +56,33 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .marquee {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+
   .lanes {
     overflow: visible;
     mask-image: none;
   }
   .lane {
-    overflow: visible;
-    padding-block: 0.5rem;
+    overflow-x: auto;
+    padding: 1rem 1.5rem;
   }
   .track {
-    width: 100%;
+    width: max-content;
+    min-width: 100%;
     animation: none;
     transform: none;
     will-change: auto;
   }
   .group {
     width: 100%;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 0.75rem;
     padding-right: 0;
   }
-  .group[data-copy="1"] {
+  .group[data-copy="1"],
+  .group > [data-token-only="true"] {
     display: none;
-  }
-
-  .group > div {
-    max-width: 100%;
-  }
-
-  .group span {
-    white-space: normal;
   }
 }

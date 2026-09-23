@@ -73,11 +73,12 @@ export default function StrategyAssetCloud() {
         {opportunityRows.map((items, rowIndex) => (
           <div key={rowIndex} className={styles.lane}>
             <div className={styles.track}>
-              {[0, 1].map((copy) => (
+              {(reducedMotion ? [0] : [0, 1]).map((copy) => (
                 <div key={copy} className={styles.group} data-copy={copy}>
                   {items.map((item) => (
                     <div
                       key={item.label}
+                      data-token-only={item.tokenOnly || undefined}
                       className={`flex shrink-0 items-center rounded-full bg-white shadow-[0_0_0_1px_rgba(36,14,50,0.08),0_8px_24px_-16px_rgba(36,14,50,0.2)] ${
                         item.tokenOnly
                           ? "justify-center p-4 md:p-5"
