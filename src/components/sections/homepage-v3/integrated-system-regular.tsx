@@ -137,7 +137,7 @@ export default function IntegratedSystemRegular() {
         <m.div className="mt-10 lg:mt-16" variants={staggerChildren(0.07)}>
           <div className="hidden w-full grid-cols-[0.9fr_1.1fr] gap-20 lg:grid">
             <m.div
-              className="relative aspect-[540/172] w-full"
+              className="relative left-[3rem] aspect-[540/172] w-full"
               variants={reveal}
             >
               <AnimatedIllustration

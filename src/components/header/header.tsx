@@ -15,43 +15,38 @@ type MenuItem = {
   showExternalIcon?: boolean;
 };
 
-const currentMenuItems: MenuItem[] = [
+const currentMenuGroups: { label: string; items: MenuItem[] }[] = [
   {
-    label: "Productive yield",
-    href: "#productive-yield",
+    label: "Opportunities",
+    items: [
+      { label: "Productive yield", href: "#productive-yield" },
+      { label: "Strategies", href: "#strategies" },
+    ],
   },
   {
-    label: "Strategies",
-    href: "#strategies",
+    label: "About Hydration",
+    items: [
+      { label: "Why Hydration", href: "#why-hydration" },
+      { label: "Security", href: "#security" },
+      { label: "HDX", href: "#hdx" },
+    ],
   },
   {
-    label: "Why Hydration",
-    href: "#why-hydration",
-  },
-  {
-    label: "Security",
-    href: "#security",
-  },
-  {
-    label: "HDX",
-    href: "#hdx",
-  },
-  {
-    label: "Community",
-    href: "#community",
-  },
-  {
-    label: "Docs",
-    href: "https://docs.hydration.net",
-    target: "_blank",
-  },
-  {
-    label: "Explorer",
-    href: "https://hydration-explorer.neckwork.net",
-    target: "_blank",
-    showExternalIcon: true,
+    label: "Community & tools",
+    items: [
+      { label: "Community", href: "#community" },
+      { label: "Docs", href: "https://docs.hydration.net", target: "_blank" },
+      {
+        label: "Explorer",
+        href: "https://hydration-explorer.neckwork.net",
+        target: "_blank",
+        showExternalIcon: true,
+      },
+    ],
   },
 ];
+
+const currentMenuItems = currentMenuGroups.flatMap((group) => group.items);
 
 const previousMenuItems: MenuItem[] = [
   { label: "Blog", href: "#blog" },
@@ -130,6 +125,10 @@ export default function Header({
   const panelId = useId();
   const menuItems =
     version === "previous" ? previousMenuItems : currentMenuItems;
+  const mobileMenuGroups =
+    version === "previous"
+      ? [{ label: "Explore", items: previousMenuItems }]
+      : currentMenuGroups;
   const scrollOffset = version === "previous" ? 0 : sectionScrollOffset;
 
   useEffect(() => {
@@ -257,14 +256,14 @@ export default function Header({
           >
             <Logo size="small" />
           </button>
-          <nav className="group hidden xl:flex gap-6 justify-center pointer-events-none">
+          <nav className="hidden xl:flex gap-6 justify-center pointer-events-none">
             {menuItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 target={item.target}
                 rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-1 transition group-hover:opacity-50 hover:!opacity-100 text-sm font-medium font-geist leading-5 text-purple pointer-events-auto"
+                className="inline-flex items-center gap-1 rounded-sm text-sm font-medium font-geist leading-5 text-purple pointer-events-auto transition-colors hover:text-pink focus-visible:text-pink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink"
                 onClick={(e) => {
                   if (item.target === "_blank") return;
                   e.preventDefault();
@@ -322,29 +321,36 @@ export default function Header({
                 top: menuTopPx,
                 maxHeight: `calc(100dvh - ${menuTopPx + 16}px - env(safe-area-inset-bottom, 0px))`,
               }}
-              className="fixed inset-x-4 z-50 flex flex-col gap-1 overflow-y-auto overscroll-contain rounded-[1.35rem] border border-purple/10 bg-white/95 px-6 py-5 shadow-[0_20px_60px_rgba(36,14,50,0.14)] xl:hidden backdrop-blur-md"
+              className="fixed inset-x-4 z-50 flex flex-col gap-6 overflow-y-auto overscroll-contain rounded-[1.35rem] border border-purple/10 bg-white/95 px-7 py-6 shadow-[0_20px_60px_rgba(36,14,50,0.14)] sm:inset-x-auto sm:right-4 sm:w-[min(30rem,calc(100vw-2rem))] xl:hidden backdrop-blur-md"
             >
-              {menuItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  target={item.target}
-                  rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
-                  className="flex items-center gap-1.5 rounded-xl px-2 py-2.5 text-base font-medium font-geist text-purple transition hover:bg-beige hover:text-pink"
-                  onClick={(e) => {
-                    if (item.target !== "_blank") {
-                      e.preventDefault();
-                      navigateTo(item);
-                    } else {
-                      setMenuOpen(false);
-                    }
-                  }}
-                >
-                  {item.label}
-                  {item.showExternalIcon ? (
-                    <ExternalLinkIcon className="h-3.5 w-3.5 shrink-0" />
-                  ) : null}
-                </Link>
+              {mobileMenuGroups.map((group) => (
+                <div key={group.label} className="flex flex-col">
+                  <p className="mb-2 font-geist text-sm font-medium text-purple/55">
+                    {group.label}
+                  </p>
+                  {group.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      target={item.target}
+                      rel={item.target === "_blank" ? "noopener noreferrer" : undefined}
+                      className="flex min-h-11 items-center gap-2 rounded-sm font-geist text-[1.25rem] font-medium leading-tight text-purple transition-colors hover:text-pink focus-visible:text-pink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink"
+                      onClick={(e) => {
+                        if (item.target !== "_blank") {
+                          e.preventDefault();
+                          navigateTo(item);
+                        } else {
+                          setMenuOpen(false);
+                        }
+                      }}
+                    >
+                      {item.label}
+                      {item.showExternalIcon ? (
+                        <ExternalLinkIcon className="h-4 w-4 shrink-0" />
+                      ) : null}
+                    </Link>
+                  ))}
+                </div>
               ))}
             </nav>
           </>

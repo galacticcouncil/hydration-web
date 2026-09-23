@@ -27,7 +27,7 @@ export default function Legal({ className, dark = false }: LegalProps) {
             size="small"
             className={twMerge(
               "text-purple-dim lg:text-purple",
-              dark && "text-white/50 transition-colors hover:text-white lg:text-white/50"
+              dark && "text-lavender/55 transition-colors hover:text-white lg:text-lavender/55"
             )}
           >
             Privacy Policy
@@ -41,7 +41,7 @@ export default function Legal({ className, dark = false }: LegalProps) {
             size="small"
             className={twMerge(
               "text-purple-dim lg:text-purple",
-              dark && "text-white/50 transition-colors hover:text-white lg:text-white/50"
+              dark && "text-lavender/55 transition-colors hover:text-white lg:text-lavender/55"
             )}
           >
             Terms of Service

@@ -6,31 +6,17 @@ import { useLenis } from "@studio-freight/react-lenis";
 
 const currentLinkColumns: LinkColumnProps[] = [
   {
-    title: "Product",
+    title: "Socials",
     links: [
-      {
-        title: "Strategies",
-        href: "#strategies",
-      },
-      {
-        title: "Security",
-        href: "#security",
-      },
-      {
-        title: "HDX",
-        href: "#hdx",
-      },
+      { title: "X", href: "https://x.com/hydration_net", target: "_blank" },
+      { title: "Discord", href: "https://discord.gg/kkmY35UxAG", target: "_blank" },
+      { title: "Telegram", href: "https://t.me/hydration_net", target: "_blank" },
     ],
   },
-
   {
     title: "Developers",
     links: [
-      {
-        title: "Docs",
-        href: "https://docs.hydration.net/",
-        target: "_blank",
-      },
+      { title: "Docs", href: "https://docs.hydration.net/", target: "_blank" },
       {
         title: "Github",
         href: "https://github.com/galacticcouncil",
@@ -92,7 +78,13 @@ export default function FooterLinks({
     version === "previous" ? previousLinkColumns : currentLinkColumns;
 
   return (
-    <div className={twMerge("grid grid-cols-2 gap-y-12", className)}>
+    <div
+      className={twMerge(
+        "grid grid-cols-2 gap-x-8 gap-y-10",
+        version === "current" && "md:grid-cols-[max-content_max-content] md:justify-center",
+        className
+      )}
+    >
       {linkColumns.map((column) => (
         <LinkColumn
           key={column.title}
@@ -125,29 +117,45 @@ function LinkColumn({
   const lenis = useLenis();
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className={twMerge("flex flex-col gap-6", version === "current" && "gap-3 md:flex-row md:items-baseline md:gap-8")}>
       <h3
         className={twMerge(
           "font-geist font-medium text-purple-dim",
+          version === "current" && "shrink-0 text-sm text-purple/55",
           dark && "text-lavender/55"
         )}
       >
         {title}
       </h3>
+      <div
+        className={twMerge(
+          "flex flex-col gap-6",
+          version === "current" && "gap-3 md:flex-row md:flex-wrap md:gap-x-8"
+        )}
+      >
       {links.map((link) => (
         <div key={link.href}>
           <Link
             href={link.href}
             target={link.target}
             rel={link.target === "_blank" ? "noopener noreferrer" : undefined}
-            className={twMerge(
-              "inline-block bg-purple-to-transparent bg-[bottom_left] bg-[length:0_2px] bg-no-repeat pb-[2px] font-geist text-base text-purple hover:bg-[bottom_right] hover:bg-[length:100%_2px]",
-              dark &&
-                "text-white/80 [background-image:linear-gradient(#DFB1F3_0_0)] hover:text-white"
-            )}
-            style={{
-              transition: "background-size 0.3s, background-position 0s 0.3s",
-            }}
+            className={
+              version === "current"
+                ? twMerge(
+                    "inline-block rounded-sm font-geist text-base font-medium text-purple transition-colors hover:text-pink hover:underline hover:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink",
+                    dark && "text-white/80 hover:text-white focus-visible:outline-lavender"
+                  )
+                : twMerge(
+                    "inline-block bg-purple-to-transparent bg-[bottom_left] bg-[length:0_2px] bg-no-repeat pb-[2px] font-geist text-base text-purple hover:bg-[bottom_right] hover:bg-[length:100%_2px]",
+                    dark &&
+                      "text-white/80 [background-image:linear-gradient(#DFB1F3_0_0)] hover:text-white"
+                  )
+            }
+            style={
+              version === "current"
+                ? undefined
+                : { transition: "background-size 0.3s, background-position 0s 0.3s" }
+            }
             onClick={(e) => {
               if (link.target === "_blank") return;
               e.preventDefault();
@@ -160,6 +168,7 @@ function LinkColumn({
           </Link>
         </div>
       ))}
+      </div>
     </div>
   );
 }

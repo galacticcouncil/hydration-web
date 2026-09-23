@@ -12,7 +12,36 @@ export default function Footer({
 }: {
   version?: "current" | "previous";
 }) {
-  const isDark = version === "current";
+  if (version === "current") {
+    return (
+      <footer className="overflow-hidden border-t border-lavender/15 bg-purple text-white">
+        <RevealOnView className="container mx-auto">
+          <div className="flex flex-col items-center gap-[2.5rem] pt-24 text-center md:pt-28">
+            <h2 className="max-w-[24ch] text-balance font-gazpacho text-[clamp(2.75rem,5vw,5.5rem)] font-medium leading-[1.06] text-lavender">
+              Get the latest from Hydration
+            </h2>
+            <SubscribeToNewsletter className="mt-0 items-center" dark showLabel={false} />
+          </div>
+
+          <FooterLinks className="mx-auto mt-24 max-w-[56rem] md:mt-28 md:gap-x-16" version="current" dark />
+
+          <div className="mt-16 flex flex-col items-center gap-4 border-t border-lavender/15 pt-6 text-center sm:flex-row sm:justify-between sm:text-left">
+            <Legal dark />
+            <RightsReserved className="text-lavender/55" />
+          </div>
+        </RevealOnView>
+
+        <div aria-hidden="true" className="relative mt-5 aspect-[168/23] overflow-hidden sm:aspect-[42/5]">
+          <Logo
+            size="large"
+            className="absolute left-1/2 top-0 h-auto w-[115%] max-w-none -translate-x-1/2 sm:w-full [&_path]:fill-lavender/15"
+          />
+        </div>
+      </footer>
+    );
+  }
+
+  const isDark = false;
 
   return (
     <footer
