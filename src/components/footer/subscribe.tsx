@@ -1,23 +1,42 @@
 import { twMerge } from "tailwind-merge";
-import Button from "../ui/buttons/button";
-import Input from "../ui/input/input";
+import Arrow from "../icons/arrow";
+import ExternalLink from "../ui/external-link";
 
 type Props = {
   className?: string;
+  dark?: boolean;
+  showLabel?: boolean;
 };
 
-export default function SubscribeToNewsletter({ className }: Props) {
+export default function SubscribeToNewsletter({
+  className,
+  dark = false,
+  showLabel = true,
+}: Props) {
   return (
     <div className={twMerge("flex flex-col gap-4 mt-4 lg:mt-0", className)}>
-      <p className="leading-5 font-medium font-inter lg:text-purple-dim text-purple">
-        Get the latest from Hydration
-      </p>
-      <form className="flex gap-4 bg-beige rounded-xl p-1 h-[3rem] sm:max-w-[22.7rem] justify-between">
-        <Input placeholder="Email address" className="min-w-0" />
-        <Button role="primary" decoration="arrow" className="py-2 min-w-[7rem]">
-          Join Us
-        </Button>
-      </form>
+      {showLabel ? (
+        <p
+          className={twMerge(
+            "font-inter font-medium leading-5 text-purple lg:text-purple-dim",
+            dark && "text-white/60 lg:text-white/60"
+          )}
+        >
+          Get the latest from Hydration
+        </p>
+      ) : null}
+      <ExternalLink
+        href="https://hydration.substack.com/"
+        className={twMerge(
+          "inline-flex w-fit items-center gap-2.5 rounded-xl bg-pink px-5 py-3 font-geist text-base leading-6 text-white transition-colors hover:bg-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pink",
+          dark && "footer-blog-cta font-normal hover:bg-lavender hover:text-purple"
+        )}
+      >
+        Follow our blog
+        <span aria-hidden="true">
+          <Arrow />
+        </span>
+      </ExternalLink>
     </div>
   );
 }

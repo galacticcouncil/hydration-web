@@ -7,10 +7,10 @@ import DiscordLogo from "./assets/discord.svg";
 import TelegramLogo from "./assets/telegram.svg";
 import GithubLogo from "./assets/github.svg";
 import SubstackLogo from "./assets/substack.svg";
-import Link from "next/link";
+import ExternalLink from "@/components/ui/external-link";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { fadeUp } from "@/animation/variants";
 
 const socials = [
@@ -43,24 +43,30 @@ const socials = [
 
 type Props = {
   className?: string;
+  dark?: boolean;
 };
 
-export default function Socials({ className }: Props) {
+export default function Socials({ className, dark = false }: Props) {
   return (
-    <motion.div
-      className={twMerge("flex gap-8 items-center", className)}
+    <m.div
+      className={twMerge("flex gap-4 items-center lg:gap-8", className)}
       variants={fadeUp()}
     >
       {socials.map((social) => (
-        <Link
+        <ExternalLink
           key={social.name}
           href={social.href}
-          target="_blank"
-          className="cursor-pointer hover:scale-105 transition-transform duration-200 ease-in-out"
+          className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-sm cursor-pointer hover:scale-105 transition-transform duration-200 ease-out will-change-transform lg:before:absolute lg:before:-inset-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 lg:h-7 lg:w-7"
         >
-          <Image src={social.logo} alt={social.name} width={28} height={28} />
-        </Link>
+          <Image
+            src={social.logo}
+            alt={social.name}
+            width={28}
+            height={28}
+            className={dark ? "brightness-0 invert opacity-75" : undefined}
+          />
+        </ExternalLink>
       ))}
-    </motion.div>
+    </m.div>
   );
 }

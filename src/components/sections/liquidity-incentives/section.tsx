@@ -1,5 +1,4 @@
 import LiquidityIncentivesArches from "./arches";
-import LiquidityIncentivesCans from "./cans";
 
 export default function LiquidityIncentivesSection() {
   return (
@@ -12,7 +11,6 @@ export default function LiquidityIncentivesSection() {
       }}
     >
       <div className="flex flex-col mx-auto container">
-        <LiquidityIncentivesCans />
         <LiquidityIncentivesArches />
         <div className="~pt-24/36 bg-beige" />
       </div>

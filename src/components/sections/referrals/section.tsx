@@ -7,7 +7,7 @@ import Paragraph from "@/components/ui/typography/paragraph";
 import Image from "next/image";
 import StarAsset from "./assets/star.svg";
 import AnimateOnView from "@/animation/motion-section";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 import ScrollAnchor from "@/components/scroll-anchor";
 
@@ -82,7 +82,7 @@ type StarProps = {
 function Star({ size, top, left, right }: StarProps) {
   const [delay] = useState(Math.random() * 2);
   return (
-    <motion.div
+    <m.div
       className="absolute"
       style={{
         top: `${top}px`,
@@ -108,6 +108,6 @@ function Star({ size, top, left, right }: StarProps) {
           height: size,
         }}
       />
-    </motion.div>
+    </m.div>
   );
 }
