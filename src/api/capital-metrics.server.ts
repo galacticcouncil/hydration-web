@@ -16,6 +16,8 @@ type Reading = {
 
 const TIMEOUT_MS = 8000;
 const RETRY_DELAY_MS = 60_000;
+// HOLLAR (asset 222) totalSupply is a raw integer with 18 decimals.
+const HOLLAR_UNIT = 1e18;
 
 function field(data: unknown, path: string[]): unknown {
   return path.reduce<unknown>((value, key) =>
@@ -27,6 +29,13 @@ function amount(data: unknown, path: string[]): number {
   const value = field(data, path);
   if (!isMetricValue(value)) throw new Error(`Invalid ${path.join(".")}`);
   return value;
+}
+
+// /v1/stats/platform publishes amounts as decimal strings; null stays invalid.
+function decimal(data: unknown, path: string[]): number {
+  const value = field(data, path);
+  if (typeof value !== "string" || !/^\d+(\.\d+)?$/.test(value)) throw new Error(`Invalid ${path.join(".")}`);
+  return Number(value);
 }
 
 // This service is instantiated only by the server route. The factory allows
@@ -56,21 +65,21 @@ export function createCapitalMetricsService({
     }));
 
     const value = definition.id === "allocated" ? amount(responses[0], ["tvl"])
-      : definition.id === "hollar" ? amount(responses[0], ["supply", "total"])
-        : definition.id === "generated" ? amount(responses[0], ["totals", "allTime"])
+      : definition.id === "hollar" ? decimal(responses[0], ["hollar", "totalSupply"]) / HOLLAR_UNIT
+        : definition.id === "generated" ? decimal(responses[0], ["protocolRevenue", "allTimeUsd"])
           : responses.reduce<number>((sum, response) => sum + amount(response, ["totalAllTime"]), 0);
     if (!isMetricValue(value)) throw new Error("Invalid metric total");
 
-    let asOf: string | null = null;
-    if (definition.id === "generated") {
+    // Platform's asOf is its swap-index anchor and trails by minutes, so it only
+    // rejects a dead or skewed indexer; freshness follows retrieval time, as for TVL.
+    if (definition.id === "generated" || definition.id === "hollar") {
       const timestamp = field(responses[0], ["asOf"]);
       const sourceTime = typeof timestamp === "string" ? Date.parse(timestamp) : NaN;
       if (!Number.isFinite(sourceTime) || sourceTime > now() + 60_000 || now() - sourceTime > MAX_METRIC_AGE_MS) {
         throw new Error("Invalid or expired source timestamp");
       }
-      asOf = new Date(sourceTime).toISOString();
     }
-    return { value, asOf, retrievedAt: new Date(now()).toISOString() };
+    return { value, asOf: null, retrievedAt: new Date(now()).toISOString() };
   }
 
   function result(definition: CapitalMetricDefinition, reading?: Reading, failed = false): CapitalMetric {
