@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import LetterByLetter from "@/components/animation/LetterByLetter";
 import { ReactNode } from "react";
 import { Variants } from "framer-motion";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 type HeadingProps = {
   children: ReactNode;
@@ -23,12 +23,12 @@ export default function Heading({
     return (
       <h4
         className={twMerge(
-          "font-gazpacho font-medium ~text-2xl/3xl leading-tight text-purple",
+          "font-gazpacho font-medium ~text-2xl/3xl leading-tight text-balance text-purple",
           className
         )}
       >
         {animationVariants ? (
-          <motion.div variants={animationVariants}>{children}</motion.div>
+          <m.span className="block" variants={animationVariants}>{children}</m.span>
         ) : (
           <LetterByLetter staggerDelay={0.02}>{children}</LetterByLetter>
         )}
@@ -40,12 +40,12 @@ export default function Heading({
     return (
       <h2
         className={twMerge(
-          "font-gazpacho font-medium ~text-3xl/5xl leading-tight text-purple",
+          "font-gazpacho font-medium ~text-3xl/5xl leading-tight text-balance text-purple",
           className
         )}
       >
         {animationVariants ? (
-          <motion.div variants={animationVariants}>{children}</motion.div>
+          <m.span className="block" variants={animationVariants}>{children}</m.span>
         ) : (
           <LetterByLetter staggerDelay={0.03}>{children}</LetterByLetter>
         )}
@@ -56,12 +56,12 @@ export default function Heading({
   return (
     <h3
       className={twMerge(
-        "font-gazpacho font-bold ~text-3xl/4xl leading-tight text-purple",
+        "font-gazpacho font-bold ~text-3xl/4xl leading-tight text-balance text-purple",
         className
       )}
     >
       {animationVariants ? (
-        <motion.div variants={animationVariants}>{children}</motion.div>
+        <m.span className="block" variants={animationVariants}>{children}</m.span>
       ) : (
         <LetterByLetter staggerDelay={0.03}>{children}</LetterByLetter>
       )}

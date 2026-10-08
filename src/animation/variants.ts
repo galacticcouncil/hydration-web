@@ -15,6 +15,28 @@ export function staggerChildren(delay = 0.25) {
   } satisfies Variants;
 }
 
+export function revealStagger(delay = 0.1, y = 20) {
+  return {
+    initial: {
+      opacity: 0,
+      y,
+      scale: 0.992,
+      filter: "blur(7px)",
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: "blur(0px)",
+      transition: {
+        duration: 1.05,
+        ease: [0.2, 0.65, 0.3, 0.9],
+        staggerChildren: delay,
+      },
+    },
+  } satisfies Variants;
+}
+
 export function delayChildren(delay = 0.25) {
   return {
     visible: {

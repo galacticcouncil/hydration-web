@@ -1,0 +1,258 @@
+{
+  "description": "Sequential mobile Lighthouse performance runs. The local baseline includes the separate LazyMotion migration. All optimized measurements are local production builds, not deployed scores.",
+  "baselineCommit": "9761d50794fd4de32ff40e0991c5eb5f31eb0805",
+  "settings": {
+    "formFactor": "mobile",
+    "screenEmulation": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    },
+    "throttlingMethod": "simulate"
+  },
+  "deployedBaseline": {
+    "run": "deployed-before",
+    "url": "https://hdxlanding.vercel.app/",
+    "fetchTime": "2026-09-18T13:02:53.227Z",
+    "lighthouseVersion": "13.4.1",
+    "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+    "benchmarkIndex": 2851.5,
+    "score": 89,
+    "metrics": {
+      "first-contentful-paint": {
+        "value": 1737.9270000000001,
+        "unit": "millisecond"
+      },
+      "largest-contentful-paint": {
+        "value": 3445.427,
+        "unit": "millisecond"
+      },
+      "speed-index": {
+        "value": 3589.253743107409,
+        "unit": "millisecond"
+      },
+      "total-blocking-time": {
+        "value": 7,
+        "unit": "millisecond"
+      },
+      "cumulative-layout-shift": {
+        "value": 0,
+        "unit": "unitless"
+      }
+    },
+    "fontTransferBytes": 171568,
+    "runWarnings": []
+  },
+  "localBaseline": [
+    {
+      "run": "local-before-1",
+      "url": "http://127.0.0.1:3004/",
+      "fetchTime": "2026-09-18T13:03:39.879Z",
+      "lighthouseVersion": "13.4.1",
+      "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2875,
+      "score": 84,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 2297.648,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 3740.7680000000005,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 4367.447992750536,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 7.5,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        }
+      },
+      "fontTransferBytes": 171796,
+      "runWarnings": []
+    },
+    {
+      "run": "local-before-2",
+      "url": "http://127.0.0.1:3004/",
+      "fetchTime": "2026-09-18T13:03:58.076Z",
+      "lighthouseVersion": "13.4.1",
+      "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2882,
+      "score": 87,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1361.88465,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 3992.73085,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 1380.7875759821388,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 7.5,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        }
+      },
+      "fontTransferBytes": 171796,
+      "runWarnings": []
+    },
+    {
+      "run": "local-before-3",
+      "url": "http://127.0.0.1:3004/",
+      "fetchTime": "2026-09-18T13:04:14.234Z",
+      "lighthouseVersion": "13.4.1",
+      "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2672,
+      "score": 87,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1365.14775,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 4000.34475,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 1382.5407460168367,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 7.5,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        }
+      },
+      "fontTransferBytes": 171796,
+      "runWarnings": []
+    }
+  ],
+  "optimized": [
+    {
+      "run": "local-stable-1",
+      "url": "http://127.0.0.1:3007/",
+      "fetchTime": "2026-09-18T13:14:15.423Z",
+      "lighthouseVersion": "13.4.1",
+      "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2876.5,
+      "score": 91,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1371.2523,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 3403.3364,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 1371.2523,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 1.5,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        }
+      },
+      "fontTransferBytes": 109924,
+      "runWarnings": []
+    },
+    {
+      "run": "local-stable-2",
+      "url": "http://127.0.0.1:3007/",
+      "fetchTime": "2026-09-18T13:14:31.869Z",
+      "lighthouseVersion": "13.4.1",
+      "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2870.5,
+      "score": 92,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1360.7046,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 3389.2728000000006,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 1360.7046,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 6,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        }
+      },
+      "fontTransferBytes": 109924,
+      "runWarnings": []
+    },
+    {
+      "run": "local-stable-3",
+      "url": "http://127.0.0.1:3007/",
+      "fetchTime": "2026-09-18T13:14:47.861Z",
+      "lighthouseVersion": "13.4.1",
+      "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+      "benchmarkIndex": 2886,
+      "score": 94,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1371.432,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 2996.432,
+          "unit": "millisecond"
+        },
+        "speed-index": {
+          "value": 1371.432,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        }
+      },
+      "fontTransferBytes": 109924,
+      "runWarnings": []
+    }
+  ]
+}

@@ -2,94 +2,84 @@
 
 import Image from "next/image";
 import Badge from "./badge";
-import Link from "next/link";
+import ExternalLink from "@/components/ui/external-link";
 
 import MetaMaskLogo from "./assets/metamask.svg";
 import NovaLogo from "./assets/nova.png";
 import SubwalletLogo from "./assets/subwallet.svg";
 import TalismanLogo from "./assets/talisman.svg";
 import LedgerLogo from "./assets/ledger.webp";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { fadeIn, fadeUp } from "@/animation/variants";
 
 export default function SupportingBadge() {
   return (
-    <motion.div variants={fadeUp()}>
+    <m.div variants={fadeUp()}>
       <Badge className="pr-1">
         Supporting <Icons />
       </Badge>
-    </motion.div>
+    </m.div>
   );
 }
 
 function Icons() {
   return (
     <div className="flex gap-1 py-1 pl-1">
-      <Link
+      <ExternalLink
         href="https://metamask.io"
-        target="_blank"
-        rel="noopener noreferrer"
       >
         <Image
-          className="transition-transform hover:scale-105"
+          className="transition-transform will-change-transform hover:scale-105"
           width={32}
           height={32}
           src={MetaMaskLogo}
           alt="MetaMask - The Ultimate Crypto Wallet for DeFi, Web3 Apps, and NFTs"
         />
-      </Link>
-      <Link
+      </ExternalLink>
+      <ExternalLink
         href="https://novawallet.io"
-        target="_blank"
-        rel="noopener noreferrer"
       >
         <Image
-          className="transition-transform hover:scale-105"
+          className="transition-transform will-change-transform hover:scale-105"
           width={32}
           height={32}
           src={NovaLogo}
           alt="Nova Wallet — The Leading Mobile Wallet for Polkadot"
         />
-      </Link>
-      <Link
+      </ExternalLink>
+      <ExternalLink
         href="https://subwallet.app"
-        target="_blank"
-        rel="noopener noreferrer"
       >
         <Image
-          className="transition-transform hover:scale-105"
+          className="transition-transform will-change-transform hover:scale-105"
           width={32}
           height={32}
           src={SubwalletLogo}
           alt="SubWallet - Highly secure and comprehensive Web3 wallet"
         />
-      </Link>
-      <Link
+      </ExternalLink>
+      <ExternalLink
         href="https://talisman.xyz"
-        target="_blank"
-        rel="noopener noreferrer"
       >
         <Image
-          className="transition-transform hover:scale-105"
+          className="transition-transform will-change-transform hover:scale-105"
           width={32}
           height={32}
           src={TalismanLogo}
           alt="Talisman - An Ethereum and Polkadot wallet"
         />
-      </Link>
-      <Link
+      </ExternalLink>
+      <ExternalLink
         href="https://www.ledger.com"
-        target="_blank"
-        rel="noopener noreferrer"
       >
         <Image
-          className="transition-transform hover:scale-105 rounded-[4px]"
+          className="transition-transform will-change-transform hover:scale-105 rounded-[4px]"
           width={31}
           height={31}
           src={LedgerLogo}
           alt="Ledger - The best hardware wallet for crypto"
         />
-      </Link>
+      </ExternalLink>
     </div>
   );
 }

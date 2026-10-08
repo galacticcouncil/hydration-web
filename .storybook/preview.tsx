@@ -1,8 +1,7 @@
 import type { Preview } from "@storybook/react";
 import "../src/app/globals.css";
 import React from "react";
-
-// import { GeistSans } from "geist/font/sans";
+import MotionProvider from "../src/animation/motion-provider";
 
 const preview: Preview = {
   parameters: {
@@ -53,9 +52,11 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <main className={"w-full"}>
-        <Story />
-      </main>
+      <MotionProvider>
+        <main className={"w-full"}>
+          <Story />
+        </main>
+      </MotionProvider>
     ),
   ],
 };

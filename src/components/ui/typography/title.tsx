@@ -2,7 +2,7 @@
 
 import LetterByLetter from "@/components/animation/LetterByLetter";
 import { twMerge } from "tailwind-merge";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { fadeIn } from "@/animation/variants";
 
 type TitleProps = {
@@ -20,7 +20,7 @@ export default function Title({ children, className, size }: TitleProps) {
           className
         )}
       >
-        <motion.div variants={fadeIn()}>{children}</motion.div>
+        <m.div variants={fadeIn()}>{children}</m.div>
       </h5>
     );
   }
@@ -32,7 +32,7 @@ export default function Title({ children, className, size }: TitleProps) {
         className
       )}
     >
-      <motion.div variants={fadeIn()}>{children}</motion.div>
+      <m.div variants={fadeIn()}>{children}</m.div>
     </h6>
   );
 }
