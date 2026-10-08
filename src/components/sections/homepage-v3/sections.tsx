@@ -157,7 +157,7 @@ export function ProductiveYieldSection() {
 
         <AnimateOnView
           element="div"
-          className="mt-14 grid gap-6 lg:mt-20 lg:grid-cols-3 lg:gap-8"
+          className="mt-14 grid gap-6 md:grid-cols-3 md:gap-4 lg:mt-20 lg:gap-8"
           variants={revealStagger(0.13, 28)}
           threshold={0.16}
           viewportMargin="0px 0px -8% 0px"
@@ -170,6 +170,7 @@ export function ProductiveYieldSection() {
               accent={pillar.accent}
               icon={pillar.icon}
               accentFill="gradient"
+              compactOnTablet
             />
           ))}
         </AnimateOnView>
@@ -443,7 +444,7 @@ export function CommunityBuildSection() {
               >
                 {homepageCopy.community.paragraphs[1]}
               </Paragraph>
-              <p className="mt-10 font-gazpacho text-[1.5rem] font-medium leading-none text-lavender md:text-[1.65rem]">
+              <p className="mt-10 font-gazpacho text-[1.25rem] font-medium leading-none text-lavender">
                 Join the Community
               </p>
               <m.div

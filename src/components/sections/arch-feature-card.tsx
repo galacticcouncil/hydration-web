@@ -50,16 +50,18 @@ export default function ArchFeatureCard({
   accent,
   icon,
   accentFill = "solid",
+  compactOnTablet = false,
 }: {
   title: string;
   description: string;
   accent: ArchFeatureAccent;
   icon: ReactNode;
   accentFill?: "solid" | "gradient";
+  compactOnTablet?: boolean;
 }) {
   return (
     <m.article
-      className="relative mx-auto flex min-h-[25rem] w-[80vw] max-w-[24rem] flex-col items-center overflow-hidden rounded-t-full bg-white px-7 pb-11 pt-[3.25rem] text-center shadow-[0_18px_60px_rgba(36,14,50,0.08)] lg:min-h-[37rem] lg:w-full lg:max-w-[30rem] lg:px-12 lg:pb-14 lg:pt-20"
+      className={`relative mx-auto flex min-h-[25rem] w-[80vw] max-w-[24rem] flex-col items-center overflow-hidden rounded-t-full bg-white px-7 pb-11 pt-[3.25rem] text-center shadow-[0_18px_60px_rgba(36,14,50,0.08)] lg:min-h-[37rem] lg:w-full lg:max-w-[30rem] lg:px-12 lg:pb-14 lg:pt-20 ${compactOnTablet ? "md:max-lg:w-full md:max-lg:px-4 md:max-lg:pt-10" : ""}`}
       style={cardMaskStyle}
       variants={revealStagger(0.08, 28)}
     >
@@ -68,7 +70,7 @@ export default function ArchFeatureCard({
         variants={fadeUp(16)}
       >
         <div
-          className={`relative grid h-24 w-24 place-items-center rounded-full lg:h-32 lg:w-32 ${accentFill === "gradient" ? "text-purple" : accentClasses[accent]}`}
+          className={`relative grid h-24 w-24 place-items-center rounded-full lg:h-32 lg:w-32 ${compactOnTablet ? "md:max-lg:h-[4.5rem] md:max-lg:w-[4.5rem]" : ""} ${accentFill === "gradient" ? "text-purple" : accentClasses[accent]}`}
         >
           {accentFill === "gradient" && (
             <>
@@ -76,14 +78,14 @@ export default function ArchFeatureCard({
               <span aria-hidden="true" className={`pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br ${gradientAccentClasses[accent].fill}`} />
             </>
           )}
-          <span className="relative flex h-[68px] w-[68px] shrink-0 items-center justify-center [&>svg]:block">
+          <span className={`relative flex h-[68px] w-[68px] shrink-0 items-center justify-center [&>svg]:block ${compactOnTablet ? "md:max-lg:scale-75" : ""}`}>
             {icon}
           </span>
         </div>
       </m.div>
 
       <m.div
-        className="relative z-10 mt-12 flex max-w-[22rem] flex-col items-center lg:mt-20 lg:max-w-[24rem]"
+        className={`relative z-10 mt-12 flex max-w-[22rem] flex-col items-center lg:mt-20 lg:max-w-[24rem] ${compactOnTablet ? "md:max-lg:mt-9" : ""}`}
         variants={fadeUp(22)}
       >
         <h3 className="font-gazpacho text-[clamp(1.3rem,2.2125vw,2.4rem)] font-medium leading-none text-purple">
@@ -91,7 +93,7 @@ export default function ArchFeatureCard({
         </h3>
         <Paragraph
           size="large"
-          className="mt-5 max-w-[19.5rem] text-purple-dim lg:mt-8 lg:max-w-[21rem]"
+          className={`mt-5 max-w-[19.5rem] text-purple-dim lg:mt-8 lg:max-w-[21rem] ${compactOnTablet ? "md:max-lg:text-base md:max-lg:leading-snug" : ""}`}
         >
           {description}
         </Paragraph>
