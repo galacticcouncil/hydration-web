@@ -1,0 +1,88 @@
+.marquee {
+  min-width: 0;
+  width: 100%;
+}
+
+.lanes {
+  display: grid;
+  gap: 0.5rem;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.lane {
+  min-width: 0;
+  overflow: hidden;
+  padding-block: 1rem;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: opportunities-drift 52s linear infinite;
+  will-change: transform;
+}
+
+.lane:nth-child(2) .track {
+  animation-duration: 60s;
+  animation-direction: reverse;
+}
+
+.group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.marquee[data-paused="true"] .track {
+  animation-play-state: paused;
+}
+
+@keyframes opportunities-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+
+  .lanes {
+    overflow: visible;
+    mask-image: none;
+  }
+  .lane {
+    overflow-x: auto;
+    padding: 1rem 1.5rem;
+  }
+  .track {
+    width: max-content;
+    min-width: 100%;
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+  .group {
+    width: 100%;
+    justify-content: center;
+    padding-right: 0;
+  }
+  .group[data-copy="1"],
+  .group > [data-token-only="true"] {
+    display: none;
+  }
+}

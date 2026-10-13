@@ -2,5 +2,41 @@
   "extends": [
     "next/core-web-vitals",
     "plugin:storybook/recommended"
-  ]
+  ],
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "framer-motion",
+            "importNames": [
+              "motion"
+            ],
+            "message": "Use m with the shared MotionProvider to avoid bundling unused drag and layout features."
+          }
+        ]
+      }
+    ],
+    "react/jsx-no-target-blank": [
+      "error",
+      {
+        "enforceDynamicLinks": "always",
+        "warnOnSpreadAttributes": true,
+        "allowReferrer": false
+      }
+    ]
+  },
+  "settings": {
+    "linkComponents": [
+      {
+        "name": "Link",
+        "linkAttribute": "href"
+      },
+      {
+        "name": "ExternalLink",
+        "linkAttribute": "href"
+      }
+    ]
+  }
 }

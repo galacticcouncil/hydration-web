@@ -12,7 +12,7 @@ import AnimateOnView from "@/animation/motion-section";
 import { fadeIn } from "@/animation/variants";
 import {
   cubicBezier,
-  motion,
+  m,
   useAnimationControls,
   useTime,
 } from "framer-motion";
@@ -101,7 +101,7 @@ export default function LiquidityIncentivesCans() {
         threshold={0.6}
         className="relative w-[250px] lg:w-[50%] min-h-[150px] lg:min-h-[250px] lg:-translate-x-20 xl:translate-x-0 mx-auto "
       >
-        <motion.div
+        <m.div
           className="absolute left-[calc(-140px)] lg:left-[1%] top-[calc(50%_-_255px)] lg:top-[8%] z-[5] w-[7.299rem] lg:w-[47%] "
           style={{
             offsetPath: `path(
@@ -120,15 +120,15 @@ export default function LiquidityIncentivesCans() {
           }}
         >
           <Image className=" rotate-[14.2deg]" src={CanHdx} alt="Can HDX" />
-        </motion.div>
-        <motion.div
+        </m.div>
+        <m.div
           className="absolute top-[-2rem]  w-[10.699rem] lg:w-[22.938rem] h-[10.699rem] lg:h-[22.938rem] left-[35px] lg:left-[20%] lg:top-[2rem] z-[4]"
           initial={{ opacity: 0, y: 0, rotate: 0, scale: 0.4 }}
           animate={controls}
         >
           <Image src={Star} alt="Star" />
-        </motion.div>
-        <motion.div
+        </m.div>
+        <m.div
           className="absolute left-[calc(-120px)] w-[6.299rem] lg:left-[26%] -top-[180px] lg:top-0 z-[5] lg:w-[39%]"
           style={{
             offsetPath: `path(
@@ -150,7 +150,7 @@ export default function LiquidityIncentivesCans() {
             src={CanPolkadot}
             alt="Can Polkadot"
           />
-        </motion.div>
+        </m.div>
       </AnimateOnView>
     </div>
   );

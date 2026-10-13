@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Title from "@/components/ui/typography/title";
 import Paragraph from "@/components/ui/typography/paragraph";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { fadeUp } from "@/animation/variants";
-import Link from "next/link";
+import ExternalLink from "@/components/ui/external-link";
 import { twMerge } from "tailwind-merge";
 
 export type DevsAndSecurityItemProps = {
@@ -21,8 +21,8 @@ export default function DevsAndSecurityItem({
 }: DevsAndSecurityItemProps) {
   const [hoverAnimationActive, setHoverAnimationActive] = useState(false);
   return (
-    <Link href={href} target="_blank">
-      <motion.div
+    <ExternalLink href={href}>
+      <m.div
         variants={fadeUp()}
         onAnimationComplete={() => setHoverAnimationActive(true)}
         className={twMerge(
@@ -33,7 +33,7 @@ export default function DevsAndSecurityItem({
         )}
       >
         <div className="rounded-sm bg-white shadow-blue-inset min-w-[4.875rem] w-[4.875rem] md:h-[6.125rem] flex justify-center items-center">
-          <Icon className="transition-all text-blue group-hover:text-purple" />
+          <Icon className="transition-colors text-blue group-hover:text-purple" />
         </div>
         <div className="flex flex-col ~gap-3/4 max-w-[351px]">
           <Title size="small" className="font-geist md:font-gazpacho ~pt-1.5/3">
@@ -43,7 +43,7 @@ export default function DevsAndSecurityItem({
             {description}
           </Paragraph>
         </div>
-      </motion.div>
-    </Link>
+      </m.div>
+    </ExternalLink>
   );
 }

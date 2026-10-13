@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { fadeUp } from "@/animation/variants";
 
 type BulletProps = {
@@ -8,7 +8,7 @@ type BulletProps = {
 
 export default function Bullet({ active }: BulletProps) {
   return (
-    <motion.div
+    <m.div
       initial={{
         opacity: 0,
         x: -20,

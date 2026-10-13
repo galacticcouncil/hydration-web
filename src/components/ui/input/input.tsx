@@ -1,27 +1,16 @@
 import { twMerge } from "tailwind-merge";
+import type { ComponentProps } from "react";
 
-type InputProps = {
-  placeholder: string;
-  //   value: string;
-  //   onChange: (value: string) => void;
-  className?: string;
-};
+type InputProps = ComponentProps<"input">;
 
-export default function Input({
-  placeholder,
-  //   value,
-  //   onChange,
-  className,
-}: InputProps) {
+export default function Input({ className, ...props }: InputProps) {
   return (
     <input
       className={twMerge(
         "rounded-xl px-4 py-3 font-geist font-normal text-base leading-6 bg-beige text-purple",
         className
       )}
-      placeholder={placeholder}
-      // value={value}
-      // onChange={(e) => onChange(e.target.value)}
+      {...props}
     />
   );
 }

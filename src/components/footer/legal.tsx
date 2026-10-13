@@ -9,9 +9,10 @@ import PrivacyPolicy from "./privacy-policy";
 
 type LegalProps = {
   className?: string;
+  dark?: boolean;
 };
 
-export default function Legal({ className }: LegalProps) {
+export default function Legal({ className, dark = false }: LegalProps) {
   const [tosOpen, setTosOpen] = useState(false);
   const [privacyOpen, setPrivacyOpen] = useState(false);
 
@@ -20,17 +21,29 @@ export default function Legal({ className }: LegalProps) {
       <div className={twMerge("flex gap-4", className)}>
         <button
           onClick={() => setPrivacyOpen(true)}
-          className="font-inter font-medium cursor-pointer"
+          className="relative min-h-11 font-medium cursor-pointer lg:min-h-0 lg:before:absolute lg:before:-inset-y-2.5 lg:before:inset-x-0"
         >
-          <Paragraph size="small" className="text-purple-dim lg:text-purple">
+          <Paragraph
+            size="small"
+            className={twMerge(
+              "text-purple-dim lg:text-purple",
+              dark && "text-lavender/55 transition-colors hover:text-white lg:text-lavender/55"
+            )}
+          >
             Privacy Policy
           </Paragraph>
         </button>
         <button
           onClick={() => setTosOpen(true)}
-          className="font-inter font-medium cursor-pointer"
+          className="relative min-h-11 font-medium cursor-pointer lg:min-h-0 lg:before:absolute lg:before:-inset-y-2.5 lg:before:inset-x-0"
         >
-          <Paragraph size="small" className="text-purple-dim lg:text-purple">
+          <Paragraph
+            size="small"
+            className={twMerge(
+              "text-purple-dim lg:text-purple",
+              dark && "text-lavender/55 transition-colors hover:text-white lg:text-lavender/55"
+            )}
+          >
             Terms of Service
           </Paragraph>
         </button>
@@ -54,4 +67,3 @@ export default function Legal({ className }: LegalProps) {
     </>
   );
 }
-

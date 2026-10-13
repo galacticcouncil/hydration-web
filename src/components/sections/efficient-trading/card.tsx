@@ -9,7 +9,7 @@ import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import React, { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
-import { Variants, motion } from "framer-motion";
+import { Variants, m } from "framer-motion";
 import useScreenSize from "@/hooks/useScreenSize";
 
 export type EfficientTradingCardProps = {
@@ -67,7 +67,7 @@ export default function EfficientTradingCard({
       )}
       variants={cardAnimationVariants}
     >
-      <motion.div className="relative h-full w-full" variants={fadeUp()}>
+      <m.div className="relative h-full w-full" variants={fadeUp()}>
         <div className="flex flex-col gap-4 pb-10 lg:pb-0">
           <Image src={icon.src} alt={icon.alt} className="~w-12/14 ~h-12/14" />
           <Heading
@@ -89,7 +89,7 @@ export default function EfficientTradingCard({
         <div className="lg:absolute flex-col items-end md:flex-row bottom-0 left-0 flex gap-4 justify-end w-full">
           {buttons}
         </div>
-      </motion.div>
+      </m.div>
     </AnimateOnView>
   );
 }

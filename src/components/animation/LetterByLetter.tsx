@@ -1,5 +1,5 @@
 import { fadeUp, staggerChildren } from "@/animation/variants";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import React, { Fragment, ReactNode } from "react";
 
 type LetterByLetterProps = {
@@ -21,13 +21,13 @@ export default function LetterByLetter({
             {" "}
             {/* Ensure each word is treated as an inline-flex container */}
             {word.split("").map((letter, letterIndex) => (
-              <motion.span
+              <m.span
                 className="inline-block"
                 key={letterIndex}
                 variants={fadeUp()}
               >
                 {letter}
-              </motion.span>
+              </m.span>
             ))}
           </span>{" "}
           {/* Add normal space for natural text flow */}
@@ -43,10 +43,13 @@ export default function LetterByLetter({
   };
 
   return (
-    <motion.div variants={staggerChildren(staggerDelay)}>
-      {React.Children.map(children, (child) => (
-        <Fragment>{parseChildren(child)}</Fragment>
-      ))}
-    </motion.div>
+    <span className="block" data-animated-heading>
+      <span className="sr-only">{children}</span>
+      <m.span className="block" aria-hidden="true" variants={staggerChildren(staggerDelay)}>
+        {React.Children.map(children, (child) => (
+          <Fragment>{parseChildren(child)}</Fragment>
+        ))}
+      </m.span>
+    </span>
   );
 }

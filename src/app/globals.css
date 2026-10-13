@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbar chrome without disabling scrolling. */
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+.footer-blog-cta {
+  padding: 20px 40px;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+@media (max-width: 1200px) {
+  .footer-blog-cta {
+    padding: 12px 32px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -26,6 +49,24 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+/* Required root behavior for the installed Lenis version. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -34,9 +75,10 @@ body {
 
 @font-face {
   font-family: "Gazpacho";
-  src: url("/font/gazpacho/Gazpacho-Regular.ttf") format("truetype");
+  src: url("/font/gazpacho/Gazpacho-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -44,6 +86,7 @@ body {
   src: url("/font/gazpacho/Gazpacho-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -51,6 +94,7 @@ body {
   src: url("/font/gazpacho/Gazpacho-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -58,13 +102,15 @@ body {
   src: url("/font/gazpacho/Gazpacho-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Gazpacho";
-  src: url("/font/gazpacho/Gazpacho-Medium.ttf") format("truetype");
+  src: url("/font/gazpacho/Gazpacho-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -72,6 +118,7 @@ body {
   src: url("/font/gazpacho/Gazpacho-Thin.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -79,21 +126,62 @@ body {
   src: url("/font/gazpacho/Gazpacho-Heavy.ttf") format("truetype");
   font-weight: 800;
   font-style: normal;
+  font-display: swap;
 }
 
 /* italic regular */
 @font-face {
   font-family: "Gazpacho";
-  src: url("/font/gazpacho/Gazpacho-Italic-Regular.ttf") format("truetype");
+  src: url("/font/gazpacho/Gazpacho-Italic-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Geist";
   font-style: normal;
   font-weight: 100 900;
-  src: url(/font/geist/geist.ttf) format("truetype");
+  src: url(/font/geist/geist.woff2) format("woff2");
+  font-display: swap;
+}
+
+/* Prefer compact Latin faces for the page copy. The full faces above retain
+   every original character for other languages and symbols. */
+@font-face {
+  font-family: "Gazpacho";
+  src: url("/font/gazpacho/Gazpacho-Regular-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20A0-20CF, U+2113, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Gazpacho";
+  src: url("/font/gazpacho/Gazpacho-Medium-latin.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20A0-20CF, U+2113, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Gazpacho";
+  src: url("/font/gazpacho/Gazpacho-Italic-Regular-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20A0-20CF, U+2113, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/font/geist/geist-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20A0-20CF, U+2113, U+2122, U+2190-2199, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* @font-face {
@@ -109,5 +197,1481 @@ body {
   }
   to {
     transform: rotate(-360deg);
+  }
+}
+
+.appchain-stack-stage {
+  --stack-tilt-x: 0deg;
+  --stack-tilt-y: 0deg;
+  isolation: isolate;
+  perspective: 1300px;
+}
+
+.appchain-stack-stage::before {
+  position: absolute;
+  inset: 7% 4% 5%;
+  z-index: -1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 45% 42%, rgb(83 164 227 / 0.13), transparent 32%),
+    radial-gradient(circle at 57% 58%, rgb(204 23 117 / 0.08), transparent 29%),
+    radial-gradient(circle at 43% 70%, rgb(179 206 146 / 0.08), transparent 34%);
+  content: "";
+  filter: blur(20px);
+}
+
+.appchain-stack-ruler {
+  position: absolute;
+  top: 7%;
+  bottom: 10%;
+  left: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.appchain-stack-ruler::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgb(255 255 255 / 0.2), transparent);
+  content: "";
+}
+
+.appchain-stack-ruler span {
+  width: 2.6rem;
+  height: 1px;
+  background: linear-gradient(to right, rgb(255 255 255 / 0.38), transparent);
+}
+
+.appchain-stack-scene {
+  position: absolute;
+  top: 49%;
+  left: 42%;
+  width: 25rem;
+  height: 15.3rem;
+  transform: translate(-50%, -50%) rotateX(calc(58deg + var(--stack-tilt-y)))
+    rotateZ(calc(-44deg + var(--stack-tilt-x)));
+  transform-style: preserve-3d;
+  transition: transform 300ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.appchain-stack-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22.5rem;
+  height: 13.75rem;
+  animation: appchain-stack-breathe 7.5s ease-in-out infinite;
+  animation-delay: var(--layer-delay);
+  transform: translate3d(-50%, -50%, var(--layer-z));
+  transform-style: preserve-3d;
+}
+
+.appchain-stack-surface {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--layer-accent) 58%, transparent);
+  background: color-mix(in srgb, var(--layer-color) 74%, transparent);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, white 22%, transparent) inset,
+    0 0.7rem 0 -1px color-mix(in srgb, var(--layer-edge) 46%, transparent),
+    0 1.8rem 3.4rem rgb(9 3 16 / 0.16),
+    0 0 2.5rem color-mix(in srgb, var(--layer-color) 10%, transparent);
+  transform-style: preserve-3d;
+}
+
+.appchain-stack-surface::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(130deg, rgb(255 255 255 / 0.18), transparent 38%, rgb(255 255 255 / 0.03) 72%);
+  content: "";
+  pointer-events: none;
+}
+
+.appchain-stack-layer svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  stroke: var(--layer-accent);
+  stroke-width: 1.15;
+  vector-effect: non-scaling-stroke;
+}
+
+.appchain-stack-layer svg path {
+  animation: appchain-stack-current 8s linear infinite;
+  animation-delay: var(--layer-delay);
+  stroke-dasharray: 14 10;
+}
+
+.appchain-stack-layer svg circle,
+.appchain-stack-layer svg ellipse {
+  fill: color-mix(in srgb, var(--layer-edge) 24%, transparent);
+  stroke: var(--layer-accent);
+}
+
+.appchain-stack-layer--water .appchain-stack-surface {
+  border-radius: 44% 56% 50% 47% / 38% 43% 57% 62%;
+  background:
+    radial-gradient(ellipse at 50% 48%, rgb(170 238 252 / 0.22), transparent 32%),
+    color-mix(in srgb, var(--layer-color) 78%, transparent);
+}
+
+.appchain-stack-wave-canvas {
+  position: absolute;
+  inset: -3%;
+  width: 106%;
+  height: 106%;
+  opacity: 0.96;
+  filter: saturate(1.05) contrast(0.96);
+  transform: translateZ(0.1px);
+}
+
+.appchain-stack-layer--flow .appchain-stack-surface {
+  clip-path: polygon(0 19%, 15% 6%, 33% 18%, 51% 5%, 69% 18%, 85% 7%, 100% 20%, 100% 82%, 84% 94%, 67% 83%, 50% 96%, 31% 82%, 15% 94%, 0 81%);
+  background: color-mix(in srgb, var(--layer-color) 71%, transparent);
+}
+
+.appchain-stack-layer--steps .appchain-stack-surface {
+  border-color: color-mix(in srgb, var(--layer-accent) 45%, transparent);
+  border-radius: 1.25rem;
+  background: color-mix(in srgb, var(--layer-color) 17%, transparent);
+  box-shadow:
+    0 0.55rem 0 -1px color-mix(in srgb, var(--layer-edge) 36%, transparent),
+    0 1.7rem 3rem rgb(9 3 16 / 0.12);
+}
+
+.appchain-stack-steps {
+  position: absolute;
+  inset: 14% 11%;
+  display: grid;
+  grid-template-columns: 1fr 1.25fr 0.8fr;
+  gap: 0.8rem;
+  transform-style: preserve-3d;
+}
+
+.appchain-stack-steps span {
+  border: 1px solid rgb(255 222 236 / 0.72);
+  border-radius: 0.8rem 0.8rem 0.3rem 0.3rem;
+  background: color-mix(in srgb, var(--layer-color) 84%, transparent);
+  box-shadow:
+    0 0.65rem 0 color-mix(in srgb, var(--layer-edge) 78%, transparent),
+    0 0.85rem 1rem rgb(43 29 60 / 0.18);
+  animation: appchain-stack-island 5.8s ease-in-out infinite;
+}
+
+.appchain-stack-steps span:nth-child(2),
+.appchain-stack-steps span:nth-child(4) {
+  animation-delay: -1.4s;
+  transform: translateZ(0.65rem);
+}
+
+.appchain-stack-steps span:nth-child(3),
+.appchain-stack-steps span:nth-child(5) {
+  animation-delay: -2.8s;
+  transform: translateZ(1rem);
+}
+
+.appchain-stack-steps span:nth-child(even) {
+  background: color-mix(in srgb, var(--layer-accent) 66%, var(--layer-color));
+}
+
+.appchain-stack-layer--frame .appchain-stack-surface {
+  border-radius: 1.5rem;
+  background: color-mix(in srgb, var(--layer-color) 33%, transparent);
+}
+
+.appchain-stack-frame-inner {
+  position: absolute;
+  inset: 13%;
+  border: 1px solid color-mix(in srgb, var(--layer-accent) 62%, transparent);
+  border-radius: 1.2rem;
+  background: rgb(17 26 21 / 0.26);
+}
+
+.appchain-stack-frame-inner::before {
+  position: absolute;
+  inset: 22%;
+  border: 1px solid rgb(191 255 152 / 0.4);
+  border-radius: 50%;
+  content: "";
+}
+
+.appchain-stack-frame-inner span {
+  position: absolute;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1px solid rgb(191 255 152 / 0.8);
+  border-radius: 50%;
+  background: var(--layer-color);
+  box-shadow: 0 0 0.8rem rgb(191 255 152 / 0.25);
+}
+
+.appchain-stack-frame-inner span:nth-child(1) { top: 10%; left: 10%; }
+.appchain-stack-frame-inner span:nth-child(2) { top: 10%; right: 10%; }
+.appchain-stack-frame-inner span:nth-child(3) { right: 10%; bottom: 10%; }
+.appchain-stack-frame-inner span:nth-child(4) { bottom: 10%; left: 10%; }
+
+.appchain-stack-layer--base .appchain-stack-surface {
+  border-radius: 1.1rem;
+  background: color-mix(in srgb, var(--layer-color) 88%, transparent);
+}
+
+.appchain-stack-layer--base svg {
+  opacity: 0.66;
+}
+
+.appchain-stack-labels {
+  position: absolute;
+  top: 7%;
+  right: 0;
+  bottom: 10%;
+  left: 61%;
+}
+
+.appchain-stack-label {
+  position: absolute;
+  top: calc(var(--label-index) * 20%);
+  right: 0;
+  display: flex;
+  width: min(100%, 22rem);
+  min-height: 3.25rem;
+  align-items: center;
+  border-top: 1px solid color-mix(in srgb, var(--label-color) 70%, transparent);
+  color: rgb(255 255 255 / 0.72);
+  font-family: "Geist", sans-serif;
+  font-size: clamp(0.72rem, 1.1vw, 0.9rem);
+  letter-spacing: 0.03em;
+}
+
+.appchain-stack-label::before {
+  position: absolute;
+  top: -0.26rem;
+  left: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid var(--label-accent);
+  border-radius: 50%;
+  background: var(--label-color);
+  box-shadow: 0 0 1rem color-mix(in srgb, var(--label-color) 55%, transparent);
+  content: "";
+}
+
+.appchain-stack-label span {
+  padding: 0.65rem 0 0.2rem;
+}
+
+.appchain-stack-core {
+  position: absolute;
+  bottom: 1.8%;
+  left: 42%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+}
+
+.appchain-stack-core::before {
+  position: absolute;
+  top: -3.2rem;
+  left: 50%;
+  width: 1px;
+  height: 2.4rem;
+  background: linear-gradient(to bottom, rgb(223 177 243 / 0.1), rgb(223 177 243 / 0.75));
+  content: "";
+}
+
+.appchain-stack-core span {
+  position: absolute;
+  width: 5.5rem;
+  height: 5.5rem;
+  border: 1px solid rgb(223 177 243 / 0.22);
+  border-radius: 50%;
+  animation: appchain-stack-core-pulse 3.8s ease-in-out infinite;
+}
+
+@keyframes appchain-stack-breathe {
+  0%, 100% { transform: translate3d(-50%, -50%, var(--layer-z)); }
+  50% { transform: translate3d(-50%, -50%, calc(var(--layer-z) + 0.55rem)); }
+}
+
+@keyframes appchain-stack-current {
+  to { stroke-dashoffset: -96; }
+}
+
+@keyframes appchain-stack-island {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -0.25rem; }
+}
+
+@keyframes appchain-stack-core-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.88); }
+  50% { opacity: 0.8; transform: scale(1.08); }
+}
+
+@media (max-width: 767px) {
+  .appchain-stack-stage::before {
+    inset: 8% -30% 10%;
+  }
+
+  .appchain-stack-ruler {
+    left: 0;
+  }
+
+  .appchain-stack-ruler span {
+    width: 1.25rem;
+  }
+
+  .appchain-stack-scene {
+    top: 45%;
+    left: 47%;
+    width: 18rem;
+    height: 11rem;
+    transform: translate(-50%, -50%) rotateX(calc(60deg + var(--stack-tilt-y)))
+      rotateZ(calc(-44deg + var(--stack-tilt-x))) scale(0.66);
+  }
+
+  .appchain-stack-labels {
+    top: 63%;
+    right: 0;
+    bottom: 3%;
+    left: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1.1rem;
+  }
+
+  .appchain-stack-label {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: auto;
+    min-height: 3.6rem;
+    align-items: flex-start;
+    font-size: 0.68rem;
+    line-height: 1.3;
+  }
+
+  .appchain-stack-label span {
+    padding-top: 0.55rem;
+  }
+
+  .appchain-stack-core {
+    bottom: 0;
+    left: 50%;
+  }
+
+  .appchain-stack-core::before {
+    top: -2rem;
+    height: 1.3rem;
+  }
+
+  .appchain-stack-core svg {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .appchain-stack-core span {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+/* Mobile hero content is visible in the server response. Keep the larger-screen
+   entrance sequence in CSS so it doesn't wait for React hydration. */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--hero-enter-y));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .hero-headline-letter {
+    animation: hero-enter 0.45s cubic-bezier(0.2, 0.65, 0.3, 0.9) var(--hero-enter-delay) both;
+  }
+
+  .hero-copy-enter {
+    --hero-enter-y: 12px;
+    animation: hero-enter 0.65s cubic-bezier(0.2, 0.65, 0.3, 0.9) 0.94s both;
+  }
+
+  .hero-action-enter {
+    --hero-enter-y: 10px;
+    animation: hero-enter 0.65s cubic-bezier(0.2, 0.65, 0.3, 0.9) 1.08s both;
+  }
+
+  .hero-scene-enter {
+    --hero-enter-y: 22px;
+    animation: hero-enter 1.05s cubic-bezier(0.2, 0.65, 0.3, 0.9) 0.55s both;
+  }
+}
+
+@keyframes hero-water-camera-move {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.018);
+  }
+}
+
+.hero-water-camera {
+  transform-origin: center;
+  animation: hero-water-camera-move 28s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-water-camera {
+    animation: none;
+  }
+
+  [data-hero-scene-scale] {
+    transform: scale(1) !important;
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
+  [data-hero-intro] {
+    --hero-content-y: clamp(14px, calc(7.2vh - 37.84px), 56px) !important;
+    transform: translateY(var(--hero-content-y)) !important;
+  }
+
+  [data-hero-scene-scale] {
+    transform: scale(1.13) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appchain-stack-layer,
+  .appchain-stack-layer svg path,
+  .appchain-stack-steps span,
+  .appchain-stack-core span {
+    animation: none;
+  }
+
+  .appchain-stack-scene {
+    transition: none;
+  }
+}
+
+/* Appchain clean square refinement */
+.appchain-spectrum-stage::before {
+  background: none;
+}
+
+.appchain-spectrum-scene {
+  width: 22rem;
+  height: 22rem;
+}
+
+.appchain-spectrum-layer {
+  width: 19rem;
+  height: 19rem;
+  overflow: hidden;
+  border-color: rgb(255 255 255 / 0.34);
+  border-radius: 0;
+  box-shadow: 0 0.55rem 0 rgb(17 9 27 / 0.34);
+}
+
+.appchain-spectrum-layer::after,
+.appchain-spectrum-layer--foundation::before {
+  display: none;
+}
+
+.appchain-spectrum-layer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.appchain-spectrum-layer--signal {
+  background: #53a4e3;
+  box-shadow: 0 0.55rem 0 #043875;
+}
+
+.appchain-spectrum-layer--protocol {
+  background: #98afff;
+  box-shadow: 0 0.55rem 0 #36154b;
+}
+
+.appchain-spectrum-layer--protocol svg {
+  color: #36154b;
+  filter: none;
+}
+
+.appchain-spectrum-layer--matrix {
+  background: #f9afca;
+  border-color: rgb(54 21 75 / 0.38);
+  box-shadow: 0 0.55rem 0 #cc1775;
+}
+
+.appchain-spectrum-matrix-grid span,
+.appchain-spectrum-matrix-grid span:nth-child(5n),
+.appchain-spectrum-matrix-grid span:nth-child(7n) {
+  border-color: rgb(54 21 75 / 0.58);
+  background: transparent;
+}
+
+.appchain-spectrum-matrix-grid span:nth-child(5n) {
+  background: #ffdeec;
+}
+
+.appchain-spectrum-matrix-grid span:nth-child(7n) {
+  background: #cc1775;
+}
+
+.appchain-spectrum-layer--network {
+  background: #b3ce92;
+  box-shadow: 0 0.55rem 0 #111a15;
+}
+
+.appchain-spectrum-layer--foundation {
+  background: #36154b;
+  border-color: rgb(249 175 202 / 0.48);
+  box-shadow: 0 0.55rem 0 #2b1d3c;
+}
+
+.appchain-spectrum-layer--foundation > span {
+  width: 8rem;
+  height: 8rem;
+  border-color: rgb(249 175 202 / 0.55);
+  border-radius: 0;
+}
+
+.appchain-spectrum-label::before {
+  box-shadow: none;
+}
+
+.appchain-spectrum-label--oracle { top: 10%; }
+.appchain-spectrum-label--priority { top: 29%; }
+.appchain-spectrum-label--liquidations { top: 47%; }
+.appchain-spectrum-label--risk { top: 64%; }
+.appchain-spectrum-label--runtime { top: 81%; }
+
+.appchain-visual-switch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 6;
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.24rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.045);
+  backdrop-filter: blur(12px);
+  transform: translateX(-50%);
+}
+
+.appchain-visual-switch button {
+  min-width: 7.2rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  color: rgb(255 255 255 / 0.55);
+  font-family: "Geist", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.appchain-visual-switch button:hover {
+  color: rgb(255 255 255 / 0.86);
+}
+
+.appchain-visual-switch button.is-active {
+  background: #dfb1f3;
+  color: #240e32;
+}
+
+.appchain-pool-network {
+  position: absolute;
+  top: 2.5rem;
+  left: 50%;
+  width: min(74vw, 56rem);
+  height: 43rem;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: appchain-view-in 320ms ease both;
+}
+
+.appchain-pool-network canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.appchain-pool-network-logo {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  z-index: 2;
+  width: 3.1rem;
+  height: 3.1rem;
+  color: #fff;
+  transform: translate(-50%, -50%);
+}
+
+.appchain-pool-network-logo svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes appchain-view-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(0.75rem); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@media (max-width: 767px) {
+  .appchain-spectrum-scene {
+    top: 42%;
+    transform: translate(-50%, -50%) rotateX(calc(61deg + var(--spectrum-tilt-y)))
+      rotateZ(calc(-45deg + var(--spectrum-tilt-x))) scale(0.62);
+  }
+
+  .appchain-spectrum-labels {
+    top: 70%;
+  }
+
+  .appchain-visual-switch {
+    top: 0;
+  }
+
+  .appchain-visual-switch button {
+    min-width: 6.55rem;
+    padding: 0.55rem 0.72rem;
+    font-size: 0.63rem;
+  }
+
+  .appchain-pool-network {
+    top: 2.75rem;
+    width: 25rem;
+    height: 30rem;
+  }
+
+  .appchain-pool-network-logo {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+}
+
+/* Transparent plane surfaces with palette-led structure. */
+.appchain-spectrum-layer {
+  background: transparent;
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--signal {
+  border-color: #53a4e3;
+  background: rgb(83 164 227 / 0.035);
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--protocol {
+  border-color: #98afff;
+  background: rgb(152 175 255 / 0.035);
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--protocol svg {
+  color: #98afff;
+}
+
+.appchain-spectrum-layer--matrix {
+  border-color: #f9afca;
+  background: rgb(249 175 202 / 0.035);
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--network {
+  border-color: #b3ce92;
+  background: rgb(179 206 146 / 0.035);
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--foundation {
+  border-color: #f9afca;
+  background: rgb(54 21 75 / 0.12);
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--foundation > span {
+  border-color: #cc1775;
+}
+
+/* Transparent plane surfaces with palette-led structure. */
+.appchain-spectrum-layer {
+  background: transparent;
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--signal {
+  border-color: #53a4e3;
+  background: rgb(83 164 227 / 0.035);
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--protocol {
+  border-color: #98afff;
+  background: rgb(152 175 255 / 0.035);
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--protocol svg {
+  color: #98afff;
+}
+
+.appchain-spectrum-layer--matrix {
+  border-color: #f9afca;
+  background: rgb(249 175 202 / 0.035);
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--network {
+  border-color: #b3ce92;
+  background: rgb(179 206 146 / 0.035);
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--foundation {
+  border-color: #f9afca;
+  background: rgb(54 21 75 / 0.12);
+  box-shadow: none;
+}
+
+.appchain-spectrum-layer--foundation > span {
+  border-color: #cc1775;
+}
+
+/* Appchain spectrum stack */
+.appchain-spectrum-stage {
+  --spectrum-tilt-x: 0deg;
+  --spectrum-tilt-y: 0deg;
+  isolation: isolate;
+  perspective: 1400px;
+}
+
+.appchain-spectrum-stage::before {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 50% 40%, rgb(4 56 117 / 0.18), transparent 27%),
+    radial-gradient(circle at 49% 68%, rgb(204 23 117 / 0.12), transparent 30%);
+  content: "";
+}
+
+.appchain-spectrum-aura {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  width: min(68vw, 46rem);
+  height: min(68vw, 46rem);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgb(83 164 227 / 0.09), transparent 38%),
+    radial-gradient(circle at 48% 69%, rgb(249 175 202 / 0.08), transparent 42%);
+  filter: blur(22px);
+  transform: translateX(-50%);
+}
+
+.appchain-spectrum-particles {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 3;
+  width: min(54vw, 39rem);
+  height: 20rem;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.appchain-spectrum-particles canvas,
+.appchain-spectrum-network canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.appchain-spectrum-scene {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  width: 24rem;
+  height: 15rem;
+  transform: translate(-50%, -50%) rotateX(calc(61deg + var(--spectrum-tilt-y)))
+    rotateZ(calc(-45deg + var(--spectrum-tilt-x)));
+  transform-style: preserve-3d;
+  transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.appchain-spectrum-layer,
+.appchain-spectrum-network {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22rem;
+  height: 13.4rem;
+  transform: translate3d(-50%, -50%, var(--layer-z));
+  transform-style: preserve-3d;
+}
+
+.appchain-spectrum-layer {
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 1.5rem;
+  animation: appchain-spectrum-float 7s ease-in-out infinite;
+  box-shadow:
+    0 0.8rem 0 -1px rgb(4 8 26 / 0.5),
+    0 2.2rem 4rem rgb(0 0 0 / 0.2);
+}
+
+.appchain-spectrum-layer::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(140deg, rgb(255 255 255 / 0.2), transparent 34%, rgb(255 255 255 / 0.03) 74%);
+  content: "";
+  pointer-events: none;
+}
+
+.appchain-spectrum-layer--protocol {
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 26%, rgb(152 175 255 / 0.38), transparent 31%),
+    radial-gradient(circle at 74% 74%, rgb(170 238 252 / 0.16), transparent 38%),
+    linear-gradient(145deg, #043875 0%, #17245e 48%, #24153c 100%);
+  box-shadow:
+    0 0.75rem 0 -1px rgb(4 18 52 / 0.72),
+    0 2.4rem 5rem rgb(4 56 117 / 0.24),
+    0 0 3rem rgb(83 164 227 / 0.14);
+}
+
+.appchain-spectrum-layer--protocol svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: 3.1rem;
+  height: 3.1rem;
+  color: #fff;
+  filter: drop-shadow(0 0 1.2rem rgb(170 238 252 / 0.48));
+  transform: translate(-50%, -50%);
+}
+
+.appchain-spectrum-protocol-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7.5rem;
+  height: 7.5rem;
+  border: 1px solid rgb(170 238 252 / 0.25);
+  border-radius: 50%;
+  animation: appchain-spectrum-ring 3.8s ease-out infinite;
+  transform: translate(-50%, -50%);
+}
+
+.appchain-spectrum-layer--matrix {
+  animation-delay: -1.8s;
+  background:
+    radial-gradient(circle at 10% 50%, rgb(222 57 77 / 0.32), transparent 34%),
+    radial-gradient(circle at 88% 40%, rgb(83 164 227 / 0.32), transparent 35%),
+    rgb(18 14 47 / 0.88);
+  border-color: rgb(152 175 255 / 0.34);
+  box-shadow:
+    0 0.62rem 0 -1px rgb(31 17 57 / 0.74),
+    0 1.8rem 4rem rgb(0 0 0 / 0.2),
+    0 0 2.8rem rgb(152 175 255 / 0.1);
+}
+
+.appchain-spectrum-matrix-grid {
+  position: absolute;
+  inset: 10%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.45rem;
+}
+
+.appchain-spectrum-matrix-grid span {
+  border: 1px solid rgb(152 175 255 / 0.55);
+  border-radius: 0.17rem;
+  background: rgb(83 164 227 / 0.08);
+  animation: appchain-spectrum-cell 4.6s ease-in-out infinite;
+  animation-delay: calc(var(--cell-index) * -62ms);
+}
+
+.appchain-spectrum-matrix-grid span:nth-child(5n) {
+  border-color: rgb(249 175 202 / 0.68);
+  background: rgb(204 23 117 / 0.2);
+}
+
+.appchain-spectrum-matrix-grid span:nth-child(7n) {
+  border-color: rgb(170 238 252 / 0.75);
+  background: rgb(170 238 252 / 0.18);
+}
+
+.appchain-spectrum-network {
+  animation: appchain-spectrum-network-drift 8.5s ease-in-out infinite;
+  filter: drop-shadow(0 1.2rem 1.5rem rgb(0 0 0 / 0.24));
+}
+
+.appchain-spectrum-layer--foundation {
+  animation-delay: -3.3s;
+  overflow: visible;
+  background:
+    radial-gradient(circle at 82% 22%, rgb(255 222 236 / 0.9), transparent 24%),
+    radial-gradient(circle at 56% 45%, rgb(249 175 202 / 0.76), transparent 32%),
+    linear-gradient(140deg, #043875 2%, #36154b 31%, #cc1775 60%, #de394d 78%, #f9afca 100%);
+  border-color: rgb(255 255 255 / 0.36);
+  box-shadow:
+    0 0.8rem 0 -1px rgb(43 29 60 / 0.78),
+    0 2.8rem 5rem rgb(204 23 117 / 0.26),
+    0 0 4.8rem rgb(249 175 202 / 0.2);
+}
+
+.appchain-spectrum-layer--foundation::before {
+  position: absolute;
+  inset: 14% 10%;
+  border-radius: 50%;
+  background: rgb(255 222 236 / 0.44);
+  content: "";
+  filter: blur(2.8rem);
+}
+
+.appchain-spectrum-layer--foundation > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5rem;
+  height: 5rem;
+  border: 1px solid rgb(255 255 255 / 0.58);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.appchain-spectrum-labels {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.appchain-spectrum-label {
+  position: absolute;
+  width: min(24vw, 17rem);
+  border-top: 1px solid color-mix(in srgb, var(--label-tone) 62%, transparent);
+  color: rgb(255 255 255 / 0.72);
+  font-family: "Geist", sans-serif;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  letter-spacing: 0.035em;
+}
+
+.appchain-spectrum-label::before {
+  position: absolute;
+  top: -0.27rem;
+  width: 0.52rem;
+  height: 0.52rem;
+  border: 1px solid rgb(255 255 255 / 0.66);
+  border-radius: 50%;
+  background: var(--label-tone);
+  box-shadow: 0 0 1.2rem color-mix(in srgb, var(--label-tone) 72%, transparent);
+  content: "";
+}
+
+.appchain-spectrum-label span {
+  display: block;
+  padding-top: 0.65rem;
+}
+
+.appchain-spectrum-label--oracle {
+  top: 9%;
+  right: 3%;
+}
+
+.appchain-spectrum-label--priority {
+  top: 31%;
+  right: 0;
+}
+
+.appchain-spectrum-label--liquidations {
+  top: 48%;
+  left: 0;
+  text-align: right;
+}
+
+.appchain-spectrum-label--risk {
+  top: 58%;
+  right: 1%;
+}
+
+.appchain-spectrum-label--runtime {
+  top: 79%;
+  left: 4%;
+  text-align: right;
+}
+
+.appchain-spectrum-label--oracle::before,
+.appchain-spectrum-label--priority::before,
+.appchain-spectrum-label--risk::before {
+  left: 0;
+}
+
+.appchain-spectrum-label--liquidations::before,
+.appchain-spectrum-label--runtime::before {
+  right: 0;
+}
+
+@keyframes appchain-spectrum-float {
+  0%, 100% { transform: translate3d(-50%, -50%, var(--layer-z)); }
+  50% { transform: translate3d(-50%, -50%, calc(var(--layer-z) + 0.45rem)); }
+}
+
+@keyframes appchain-spectrum-network-drift {
+  0%, 100% { transform: translate3d(-50%, -50%, var(--layer-z)) scale(0.96); }
+  50% { transform: translate3d(-50%, -50%, calc(var(--layer-z) + 0.55rem)) scale(1.02); }
+}
+
+@keyframes appchain-spectrum-cell {
+  0%, 72%, 100% { opacity: 0.34; transform: scale(0.72); }
+  38% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes appchain-spectrum-ring {
+  0% { opacity: 0.62; transform: translate(-50%, -50%) scale(0.62); }
+  78%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.3); }
+}
+
+@media (max-width: 767px) {
+  .appchain-spectrum-stage::before {
+    inset: 0 -1.5rem;
+  }
+
+  .appchain-spectrum-aura {
+    top: 16%;
+    width: 34rem;
+    height: 34rem;
+  }
+
+  .appchain-spectrum-particles {
+    top: 0;
+    width: 24rem;
+    height: 11rem;
+    opacity: 0.88;
+  }
+
+  .appchain-spectrum-scene {
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(calc(61deg + var(--spectrum-tilt-y)))
+      rotateZ(calc(-45deg + var(--spectrum-tilt-x))) scale(0.68);
+  }
+
+  .appchain-spectrum-labels {
+    top: 69%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1.1rem;
+  }
+
+  .appchain-spectrum-label {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    width: auto;
+    min-height: 3.7rem;
+    text-align: left;
+    font-size: 0.68rem;
+  }
+
+  .appchain-spectrum-label::before {
+    right: auto;
+    left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appchain-spectrum-layer,
+  .appchain-spectrum-network,
+  .appchain-spectrum-protocol-ring,
+  .appchain-spectrum-matrix-grid span {
+    animation: none;
+  }
+
+  .appchain-spectrum-scene {
+    transition: none;
+  }
+}
+
+/* Final clean-square treatment overrides the earlier exploratory rendering. */
+.appchain-spectrum-stage::before {
+  background: none;
+}
+
+.appchain-spectrum-scene {
+  width: 22rem;
+  height: 22rem;
+}
+
+.appchain-spectrum-layer {
+  width: 19rem;
+  height: 19rem;
+  overflow: hidden;
+  border-color: rgb(255 255 255 / 0.34);
+  border-radius: 0;
+  box-shadow: 0 0.55rem 0 rgb(17 9 27 / 0.34);
+}
+
+.appchain-spectrum-layer::after,
+.appchain-spectrum-layer--foundation::before {
+  display: none;
+}
+
+.appchain-spectrum-layer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.appchain-spectrum-layer--signal {
+  background: #53a4e3;
+  box-shadow: 0 0.55rem 0 #043875;
+}
+
+.appchain-spectrum-layer--protocol {
+  background: #98afff;
+  box-shadow: 0 0.55rem 0 #36154b;
+}
+
+.appchain-spectrum-layer--protocol svg {
+  color: #36154b;
+  filter: none;
+}
+
+.appchain-spectrum-layer--matrix {
+  background: #f9afca;
+  border-color: rgb(54 21 75 / 0.38);
+  box-shadow: 0 0.55rem 0 #cc1775;
+}
+
+.appchain-spectrum-matrix-grid span,
+.appchain-spectrum-matrix-grid span:nth-child(5n),
+.appchain-spectrum-matrix-grid span:nth-child(7n) {
+  border-color: rgb(54 21 75 / 0.58);
+  background: transparent;
+}
+
+.appchain-spectrum-matrix-grid span:nth-child(5n) {
+  background: #ffdeec;
+}
+
+.appchain-spectrum-matrix-grid span:nth-child(7n) {
+  background: #cc1775;
+}
+
+.appchain-spectrum-layer--network {
+  background: #b3ce92;
+  box-shadow: 0 0.55rem 0 #111a15;
+}
+
+.appchain-spectrum-layer--foundation {
+  overflow: hidden;
+  background: #36154b;
+  border-color: rgb(249 175 202 / 0.48);
+  box-shadow: 0 0.55rem 0 #2b1d3c;
+}
+
+.appchain-spectrum-layer--foundation > span {
+  width: 8rem;
+  height: 8rem;
+  border-color: rgb(249 175 202 / 0.55);
+  border-radius: 0;
+}
+
+.appchain-spectrum-label::before {
+  box-shadow: none;
+}
+
+.appchain-spectrum-label--oracle { top: 10%; }
+.appchain-spectrum-label--priority { top: 29%; }
+.appchain-spectrum-label--liquidations { top: 47%; }
+.appchain-spectrum-label--risk { top: 64%; }
+.appchain-spectrum-label--runtime { top: 81%; }
+
+@media (min-width: 768px) {
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label {
+    width: min(18vw, 12rem);
+  }
+
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label--oracle {
+    top: 7%;
+    left: 50%;
+    right: auto;
+    text-align: center;
+    transform: translateX(-50%);
+  }
+
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label--priority {
+    top: 27%;
+    right: auto;
+    left: 70%;
+  }
+
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label--liquidations {
+    top: 59%;
+    right: auto;
+    left: 66%;
+    text-align: left;
+  }
+
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label--risk {
+    top: 59%;
+    right: 66%;
+    left: auto;
+    text-align: right;
+  }
+
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label--runtime {
+    top: 27%;
+    right: 70%;
+    left: auto;
+    text-align: right;
+  }
+
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label--oracle::before {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label--priority::before,
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label--liquidations::before {
+    right: auto;
+    left: 0;
+  }
+
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label--risk::before,
+  .appchain-spectrum-stage.is-pool-view .appchain-spectrum-label--runtime::before {
+    right: 0;
+    left: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .appchain-spectrum-scene {
+    top: 42%;
+    transform: translate(-50%, -50%) rotateX(calc(61deg + var(--spectrum-tilt-y)))
+      rotateZ(calc(-45deg + var(--spectrum-tilt-x))) scale(0.62);
+  }
+
+  .appchain-spectrum-labels {
+    top: 70%;
+  }
+}
+
+.reveal-on-view {
+  opacity: 0;
+  filter: blur(7px);
+  transform: translate3d(0, 30px, 0) scale(0.992);
+  transition:
+    opacity 1000ms cubic-bezier(0.2, 0.65, 0.3, 0.9),
+    filter 1000ms cubic-bezier(0.2, 0.65, 0.3, 0.9),
+    transform 1000ms cubic-bezier(0.2, 0.65, 0.3, 0.9);
+}
+
+.reveal-on-view.is-revealed {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+/* Appchain integrated-system illustration */
+.appchain-system {
+  margin-right: max(-1.5rem, calc((100vw - 100%) / -2));
+  margin-left: max(-1.5rem, calc((100vw - 100%) / -2));
+}
+
+.appchain-system__visual {
+  position: relative;
+  overflow: visible;
+  aspect-ratio: 80 / 49;
+  isolation: isolate;
+  background: #240e32;
+}
+
+.appchain-system__image {
+  z-index: 0;
+  object-fit: contain;
+}
+
+.appchain-system__routes {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  color: rgb(255 255 255 / 0.94);
+  pointer-events: none;
+}
+
+.appchain-route__base,
+.appchain-route__flow {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.appchain-route__base {
+  stroke: rgb(255 255 255 / 0.18);
+  stroke-width: 4;
+}
+
+.appchain-route__flow {
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 10 13;
+  animation: appchain-route-flow 9s linear infinite;
+  animation-delay: calc(var(--route-index) * -0.75s);
+}
+
+.appchain-route--pink { color: #ffdeec; }
+.appchain-route--cyan { color: #aaeefc; }
+.appchain-route--lime { color: #bfff98; }
+.appchain-route--lavender { color: #dfb1f3; }
+
+@keyframes appchain-route-flow {
+  to { stroke-dashoffset: -92; }
+}
+
+.appchain-system__product-labels,
+.appchain-system__execution-labels {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.appchain-system__product,
+.appchain-system__execution {
+  position: absolute;
+  font-family: "Geist", sans-serif;
+  line-height: 1.12;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.appchain-system__product {
+  width: 11.5rem;
+  color: white;
+  font-size: clamp(0.82rem, 1.25vw, 1.1rem);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  text-shadow: 0 1px 8px rgb(16 3 28 / 0.3);
+}
+
+.appchain-system__product--strategies { top: 54%; left: 13%; }
+.appchain-system__product--borrowing { top: 73%; left: 37%; }
+.appchain-system__product--liquidity { top: 59%; left: 61%; }
+.appchain-system__product--hollar { top: 49%; left: 84%; }
+
+.appchain-system__execution {
+  max-width: 14rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgb(255 255 255 / 0.26);
+  border-radius: 999px;
+  background: rgb(36 14 50 / 0.7);
+  box-shadow: 0 0.4rem 1.4rem rgb(15 3 24 / 0.18);
+  color: rgb(255 255 255 / 0.83);
+  font-size: clamp(0.6rem, 0.8vw, 0.72rem);
+  font-weight: 520;
+  backdrop-filter: blur(9px);
+}
+
+.appchain-system__execution--oracle { top: 12%; left: 54%; }
+.appchain-system__execution--priority { top: 24%; left: 78%; }
+.appchain-system__execution--liquidations { top: 87%; left: 65%; }
+.appchain-system__execution--risk { top: 18%; left: 19%; }
+.appchain-system__execution--runtime { top: 86%; left: 87%; }
+
+@media (max-width: 767px) {
+  .appchain-system {
+    margin-right: -1.5rem;
+    margin-left: -1.5rem;
+  }
+
+  .appchain-system__visual {
+    aspect-ratio: 80 / 49;
+  }
+
+  .appchain-system__image {
+    object-position: 49% center;
+  }
+
+  .appchain-system__routes {
+    object-position: 49% center;
+  }
+
+  .appchain-system__product {
+    width: 6.5rem;
+    font-size: 0.72rem;
+  }
+
+  .appchain-system__product--strategies { top: 49%; left: 12%; }
+  .appchain-system__product--borrowing { top: 68%; left: 33%; }
+  .appchain-system__product--liquidity { top: 57%; left: 62%; }
+  .appchain-system__product--hollar { top: 45%; left: 89%; }
+
+  .appchain-system__execution {
+    max-width: 8.8rem;
+    padding: 0.42rem 0.55rem;
+    font-size: 0.56rem;
+  }
+
+  .appchain-system__execution--oracle { top: 10%; left: 54%; }
+  .appchain-system__execution--priority { top: 21%; left: 78%; }
+  .appchain-system__execution--liquidations { top: 91%; left: 55%; }
+  .appchain-system__execution--risk { top: 15%; left: 19%; }
+  .appchain-system__execution--runtime { top: 82%; left: 82%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appchain-route__flow {
+    animation: none;
+  }
+
+  .reveal-on-view,
+  .reveal-on-view.is-revealed {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
   }
 }
