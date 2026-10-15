@@ -17,6 +17,13 @@ const csp = [
 
 const nextConfig = {
   distDir: process.env.NEXT_DIST_DIR || ".next",
+  // Inline the build's public origin so ISR uses the same sharing URLs.
+  env: {
+    SOCIAL_PREVIEW_ORIGIN:
+      process.env.CONTEXT === "deploy-preview" && process.env.DEPLOY_PRIME_URL
+        ? process.env.DEPLOY_PRIME_URL
+        : "https://hydration.net",
+  },
   images: {
     remotePatterns: [
       {
