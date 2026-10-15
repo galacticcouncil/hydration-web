@@ -14,6 +14,12 @@ import { Metadata } from "next";
 import { homepageStructuredData } from "@/lib/agent-content";
 import { site } from "@/lib/site";
 
+const socialPreviewOrigin = process.env.SOCIAL_PREVIEW_ORIGIN || site.url;
+const socialPreviewImage = new URL(
+  "/social/hydration-sunset-0cba2abd.jpg",
+  socialPreviewOrigin,
+).href;
+
 export const metadata: Metadata = {
   title: site.title,
   description: site.description,
@@ -68,16 +74,14 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://hydration.net"),
   openGraph: {
     type: "website",
-    url: site.url,
+    url: socialPreviewOrigin,
     siteName: site.name,
     title: site.title,
     description: site.description,
     locale: "en_US",
     images: [
       {
-        url: "https://hydration.net/opengraph-image.jpg",
-        protocol: "https",
-        hostname: "hydration.net",
+        url: socialPreviewImage,
         width: 1200,
         height: 627,
         alt: "Hydration | A secure home for onchain capital",
@@ -91,9 +95,7 @@ export const metadata: Metadata = {
     description: site.description,
     images: [
       {
-        url: "https://hydration.net/twitter-image.png",
-        protocol: "https",
-        hostname: "hydration.net",
+        url: socialPreviewImage,
         width: 1200,
         height: 627,
         alt: "Hydration | A secure home for onchain capital",
