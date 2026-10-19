@@ -30,6 +30,15 @@ const currentLinkColumns: LinkColumnProps[] = [
       },
     ],
   },
+  {
+    title: "Email",
+    links: [
+      {
+        title: "contact@galacticcouncil.io",
+        href: "mailto:contact@galacticcouncil.io",
+      },
+    ],
+  },
 ];
 
 const previousLinkColumns: LinkColumnProps[] = [
@@ -82,7 +91,7 @@ export default function FooterLinks({
     <div
       className={twMerge(
         "grid grid-cols-2 gap-x-8 gap-y-10",
-        version === "current" && "md:grid-cols-[max-content_max-content] md:justify-center",
+        version === "current" && "md:flex md:flex-wrap md:justify-center",
         className
       )}
     >
@@ -117,9 +126,14 @@ function LinkColumn({
 }: LinkColumnProps) {
   const lenis = useLenis();
   const reducedMotion = usePrefersReducedMotion();
+  const isEmail = links.some((link) => link.href.startsWith("mailto:"));
 
   return (
-    <div className={twMerge("flex flex-col gap-6", version === "current" && "gap-3 md:flex-row md:items-baseline md:gap-8")}>
+    <div className={twMerge(
+      "flex flex-col gap-6",
+      version === "current" && "min-w-0 max-w-full gap-3 md:flex-row md:flex-wrap md:items-baseline md:gap-x-8",
+      isEmail && "col-span-2 flex-row items-baseline whitespace-nowrap md:flex-nowrap"
+    )}>
       <h3
         className={twMerge(
           "font-geist font-medium text-purple-dim",
@@ -132,11 +146,11 @@ function LinkColumn({
       <div
         className={twMerge(
           "flex flex-col gap-6",
-          version === "current" && "gap-0 md:flex-row md:flex-wrap md:gap-x-8 md:gap-y-3"
+          version === "current" && "min-w-0 max-w-full gap-0 md:flex-row md:flex-wrap md:gap-x-8 md:gap-y-3"
         )}
       >
       {links.map((link) => (
-        <div key={link.href}>
+        <div key={link.href} className="min-w-0 max-w-full">
           <Link
             href={link.href}
             target={link.target}
@@ -144,8 +158,9 @@ function LinkColumn({
             className={
               version === "current"
                 ? twMerge(
-                    "inline-flex min-h-11 items-center rounded-sm font-geist text-base font-medium text-purple transition-colors md:min-h-0 hover:text-pink hover:underline hover:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink",
-                    dark && "text-white/80 hover:text-white focus-visible:outline-lavender"
+                    "inline-flex max-w-full [overflow-wrap:anywhere] active:opacity-70 min-h-11 items-center rounded-sm font-geist text-base font-medium text-purple transition-colors md:min-h-0 hover:text-pink hover:underline hover:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink",
+                    dark && "text-white/80 hover:text-white focus-visible:outline-lavender",
+                    isEmail && "whitespace-nowrap [overflow-wrap:normal]"
                   )
                 : twMerge(
                     "inline-block bg-purple-to-transparent bg-[bottom_left] bg-[length:0_2px] bg-no-repeat pb-[2px] font-geist text-base text-purple hover:bg-[bottom_right] hover:bg-[length:100%_2px]",
@@ -159,7 +174,7 @@ function LinkColumn({
                 : { transition: "background-size 0.3s, background-position 0s 0.3s" }
             }
             onClick={(e) => {
-              if (link.target === "_blank") return;
+              if (!link.href.startsWith("#")) return;
               e.preventDefault();
               lenis?.scrollTo(link.href, {
                 offset: version === "previous" ? 0 : sectionScrollOffset,

@@ -26,7 +26,7 @@ export default function Footer({
 
           <FooterLinks className="mx-auto mt-24 max-w-[56rem] md:mt-28 md:gap-x-16" version="current" dark />
 
-          <div className="mt-16 flex flex-col items-center gap-4 border-t border-lavender/15 pt-6 text-center sm:flex-row sm:justify-between sm:text-left">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 border-t border-lavender/15 text-center [margin-block-start:4rem] [padding-block-start:1.5rem] sm:justify-between">
             <Legal dark />
             <RightsReserved className="text-lavender/55" />
           </div>
@@ -73,7 +73,7 @@ export default function Footer({
           version={version}
           dark={isDark}
         />
-        <div className="order-6 flex flex-col-reverse items-start justify-between gap-2 lg:col-span-2 lg:flex-row lg:items-center">
+        <div className="order-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 lg:col-span-2">
           <Legal dark={isDark} />
           <RightsReserved className={isDark ? "text-white/50" : undefined} />
         </div>

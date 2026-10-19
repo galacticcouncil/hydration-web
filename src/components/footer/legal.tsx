@@ -18,7 +18,7 @@ export default function Legal({ className, dark = false }: LegalProps) {
 
   return (
     <>
-      <div className={twMerge("flex gap-4", className)}>
+      <div className={twMerge("flex max-w-full flex-wrap justify-center gap-x-4 gap-y-2", className)}>
         <button
           onClick={() => setPrivacyOpen(true)}
           className="relative min-h-11 font-medium cursor-pointer lg:min-h-0 lg:before:absolute lg:before:-inset-y-2.5 lg:before:inset-x-0"
