@@ -37,6 +37,10 @@ const currentLinkColumns: LinkColumnProps[] = [
         title: "contact@galacticcouncil.io",
         href: "mailto:contact@galacticcouncil.io",
       },
+      {
+        title: "palo@intergalactic.limited",
+        href: "mailto:palo@intergalactic.limited",
+      },
     ],
   },
 ];
